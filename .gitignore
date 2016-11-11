@@ -1,12 +1,19 @@
-*.class
+#ignore all files
+/*
+/*/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+#except sv, qpf, qsf, and sdc
+!*.c
+!*.sv
+!*.qpf
+!*.qsf
+!*.sdc
+!*.txt
+!*.qsys
+!*.sopcinfo
 
-# Package Files #
-*.jar
-*.war
-*.ear
+#Unignore soc folder
+!/lab9_soc/
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+
+
