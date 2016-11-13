@@ -2,6 +2,7 @@
 
 module VeggieVik(input CLOCK_50,
 					  // VGA Interface 
+					  input[3:0]    KEY, //bit 0 is set up as Reset
 					  output [7:0]  VGA_R,					//VGA Red
 										 VGA_G,					//VGA Green
 										 VGA_B,					//VGA Blue
@@ -20,5 +21,22 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_WE_N,				// SDRAM Write Enable
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK);				// SDRAM Clock
+					  
+					  assign Clk = CLOCK_50;
+					  assign {Reset_h}= ~(KEY[0]);  // The push buttons are active low
+					  
+					  nios_system nios_system(
+								 .clk_clk(Clk),         
+								 .reset_reset_n((KEY[0])),   
+								 .sdram_wire_addr(DRAM_ADDR), 
+								 .sdram_wire_ba(DRAM_BA),   
+								 .sdram_wire_cas_n(DRAM_CAS_N),
+								 .sdram_wire_cke(DRAM_CKE),  
+								 .sdram_wire_cs_n(DRAM_CS_N), 
+								 .sdram_wire_dq(DRAM_DQ),   
+								 .sdram_wire_dqm(DRAM_DQM),  
+								 .sdram_wire_ras_n(DRAM_RAS_N),
+								 .sdram_wire_we_n(DRAM_WE_N), 
+								 .sdram_clk_clk(DRAM_CLK));
 
 endmodule

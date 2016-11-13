@@ -4,6 +4,9 @@
 
 #except sv, qpf, qsf, and sdc
 !*.c
+!*.h
+!*.v
+!.qip
 !*.sv
 !*.qpf
 !*.qsf
@@ -13,7 +16,8 @@
 !*.sopcinfo
 
 #Unignore soc folder
-!/lab9_soc/
+!/nios_system/
+!/software/
 
 
 
