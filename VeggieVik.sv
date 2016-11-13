@@ -22,8 +22,10 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK);				// SDRAM Clock
 					  
-					  assign Clk = CLOCK_50;
-					  assign {Reset_h}= ~(KEY[0]);  // The push buttons are active low
+					  assign logic Clk = CLOCK_50;
+					  assign logic {Reset_h}= ~(KEY[0]);  // The push buttons are active low
+					  
+					  logic [23:0] bmp_Pixel;
 					  
 					  nios_system nios_system(
 								 .clk_clk(Clk),         
@@ -37,6 +39,7 @@ module VeggieVik(input CLOCK_50,
 								 .sdram_wire_dqm(DRAM_DQM),  
 								 .sdram_wire_ras_n(DRAM_RAS_N),
 								 .sdram_wire_we_n(DRAM_WE_N), 
-								 .sdram_clk_clk(DRAM_CLK));
+								 .sdram_clk_clk(DRAM_CLK)
+								 .bmp_pixout_export(bmp_Pixel));
 
 endmodule
