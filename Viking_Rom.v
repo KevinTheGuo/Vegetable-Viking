@@ -222,7 +222,7 @@ endmodule
 // Retrieval info: CONNECT: q_b 0 0 8 0 @q_b 0 0 8 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom.inc FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom.cmp TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom.bsf FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom_inst.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Viking_Rom_bb.v FALSE

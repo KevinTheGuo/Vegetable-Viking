@@ -206,8 +206,8 @@ endmodule
 // Retrieval info: CONNECT: @wren_a 0 0 0 0 wren 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 8 0 @q_b 0 0 8 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.v TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.inc TRUE
-// Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.cmp TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.inc FALSE
+// Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer.bsf FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer_inst.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL Frame_Buffer_bb.v FALSE
