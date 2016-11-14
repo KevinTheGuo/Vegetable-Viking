@@ -26,6 +26,8 @@ module VeggieVik(input CLOCK_50,
 					  logic		Clk;
 					  logic 		Reset_h;  // The push buttons are active low
 					  logic 		[23:0] bmp_Pixel;		
+					  
+					  // frame buffer stuff
 					  logic 		[7:0]  frame_data;		// input data to frame buffer
 					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
 					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
@@ -61,6 +63,7 @@ module VeggieVik(input CLOCK_50,
 									.q(frame_output)
 									);
 									
+						
 	
 			
 endmodule
