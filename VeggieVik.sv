@@ -22,6 +22,9 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK);				// SDRAM Clock
 					  
+					  // hardware-software communication
+					  
+					  
 					  // initializing variable stuff
 					  logic		Clk;
 					  logic 		Reset_h;  // The push buttons are active low
