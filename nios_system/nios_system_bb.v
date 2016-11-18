@@ -12,7 +12,16 @@ module nios_system (
 	sdram_wire_dqm,
 	sdram_wire_ras_n,
 	sdram_wire_we_n,
-	bmp_pixout_export);	
+	to_hw_port0_export,
+	to_hw_port1_export,
+	to_hw_port2_export,
+	to_hw_port3_export,
+	to_hw_port4_export,
+	to_hw_port5_export,
+	to_hw_port6_export,
+	to_hw_port7_export,
+	to_hw_port8_export,
+	to_hw_port9_export);	
 
 	input		clk_clk;
 	input		reset_reset_n;
@@ -26,5 +35,14 @@ module nios_system (
 	output	[3:0]	sdram_wire_dqm;
 	output		sdram_wire_ras_n;
 	output		sdram_wire_we_n;
-	output	[23:0]	bmp_pixout_export;
+	output	[31:0]	to_hw_port0_export;
+	output	[31:0]	to_hw_port1_export;
+	output	[31:0]	to_hw_port2_export;
+	output	[31:0]	to_hw_port3_export;
+	output	[31:0]	to_hw_port4_export;
+	output	[31:0]	to_hw_port5_export;
+	output	[31:0]	to_hw_port6_export;
+	output	[31:0]	to_hw_port7_export;
+	output	[31:0]	to_hw_port8_export;
+	output	[31:0]	to_hw_port9_export;
 endmodule

@@ -50,12 +50,24 @@ module VeggieVik(input CLOCK_50,
 								 .sdram_wire_ras_n(DRAM_RAS_N),
 								 .sdram_wire_we_n(DRAM_WE_N), 
 								 .sdram_clk_clk(DRAM_CLK),
-								 .bmp_pixout_export(bmp_Pixel));
+//								 .bmp_pixout_export(bmp_Pixel)
+									);
 					  
 					  
 					  // hardware-software communication
-					  // TO DO
-					  
+	/*			  io_module io_module_inst (.clk(Clk),
+										.reset_n(Reset_h),
+										.to_sw_sig,
+										.to_hw_sig,
+										.to_hw_port0,
+										.msg_en(msg_en),
+										.key(aes_key),
+										.msg_de(msg_de),
+										.io_ready(io_ready),
+										.aes_ready(aes_ready)
+					);
+
+		*/			  
 					  // initializing basic variable stuff
 					  logic		Clk;
 					  logic 		Reset_h;  // The push buttons are active low
@@ -71,7 +83,7 @@ module VeggieVik(input CLOCK_50,
 //					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
 					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
 					  logic 		frame_we;					// write enable for frame buffer
-					  logic 		[7:0] frame_output;		// output from frame buffer
+//					  logic 		[7:0] frame_output;		// output from frame buffer
 					  
 						
 						// frame buffer initialization
@@ -86,14 +98,14 @@ module VeggieVik(input CLOCK_50,
 						
 						// frame displayer initialization
 						frame_displayer frame_displayer_inst(
-									.Clk, 
+									.Clk(Clk), 
 									.pixel_clk(graphics_clk),
 									.reset(reset_h),
 								//	.drawingCode,
-									.DrawX,
-									.DrawY,
-									.frame_output,
-									.frame_rdAddress,
+									.DrawX(DrawX),
+									.DrawY(DrawY),
+									.frame_output(frame_output),
+									.frame_rdAddress(frame_rdAddress),
 									.Red(VGA_R),
 									.Green(VGA_G),
 									.Blue(VGA_B)

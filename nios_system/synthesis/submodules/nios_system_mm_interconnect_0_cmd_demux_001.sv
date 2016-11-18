@@ -28,8 +28,8 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         nios_system_mm_interconnect_0_cmd_demux_001
-//   ST_DATA_W:           105
-//   ST_CHANNEL_W:        7
+//   ST_DATA_W:           107
+//   ST_CHANNEL_W:        15
 //   NUM_OUTPUTS:         5
 //   VALID_WIDTH:         1
 // ------------------------------------------
@@ -46,8 +46,8 @@ module nios_system_mm_interconnect_0_cmd_demux_001
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [105-1    : 0]   sink_data, // ST_DATA_W=105
-    input  [7-1 : 0]   sink_channel, // ST_CHANNEL_W=7
+    input  [107-1    : 0]   sink_data, // ST_DATA_W=107
+    input  [15-1 : 0]   sink_channel, // ST_CHANNEL_W=15
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -56,36 +56,36 @@ module nios_system_mm_interconnect_0_cmd_demux_001
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [105-1    : 0] src0_data, // ST_DATA_W=105
-    output reg [7-1 : 0] src0_channel, // ST_CHANNEL_W=7
+    output reg [107-1    : 0] src0_data, // ST_DATA_W=107
+    output reg [15-1 : 0] src0_channel, // ST_CHANNEL_W=15
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
-    output reg [105-1    : 0] src1_data, // ST_DATA_W=105
-    output reg [7-1 : 0] src1_channel, // ST_CHANNEL_W=7
+    output reg [107-1    : 0] src1_data, // ST_DATA_W=107
+    output reg [15-1 : 0] src1_channel, // ST_CHANNEL_W=15
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,
     input                           src1_ready,
 
     output reg                      src2_valid,
-    output reg [105-1    : 0] src2_data, // ST_DATA_W=105
-    output reg [7-1 : 0] src2_channel, // ST_CHANNEL_W=7
+    output reg [107-1    : 0] src2_data, // ST_DATA_W=107
+    output reg [15-1 : 0] src2_channel, // ST_CHANNEL_W=15
     output reg                      src2_startofpacket,
     output reg                      src2_endofpacket,
     input                           src2_ready,
 
     output reg                      src3_valid,
-    output reg [105-1    : 0] src3_data, // ST_DATA_W=105
-    output reg [7-1 : 0] src3_channel, // ST_CHANNEL_W=7
+    output reg [107-1    : 0] src3_data, // ST_DATA_W=107
+    output reg [15-1 : 0] src3_channel, // ST_CHANNEL_W=15
     output reg                      src3_startofpacket,
     output reg                      src3_endofpacket,
     input                           src3_ready,
 
     output reg                      src4_valid,
-    output reg [105-1    : 0] src4_data, // ST_DATA_W=105
-    output reg [7-1 : 0] src4_channel, // ST_CHANNEL_W=7
+    output reg [107-1    : 0] src4_data, // ST_DATA_W=107
+    output reg [15-1 : 0] src4_channel, // ST_CHANNEL_W=15
     output reg                      src4_startofpacket,
     output reg                      src4_endofpacket,
     input                           src4_ready,
@@ -154,7 +154,7 @@ module nios_system_mm_interconnect_0_cmd_demux_001
     assign ready_vector[3] = src3_ready;
     assign ready_vector[4] = src4_ready;
 
-    assign sink_ready = |(sink_channel & {{2{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{10{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
 
