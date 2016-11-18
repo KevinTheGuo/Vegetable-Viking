@@ -21,7 +21,11 @@ module nios_system (
 	to_hw_port6_export,
 	to_hw_port7_export,
 	to_hw_port8_export,
-	to_hw_port9_export);	
+	to_hw_port9_export,
+	to_hw_sig_export,
+	to_sw_sig_s1_address,
+	to_sw_sig_s1_readdata,
+	to_sw_sig_export);	
 
 	input		clk_clk;
 	input		reset_reset_n;
@@ -45,4 +49,8 @@ module nios_system (
 	output	[31:0]	to_hw_port7_export;
 	output	[31:0]	to_hw_port8_export;
 	output	[31:0]	to_hw_port9_export;
+	output	[1:0]	to_hw_sig_export;
+	input	[1:0]	to_sw_sig_s1_address;
+	output	[31:0]	to_sw_sig_s1_readdata;
+	input	[1:0]	to_sw_sig_export;
 endmodule

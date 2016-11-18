@@ -575,12 +575,6 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
-set_global_assignment -name SYSTEMVERILOG_FILE testbench.sv
-set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
-set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
-set_global_assignment -name SYSTEMVERILOG_FILE VeggieVik.sv
-set_global_assignment -name SYSTEMVERILOG_FILE Frame_Displayer.sv
-set_global_assignment -name QIP_FILE Frame_Buffer.qip
 set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
 set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH testbench -section_id eda_simulation
 set_global_assignment -name EDA_TEST_BENCH_NAME testbench -section_id eda_simulation
@@ -591,4 +585,11 @@ set_global_assignment -name EDA_TEST_BENCH_FILE testbench.sv -section_id testben
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE testbench.sv
+set_global_assignment -name QIP_FILE Frame_Buffer.qip
+set_global_assignment -name SYSTEMVERILOG_FILE HexDriver.sv
+set_global_assignment -name SYSTEMVERILOG_FILE VGA_controller.sv
+set_global_assignment -name SYSTEMVERILOG_FILE VeggieVik.sv
+set_global_assignment -name SYSTEMVERILOG_FILE Frame_Displayer.sv
+set_global_assignment -name SYSTEMVERILOG_FILE test_memory_VegVik.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

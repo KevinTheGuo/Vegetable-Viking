@@ -22,6 +22,8 @@ module frame_displayer
 					begin
 						if((DrawX < ScreenX) && (DrawY < ScreenY))
 							frame_rdAddress = (DrawX + (DrawY*ScreenX));
+						else
+							frame_rdAddress = 19'h00000;
 					end
 			
 			// now we can take our frame output and do some palette magic!
