@@ -14,6 +14,11 @@ module Rom_Read(input clk,
 					 assign endCount = width * height; // it will take one 8-bit read per pixel, this means it will 
 					 enum logic [2:0] {idle, draw} state, next_state;
 					 
+					assign Mem_CE = 1'b0; // Always keep it on
+					assign Mem_UB = 1'b0;
+					assign Mem_LB = 1'b1; // Depending on how we store data, we'll use one of these two bytes. Probably.
+					assign Mem_WE = 1'b1; // we are never writing into ROM
+					 
 					 always_ff @ (posedge clk or reset)
 						begin
 							if(reset)
@@ -37,6 +42,32 @@ module Rom_Read(input clk,
 									if(counter == endCount)
 										next_state <= idle;
 						end
+					
+					// what to do in each state
+					always_comb
+						begin
+							
+						end
 								
 							
+endmodule
+
+module tristate #(N = 16) (
+	input wire Clk, OE,
+	input [N-1:0] In,
+	output logic [N-1:0] Out,
+	inout wire [N-1:0] Data
+);
+
+logic [N-1:0] a, b;
+
+assign Data = OE ? a : {N{1'bZ}};
+assign Out = b;
+
+always_ff @(posedge Clk)
+begin
+	b <= Data;
+	a <= In;
+end
+
 endmodule
