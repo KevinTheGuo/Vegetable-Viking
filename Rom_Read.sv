@@ -22,8 +22,10 @@ module Rom_Read(input clk,
 					 always_ff @ (posedge clk or reset)
 						begin
 							if(reset)
+								begin
 								state <= idle;
 								counter <= 12'd0;
+								end
 							else
 								state <= next_state;
 						end
@@ -41,6 +43,7 @@ module Rom_Read(input clk,
 								draw:
 									if(counter == endCount)
 										next_state <= idle;
+							endcase
 						end
 					
 					// what to do in each state
@@ -49,8 +52,8 @@ module Rom_Read(input clk,
 							
 						end
 								
-							
 endmodule
+
 
 module tristate #(N = 16) (
 	input wire Clk, OE,

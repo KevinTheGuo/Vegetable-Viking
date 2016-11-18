@@ -11,6 +11,8 @@ module VeggieVik(input CLOCK_50,
 										 VGA_BLANK_N,			//VGA Blank signal
 										 VGA_VS,					//VGA virtical sync signal	
 										 VGA_HS,					//VGA horizontal sync signal)
+						
+					  // NIOS stuff
 					  output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
 					  inout  [31:0] DRAM_DQ,				// SDRAM Data 32 Bits
 					  output [1:0]  DRAM_BA,				// SDRAM Bank Address 2 Bits
@@ -22,26 +24,19 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK);				// SDRAM Clock
 					  
-					  // hardware-software communication
+					  // VGA controller stuff
+					  vga_controller vgasync_instance(
+									.Clk(Clk), 
+									.Reset(Reset_h), 
+									.hs(VGA_HS), 
+									.vs(VGA_VS),
+									.sync(VGA_SYNC_N), 
+									.blank(VGA_BLANK_N), 
+									.DrawX(drawxsig), 
+									.DrawY(drawysig), 
+									.pixel_clk(graphics_clk));
 					  
-					  
-					  // initializing variable stuff
-					  logic		Clk;
-					  logic 		Reset_h;  // The push buttons are active low
-					  logic 		[23:0] bmp_Pixel;		
-					  
-					  // frame buffer stuff
-					  logic 		[7:0]  frame_data;		// input data to frame buffer
-					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
-					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
-					  logic 		frame_wrEn;					// write enable for frame buffer
-					  logic 		[7:0] frame_output;		// output from frame buffer
-					  
-					  
-					  assign 	Clk = CLOCK_50;
-					  assign 	Reset_h = ~(KEY[0]);  // The push buttons are active low
-					  
-					  
+					  // nios system stuff
 					  nios_system nios_system(
 								 .clk_clk(Clk),         
 								 .reset_reset_n((KEY[0])),   
@@ -56,14 +51,52 @@ module VeggieVik(input CLOCK_50,
 								 .sdram_wire_we_n(DRAM_WE_N), 
 								 .sdram_clk_clk(DRAM_CLK),
 								 .bmp_pixout_export(bmp_Pixel));
-								 
-						frame_buffer frame_buffer_inst(
+					  
+					  
+					  // hardware-software communication
+					  // TO DO
+					  
+					  // initializing basic variable stuff
+					  logic		Clk;
+					  logic 		Reset_h;  // The push buttons are active low
+					  logic 		graphics_clk;
+					 
+					  assign Clk = CLOCK_50;
+					  assign {Reset_h}=~ (KEY[0]);  // The push buttons are active low
+					  assign VGA_CLK = graphics_clk;					 
+					  
+					  
+					  // frame buffer stuff
+					  logic 		[7:0]  frame_input;		// input data to frame buffer
+//					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
+					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
+					  logic 		frame_we;					// write enable for frame buffer
+					  logic 		[7:0] frame_output;		// output from frame buffer
+					  
+						
+						// frame buffer initialization
+						Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
-									.data(frame_data),
+									.data(frame_input),
 									.rdaddress(frame_rdAddress),
 									.wraddress(frame_wrAddress),
-									.wren(frame_wrEn),
+									.wren(frame_we),
 									.q(frame_output)
+									);
+						
+						// frame displayer initialization
+						frame_displayer frame_displayer_inst(
+									.Clk, 
+									.pixel_clk(graphics_clk),
+									.reset(reset_h),
+								//	.drawingCode,
+									.DrawX,
+									.DrawY,
+									.frame_output,
+									.frame_rdAddress,
+									.Red(VGA_R),
+									.Green(VGA_G),
+									.Blue(VGA_B)
 									);
 									
 						
