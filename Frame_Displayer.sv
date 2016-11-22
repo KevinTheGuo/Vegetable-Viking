@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------
+							Frame_Displayer
+  ---------------------------------------------------------------------------*/
+// A module that will take in a command and use it to display sprites!
+
 module frame_displayer
 (
 			input Clk, 

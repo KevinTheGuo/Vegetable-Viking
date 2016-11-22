@@ -1,3 +1,15 @@
+/*---------------------------------------------------------------------------
+		 __      __              _       __      ___ _    _             
+		 \ \    / /             (_)      \ \    / (_) |  (_)            
+		  \ \  / /__  __ _  __ _ _  ___   \ \  / / _| | ___ _ __   __ _ 
+			\ \/ / _ \/ _` |/ _` | |/ _ \   \ \/ / | | |/ / | '_ \ / _` |
+			 \  /  __/ (_| | (_| | |  __/    \  /  | |   <| | | | | (_| |
+			  \/ \___|\__, |\__, |_|\___|     \/   |_|_|\_\_|_| |_|\__, |
+						  __/ | __/ |                                  __/ |
+						 |___/ |___/                                  |___/ 
+  ---------------------------------------------------------------------------*/
+// A revolutionary addition to the popular Fruit Ninja game! Coming soon, on FPGA!
+
 // THIS IS IT LADIES AND GENTS
 
 module VeggieVik(input CLOCK_50,		
@@ -11,7 +23,7 @@ module VeggieVik(input CLOCK_50,
 										 VGA_BLANK_N,			//VGA Blank signal
 										 VGA_VS,					//VGA virtical sync signal	
 										 VGA_HS,
-					  // DEBUGGING OUTPUT
+	/*				  // DEBUGGING OUTPUT
 					  output [7:0] MemOut,
 					  output [18:0] frame_rdAddress_OUT,
 					  output [9:0] DrawX_OUT,     // horizontal coordinate
@@ -27,9 +39,9 @@ module VeggieVik(input CLOCK_50,
 					  logic 		[7:0] frame_output;		// output from frame buffer
 					  assign MemOut = frame_output;
 					  assign frame_rdAddress_OUT = frame_rdAddress;
-					  
+		*/			  
 					  // NIOS stuff
-					  /*output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
+					  output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
 					  inout  [31:0] DRAM_DQ,				// SDRAM Data 32 Bits
 					  output [1:0]  DRAM_BA,				// SDRAM Bank Address 2 Bits
 					  output [3:0]  DRAM_DQM,				// SDRAM Data Mast 4 Bits
@@ -38,10 +50,10 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CKE,				// SDRAM Clock Enable
 					  output			 DRAM_WE_N,				// SDRAM Write Enable
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
-					  output			 DRAM_CLK);*/				// SDRAM Clock
+					  output			 DRAM_CLK);				// SDRAM Clock
 					  
 					  					  // nios system stuff
-					  /*nios_system nios_system(
+					  nios_system nios_system(
 								 .clk_clk(Clk),         
 								 .reset_reset_n((KEY[0])),   
 								 .sdram_wire_addr(DRAM_ADDR), 
@@ -55,7 +67,7 @@ module VeggieVik(input CLOCK_50,
 								 .sdram_wire_we_n(DRAM_WE_N), 
 								 .sdram_clk_clk(DRAM_CLK),
 //								 .bmp_pixout_export(bmp_Pixel)
-									);*/
+									);
 					  
 					  
 					  // hardware-software communication
@@ -70,10 +82,9 @@ module VeggieVik(input CLOCK_50,
 										.io_ready(io_ready),
 										.aes_ready(aes_ready)
 					);
+	*/
+					  // frame buffer stuff
 
-		*/			  // frame buffer stuff
-
-					  
 					  	// initializing basic variable stuff
 					  logic		Clk;
 					  logic 		Reset_h;  // The push buttons are active low
@@ -95,9 +106,7 @@ module VeggieVik(input CLOCK_50,
 									.DrawY(DrawY), 
 									.pixel_clk(graphics_clk));
 
-					  
-					  assign DrawX_OUT = DrawX;
-					  assign DrawY_OUT = DrawY;
+					 
 
 					  
 						assign frame_we = 1'b1;
@@ -116,6 +125,9 @@ module VeggieVik(input CLOCK_50,
 													.Reset(Reset_h), 
 													.Out(frame_output),
 													.A(frame_rdAddress));
+					  assign DrawX_OUT = DrawX;
+					  assign DrawY_OUT = DrawY;							
+						
 									*/
 						// frame displayer initialization
 						frame_displayer frame_displayer_inst(
