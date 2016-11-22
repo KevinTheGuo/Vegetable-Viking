@@ -91,15 +91,15 @@ module VeggieVik(input CLOCK_50,
 						assign frame_we = 1'b1;
 						//assign frame_rdAddress = 19'h00003;
 						// frame buffer initialization
-						/*Frame_Buffer frame_buffer_inst(
+			/*			Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
-									.data_In(frame_input),
-									.read_address(frame_rdAddress),
-									.write_address(frame_wrAddress),
-									.we(frame_we),
-									.data_Out(frame_output)
-									);*/
-									
+									.data(frame_input),
+									.rdaddress(frame_rdAddress),
+									.wraddress(frame_wrAddress),
+									.wren(frame_we),
+									.q(frame_output)
+									);
+				*/					
 						test_memory fuckyou( .Clk(Clk),
 													.Reset(Reset_h), 
 													.Out(frame_output),
