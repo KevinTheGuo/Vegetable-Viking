@@ -7,8 +7,8 @@ module frame_displayer
 			input [9:0] DrawX, DrawY, 	// our current coordinate
 			input [7:0] frame_output,		// output from frame buffer (last clock cycle's data)
 			
-			output [18:0] frame_rdAddress,	// read address for frame buffer
-			output [7:0]  Red, Green, Blue);	// output our RGB values!!!
+			output logic [18:0] frame_rdAddress,	// read address for frame buffer
+			output logic [7:0]  Red, Green, Blue);	// output our RGB values!!!
 			
 			// create some of our parameters
     parameter [9:0] ScreenX = 10'd640;     // width of x axis
@@ -21,7 +21,7 @@ module frame_displayer
 			always_ff @ (posedge pixel_clk)
 					begin
 						if((DrawX < ScreenX) && (DrawY < ScreenY))
-							frame_rdAddress = (DrawX + (DrawY*ScreenX));
+							frame_rdAddress = (DrawY + (DrawY*ScreenX));
 						else
 							frame_rdAddress = 19'h00000;
 					end

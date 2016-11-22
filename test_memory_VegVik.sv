@@ -23,7 +23,7 @@
 
 module test_memory ( input 			Clk,
 					 input          Reset, 
-                     output  [7:0]  Out,
+                     output  logic [7:0]  Out,
                      input  [7:0]  A);
 												
    //parameter size = 256; // expand memory as needed (current is 64 words)
