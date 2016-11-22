@@ -101,7 +101,7 @@ module VeggieVik(input CLOCK_50,
 
 					  
 						assign frame_we = 1'b1;
-						//assign frame_rdAddress = 19'h00003;
+						//assign frame_rdAddress = 19'h00004;
 						// frame buffer initialization
 						Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
