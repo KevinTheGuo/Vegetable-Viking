@@ -11,8 +11,8 @@ module frame_displayer
 			output [7:0]  Red, Green, Blue);	// output our RGB values!!!
 			
 			// create some of our parameters
-    parameter [9:0] ScreenX = 640;     // width of x axis
-    parameter [9:0] ScreenY = 480;     // width of y axis
+    parameter [9:0] ScreenX = 10'd640;     // width of x axis
+    parameter [9:0] ScreenY = 10'd480;     // width of y axis
 			
 
 			// we split up our frame display into two parts, a memory fetcher and VGA displayer
@@ -32,97 +32,97 @@ module frame_displayer
 					if((DrawX < ScreenX) && (DrawY < ScreenY))
 						begin	
 							unique case(frame_output)
-							8'h0:
+							8'h00:
 								begin
 									Red = 8'h0;
 									Green = 8'h0;
 									Blue = 8'h0;
 								end
-							8'h1:
+							8'h01:
 								begin
 									Red = 8'h80;
 									Green = 8'h0;
 									Blue = 8'h0;
 								end
-							8'h2:
+							8'h02:
 								begin
 									Red = 8'h0;
 									Green = 8'h80;
 									Blue = 8'h0;
 								end
-							8'h3:
+							8'h03:
 								begin
 									Red = 8'h80;
 									Green = 8'h80;
 									Blue = 8'h0;
 								end
-							8'h4:
+							8'h04:
 								begin
 									Red = 8'h0;
 									Green = 8'h0;
 									Blue = 8'h80;
 								end
-							8'h5:
+							8'h05:
 								begin
 									Red = 8'h80;
 									Green = 8'h0;
 									Blue = 8'h80;
 								end
-							8'h6:
+							8'h06:
 								begin
 									Red = 8'h0;
 									Green = 8'h80;
 									Blue = 8'h80;
 								end
-							8'h7:
+							8'h07:
 								begin
 									Red = 8'hc0;
 									Green = 8'hc0;
 									Blue = 8'hc0;
 								end
-							8'h8:
+							8'h08:
 								begin
 									Red = 8'hc0;
 									Green = 8'hdc;
 									Blue = 8'hc0;
 								end
-							8'h9:
+							8'h09:
 								begin
 									Red = 8'ha6;
 									Green = 8'hca;
 									Blue = 8'hf0;
 								end
-							8'ha:
+							8'h0a:
 								begin
 									Red = 8'h40;
 									Green = 8'h20;
 									Blue = 8'h0;
 								end
-							8'hb:
+							8'h0b:
 								begin
 									Red = 8'h60;
 									Green = 8'h20;
 									Blue = 8'h0;
 								end
-							8'hc:
+							8'h0c:
 								begin
 									Red = 8'h80;
 									Green = 8'h20;
 									Blue = 8'h0;
 								end
-							8'hd:
+							8'h0d:
 								begin
 									Red = 8'ha0;
 									Green = 8'h20;
 									Blue = 8'h0;
 								end
-							8'he:
+							8'h0e:
 								begin
 									Red = 8'hc0;
 									Green = 8'h20;
 									Blue = 8'h0;
 								end
-							8'hf:
+							8'h0f:
 								begin
 									Red = 8'he0;
 									Green = 8'h20;
