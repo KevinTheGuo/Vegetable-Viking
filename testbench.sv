@@ -18,6 +18,10 @@ logic        VGA_CLK,				//VGA Clock
  VGA_HS;
 logic [6:0]  HEX0, HEX1;
 logic CLOCK_50;
+logic [7:0] MemOut;
+logic [18:0] frame_rdAddress_OUT;
+logic [9:0] DrawX_OUT, DrawY_OUT;
+								      
 
 
 /*input pixel_CLOCK_50;

@@ -3,6 +3,7 @@ module frame_displayer
 			input Clk, 
 			input pixel_clk, 
 			input reset, 
+			input Display,
 	//		input [32:0] drawingCode,		// this is for when we get hardware-software comms
 			input [9:0] DrawX, DrawY, 	// our current coordinate
 			input [7:0] frame_output,		// output from frame buffer (last clock cycle's data)
@@ -11,8 +12,8 @@ module frame_displayer
 			output logic [7:0]  Red, Green, Blue);	// output our RGB values!!!
 			
 			// create some of our parameters
-    parameter [9:0] ScreenX = 10'd640;     // width of x axis
-    parameter [9:0] ScreenY = 10'd480;     // width of y axis
+    parameter [9:0] ScreenX = 640;     // width of x axis
+    parameter [9:0] ScreenY = 480;     // width of y axis
 			
 
 			// we split up our frame display into two parts, a memory fetcher and VGA displayer
@@ -20,8 +21,8 @@ module frame_displayer
 			// this takes our drawx and drawy and, if they're valid, sends a frame read address
 			always_ff @ (posedge pixel_clk)
 					begin
-						if((DrawX < ScreenX) && (DrawY < ScreenY))
-							frame_rdAddress = (DrawY + (DrawY*ScreenX));
+						if(Display)
+							frame_rdAddress = (DrawX + (DrawY*ScreenX));
 						else
 							frame_rdAddress = 19'h00000;
 					end
@@ -29,7 +30,7 @@ module frame_displayer
 			// now we can take our frame output and do some palette magic!
 			always_comb
 				begin 
-					if((DrawX < ScreenX) && (DrawY < ScreenY))
+					if(Display)
 						begin	
 							unique case(frame_output)
 							8'h00:

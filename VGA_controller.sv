@@ -112,7 +112,7 @@ module  vga_controller ( input        Clk,       // 50 MHz clock
     //(This signal is registered within the DAC chip, so we can leave it as pure combinational logic here)    
     always_comb
     begin 
-        if ( (hc >= 10'b1010000000) | (vc >= 10'b0111100000) ) 
+        if ( (hc >= 10'b1010000000) | (vc >= 10'b0111100000) ) 	
             display = 1'b0;
         else 
             display = 1'b1;

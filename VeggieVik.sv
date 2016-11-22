@@ -11,8 +11,22 @@ module VeggieVik(input CLOCK_50,
 										 VGA_BLANK_N,			//VGA Blank signal
 										 VGA_VS,					//VGA virtical sync signal	
 										 VGA_HS,
+					  // DEBUGGING OUTPUT
+					  output [7:0] MemOut,
+					  output [18:0] frame_rdAddress_OUT,
+					  output [9:0] DrawX_OUT,     // horizontal coordinate
+								      DrawY_OUT, 
 					  output [6:0]  HEX0, HEX1);					//VGA horizontal sync signal)				 
 
+					  logic 		[7:0]  frame_input;		// input data to frame buffer
+					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
+					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
+					  logic [9:0] DrawX;
+					  logic [9:0] DrawY;
+					  logic 		frame_we;					// write enable for frame buffer
+					  logic 		[7:0] frame_output;		// output from frame buffer
+					  assign MemOut = frame_output;
+					  assign frame_rdAddress_OUT = frame_rdAddress;
 					  
 					  // NIOS stuff
 					  /*output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
@@ -58,11 +72,7 @@ module VeggieVik(input CLOCK_50,
 					);
 
 		*/			  // frame buffer stuff
-					  logic 		[7:0]  frame_input;		// input data to frame buffer
-					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
-					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
-					  logic 		frame_we;					// write enable for frame buffer
-					  logic 		[7:0] frame_output;		// output from frame buffer
+
 					  
 					  	// initializing basic variable stuff
 					  logic		Clk;
@@ -86,12 +96,14 @@ module VeggieVik(input CLOCK_50,
 									.pixel_clk(graphics_clk));
 
 					  
+					  assign DrawX_OUT = DrawX;
+					  assign DrawY_OUT = DrawY;
 
 					  
 						assign frame_we = 1'b1;
 						//assign frame_rdAddress = 19'h00003;
 						// frame buffer initialization
-			/*			Frame_Buffer frame_buffer_inst(
+						Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
 									.data(frame_input),
 									.rdaddress(frame_rdAddress),
@@ -99,12 +111,12 @@ module VeggieVik(input CLOCK_50,
 									.wren(frame_we),
 									.q(frame_output)
 									);
-				*/					
-						test_memory fuckyou( .Clk(Clk),
+								
+						/*test_memory fuckyou( .Clk(Clk),
 													.Reset(Reset_h), 
 													.Out(frame_output),
 													.A(frame_rdAddress));
-									
+									*/
 						// frame displayer initialization
 						frame_displayer frame_displayer_inst(
 									.Clk(Clk), 
@@ -113,6 +125,7 @@ module VeggieVik(input CLOCK_50,
 								//	.drawingCode,
 									.DrawX(DrawX),
 									.DrawY(DrawY),
+									.Display(VGA_BLANK_N),
 									.frame_output(frame_output),
 									.frame_rdAddress(frame_rdAddress),
 									.Red(VGA_R),
