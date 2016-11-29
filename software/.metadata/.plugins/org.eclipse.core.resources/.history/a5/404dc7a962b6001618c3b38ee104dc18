@@ -70,6 +70,8 @@ int main()
 	int i;
 	for (i=0; i<16; i++)
 	{
+		printf("Puttin in our message yo\n");
+
 		unsigned long tempPackage, tempX, tempY, tempState, tempType, tempRot;
 		tempX = gameObject[i].xPosition;
 		tempY = gameObject[i].yPosition;

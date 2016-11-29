@@ -70,6 +70,8 @@ int main()
 	int i;
 	for (i=0; i<16; i++)
 	{
+		printf("Puttin in our message yo\n");
+
 		unsigned long tempPackage, tempX, tempY, tempState, tempType, tempRot;
 		tempX = gameObject[i].xPosition;
 		tempY = gameObject[i].yPosition;
@@ -78,7 +80,7 @@ int main()
 		tempRot = gameObject[i].objectRot;
 
 		tempPackage = tempY + 1000*tempX + 1000000*tempState + 10000000*tempState + 100000000*tempType + 100000000*tempRot;
-		printf("Our %dth message is %lu\n", i, tempPackage);
+		printf(tempPackage);
 
 		FPGAmessage[i] = tempPackage;
 	}

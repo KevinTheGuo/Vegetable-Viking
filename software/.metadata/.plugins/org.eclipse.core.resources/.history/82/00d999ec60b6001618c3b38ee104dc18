@@ -55,13 +55,14 @@ int main()
 	// struct your stuff
 	struct displayPackage
 	{
-		unsigned long xPosition;
-		unsigned long yPosition;
-		unsigned long objectState;
-		unsigned long objectType;
-		unsigned long objectRot;
+		int xPosition;
+		int yPosition;
+		int objectType;
+		int objectState;
 	};
 	struct displayPackage gameObject[16];
+
+
 
 
 	// initialization of message we need to send to FPGA (array of 32-bit messages)
@@ -70,17 +71,10 @@ int main()
 	int i;
 	for (i=0; i<16; i++)
 	{
-		unsigned long tempPackage, tempX, tempY, tempState, tempType, tempRot;
-		tempX = gameObject[i].xPosition;
-		tempY = gameObject[i].yPosition;
-		tempState = gameObject[i].objectState;
-		tempType = gameObject[i].objectType;
-		tempRot = gameObject[i].objectRot;
+		printf("Puttin in our message yo\n");
+		int tempX, tempY, tempType, tempState;
 
-		tempPackage = tempY + 1000*tempX + 1000000*tempState + 10000000*tempState + 100000000*tempType + 100000000*tempRot;
-		printf("Our %dth message is %lu\n", i, tempPackage);
-
-		FPGAmessage[i] = tempPackage;
+		FPGAmessage[i] = i*9;
 	}
 
 	printf("Now we doing our communicatin\n");
