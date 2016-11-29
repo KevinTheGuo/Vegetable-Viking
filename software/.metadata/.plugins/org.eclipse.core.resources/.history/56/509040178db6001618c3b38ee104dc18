@@ -1,14 +1,4 @@
-/*---------------------------------------------------------------------------
-		 __      __              _       __      ___ _    _
-		 \ \    / /             (_)      \ \    / (_) |  (_)
-		  \ \  / /__  __ _  __ _ _  ___   \ \  / / _| | ___ _ __   __ _
-			\ \/ / _ \/ _` |/ _` | |/ _ \   \ \/ / | | |/ / | '_ \ / _` |
-			 \  /  __/ (_| | (_| | |  __/    \  /  | |   <| | | | | (_| |
-			  \/ \___|\__, |\__, |_|\___|     \/   |_|_|\_\_|_| |_|\__, |
-					  __/ | __/ |                                  __/ |
-					 |___/ |___/                                  |___/
-  ---------------------------------------------------------------------------*/
-// A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
+// Here is our code for VEGETABLE VIKING!!!
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,14 +30,13 @@ struct displayPackage
 	unsigned long objectRot;
 };
 
-// declarations of functions and stuff
+// declarations and stuff
 void FPGAcommunicator(unsigned long* FPGAmessage);
 unsigned long messagePackager(struct displayPackage);
 unsigned long convertDecimalToBinary(unsigned long n);
 unsigned long convertBinaryToDecimal(unsigned long long n);
 
 
-// our main function!!!
 int main()
 {
 	// make our struct

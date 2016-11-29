@@ -1,14 +1,4 @@
-/*---------------------------------------------------------------------------
-		 __      __              _       __      ___ _    _
-		 \ \    / /             (_)      \ \    / (_) |  (_)
-		  \ \  / /__  __ _  __ _ _  ___   \ \  / / _| | ___ _ __   __ _
-			\ \/ / _ \/ _` |/ _` | |/ _ \   \ \/ / | | |/ / | '_ \ / _` |
-			 \  /  __/ (_| | (_| | |  __/    \  /  | |   <| | | | | (_| |
-			  \/ \___|\__, |\__, |_|\___|     \/   |_|_|\_\_|_| |_|\__, |
-					  __/ | __/ |                                  __/ |
-					 |___/ |___/                                  |___/
-  ---------------------------------------------------------------------------*/
-// A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
+// Here is our code for VEGETABLE VIKING!!!
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,27 +20,24 @@
 #define to_sw_sig (char*) 0x00000030 // actual address here
 //#define to_sw_port (char*) 0x00000030 // actual address here
 
-// struct your stuff
-struct displayPackage
-{
-	unsigned long xPosition;
-	unsigned long yPosition;
-	unsigned long objectState;
-	unsigned long objectType;
-	unsigned long objectRot;
-};
-
-// declarations of functions and stuff
+// declarations and stuff
 void FPGAcommunicator(unsigned long* FPGAmessage);
-unsigned long messagePackager(struct displayPackage);
-unsigned long convertDecimalToBinary(unsigned long n);
-unsigned long convertBinaryToDecimal(unsigned long long n);
+unsigned long binaryPackager(struct displayPackage specifiedObject);
+long decimalToBinary(long n);
 
 
-// our main function!!!
+
 int main()
 {
-	// make our struct
+	// struct your stuff
+	struct displayPackage
+	{
+		unsigned long xPosition;
+		unsigned long yPosition;
+		unsigned long objectState;
+		unsigned long objectType;
+		unsigned long objectRot;
+	};
 	struct displayPackage gameObject[16];
 
 
@@ -60,7 +47,7 @@ int main()
 	int i;
 	for (i=0; i<16; i++)
 	{
-		unsigned long tempPackage = messagePackager(gameObject[i]);
+		unsigned long tempPackage = binaryPackager(gameObject[i]);
 
 
 		printf("Our %dth message is %lu\n", i, tempPackage);
@@ -75,11 +62,11 @@ int main()
 }
 
 // this function takes a struct and converts it into a message we can send
-unsigned long messagePackager(struct displayPackage specifiedObject)
+unsigned long binaryPackager(struct displayPackage specifiedObject)
 {
 	// make our variables
-	unsigned long tempDecimal, tempX, tempY, tempState, tempType, tempRot;
-	unsigned long long tempBinary;
+	unsigned long tempX, tempY, tempState, tempType, tempRot;
+	unsigned long long tempPackage;
 
 	// grab our stuff from the struct
 	tempX = specifiedObject.xPosition;
@@ -96,22 +83,9 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 	tempRot = convertDecimalToBinary(tempRot);
 
 	// now we append everything together!
-	if (tempState == 42)	// this means we are packaging the cursor
-	{
-		// location is important!
-		tempBinary = tempX + tempY*1000000000;
-	}
-	else	// this means we are packaging a fruit/bomb
-	{
-		// location not as important
-		tempBinary = tempX + tempY*1000 + tempState*1000 + tempType*1000 + tempRot*1000;
-	}
 
 	// and convert it back to decimal!
-	tempDecimal = convertBinaryToDecimal(tempBinary);
 
-	// and return it!
-	return tempDecimal;
 }
 
 // this function takes an array of 32-bit messages and sends them all out
@@ -149,7 +123,7 @@ void FPGAcommunicator(unsigned long* FPGAmessage)
 unsigned long convertDecimalToBinary(unsigned long n)
 {
     long long binaryNumber = 0;
-    int remainder, i = 1;
+    int remainder, i = 1, step = 1;
 
     while (n!=0)
     {
