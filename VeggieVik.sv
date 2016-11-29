@@ -8,11 +8,12 @@
 						  __/ | __/ |                                  __/ |
 						 |___/ |___/                                  |___/ 
   ---------------------------------------------------------------------------*/
-// A revolutionary addition to the popular Fruit Ninja game! Coming soon, on FPGA!
+// A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
 
 // THIS IS IT LADIES AND GENTS
 
 module VeggieVik(input CLOCK_50,		
+
 					  // VGA Interface 
 					  input  [3:0]  KEY, //bit 0 is set up as Reset
 					  output [7:0]  VGA_R,					//VGA Red
@@ -23,6 +24,7 @@ module VeggieVik(input CLOCK_50,
 										 VGA_BLANK_N,			//VGA Blank signal
 										 VGA_VS,					//VGA virtical sync signal	
 										 VGA_HS,
+										 
 /*					  // DEBUGGING OUTPUT		
 					  output [7:0] MemOut,
 					  output [18:0] frame_rdAddress_OUT,
@@ -42,21 +44,12 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CLK,				// SDRAM Clock
 					
 					  // hex stuff
-					  output [6:0]  HEX0, HEX1);					//VGA horizontal sync signal)			
+					  output [6:0]  HEX0, HEX1				//VGA horizontal sync signal
+					  );							
 					
-			
-					  logic 		[7:0]  frame_input;		// input data to frame buffer
-					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
-					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
-					  logic [9:0] DrawX;
-					  logic [9:0] DrawY;
-					  logic 		frame_we;					// write enable for frame buffer
-					  logic 		[7:0] frame_output;		// output from frame buffer
-					  assign MemOut = frame_output;
-					  assign frame_rdAddress_OUT = frame_rdAddress;
-					  
+					  // ------------ END OF MODULE DECLARATION ------------
 					
-					  
+					
 					  // nios system stuff
 					  nios_system nios_system(
 								 .clk_clk(Clk),         
@@ -84,10 +77,8 @@ module VeggieVik(input CLOCK_50,
 								 .to_hw_sig_export(to_hw_sig),								 
 								 .to_sw_sig_export(to_sw_sig), 
 									);
-	
-					  // frame buffer stuff
-
-					  	// initializing basic variable stuff
+					
+					  // initializing basic variable stuff
 					  logic		Clk;
 					  logic 		Reset_h;  // The push buttons are active low
 					  logic 		graphics_clk;
@@ -95,8 +86,19 @@ module VeggieVik(input CLOCK_50,
 					  assign Clk = CLOCK_50;
 					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
 					  assign VGA_CLK = graphics_clk;	
+					
+					  // frame buffer stuff and displaying stuff
+					  logic 		[7:0]  frame_input;		// input data to frame buffer
+					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
+					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
+					  logic [9:0] DrawX;
+					  logic [9:0] DrawY;
+					  logic 		frame_we;					// write enable for frame buffer
+					  logic 		[7:0] frame_output;		// output from frame buffer
+					  assign MemOut = frame_output;
+					  assign frame_rdAddress_OUT = frame_rdAddress;
 					  
-					  // hardware-software communication
+					  // hardware-software communication lines
 					  logic [1:0] to_sw_sig;
 					  logic [1:0] to_hw_sig;
 					  logic [31:0] to_hw_port0;
@@ -110,8 +112,9 @@ module VeggieVik(input CLOCK_50,
 					  logic [31:0] to_hw_port8;
 					  logic [31:0] to_hw_port9;					  
 					  
+					  // hardware-software communication module
 					  hardware_software_comm hardware_software_comm_inst (
-										.clk(Clk),	// TO DO STILL
+										.clk(Clk),	
 										.reset(Reset_h),
 										.to_hw_sig,
 										.to_sw_sig,
@@ -129,7 +132,7 @@ module VeggieVik(input CLOCK_50,
 									.DrawY(DrawY), 
 									.pixel_clk(graphics_clk));
 					  
-						assign frame_we = 1'b1;
+						assign frame_we = 1'b1;		
 						//assign frame_rdAddress = 19'h00004;
 						// frame buffer initialization
 						Frame_Buffer frame_buffer_inst(
@@ -164,7 +167,7 @@ module VeggieVik(input CLOCK_50,
 									.Green(VGA_G),
 									.Blue(VGA_B));
 									
-						HexDriver hex0(.In0(to_hw_port0[7:4]), .Out0(HEX1));
-						HexDriver hex1(.In0(to_hw_port0[3:0]), .Out0(HEX0));		
+						HexDriver hex0(.In0(to_hw_port5[7:4]), .Out0(HEX1));
+						HexDriver hex1(.In0(to_hw_port5[3:0]), .Out0(HEX0));		
 			
 endmodule

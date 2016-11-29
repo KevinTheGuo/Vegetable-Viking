@@ -59,7 +59,7 @@ int main()
 	for (i=0; i<16; i++)
 	{
 		printf("Puttin in our message yo\n");
-		FPGAmessage[i] = i*9;
+		FPGAmessage[i] = 9;
 	}
 
 	printf("Now we doing our communicatin\n");
