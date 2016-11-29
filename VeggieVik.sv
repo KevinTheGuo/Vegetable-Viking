@@ -39,6 +39,9 @@ module VeggieVik(input CLOCK_50,
 					  logic 		[7:0] frame_output;		// output from frame buffer
 					  assign MemOut = frame_output;
 					  assign frame_rdAddress_OUT = frame_rdAddress;
+					  
+					  // HARDWARE SOFTWARE COMMUNICATION STUff
+					  
 		*/			  
 					  // NIOS stuff
 					  output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
@@ -52,7 +55,7 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK);				// SDRAM Clock
 					  
-					  					  // nios system stuff
+					  // nios system stuff
 					  nios_system nios_system(
 								 .clk_clk(Clk),         
 								 .reset_reset_n((KEY[0])),   
@@ -71,18 +74,26 @@ module VeggieVik(input CLOCK_50,
 					  
 					  
 					  // hardware-software communication
-	/*			  io_module io_module_inst (.clk(Clk),
-										.reset_n(Reset_h),
-										.to_sw_sig,
+					  logic 		drawingCode;
+					  
+					  hardware_software_comm hardware_software_comm_inst (
+										.clk(Clk),	// TO DO STILL
+										.reset(Reset_h),
 										.to_hw_sig,
 										.to_hw_port0,
-										.msg_en(msg_en),
-										.key(aes_key),
-										.msg_de(msg_de),
-										.io_ready(io_ready),
-										.aes_ready(aes_ready)
-					);
-	*/
+										.to_hw_port1,
+										.to_hw_port2,
+										.to_hw_port3,
+										.to_hw_port4,
+										.to_hw_port5,
+										.to_hw_port6,
+										.to_hw_port7,
+										.to_hw_port8,
+										.to_hw_port9,
+										.to_sw_sig,
+										.drawingCode
+										);
+	
 					  // frame buffer stuff
 
 					  	// initializing basic variable stuff
@@ -105,9 +116,6 @@ module VeggieVik(input CLOCK_50,
 									.DrawX(DrawX), 
 									.DrawY(DrawY), 
 									.pixel_clk(graphics_clk));
-
-					 
-
 					  
 						assign frame_we = 1'b1;
 						//assign frame_rdAddress = 19'h00004;
@@ -134,7 +142,7 @@ module VeggieVik(input CLOCK_50,
 									.Clk(Clk), 
 									.pixel_clk(graphics_clk),
 									.reset(reset_h),
-								//	.drawingCode,
+									.drawingCode,
 									.DrawX(DrawX),
 									.DrawY(DrawY),
 									.Display(VGA_BLANK_N),

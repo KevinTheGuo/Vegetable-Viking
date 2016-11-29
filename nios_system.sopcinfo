@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="nios_system" kind="nios_system" version="1.0" fabric="QSYS">
  <!-- Format version 15.0 145 (Future versions may contain additional information.) -->
- <!-- 2016.11.18.16:40:51 -->
+ <!-- 2016.11.22.11:43:21 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1479508850</value>
+  <value>1479836601</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -2821,7 +2821,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' /><slave name='sdram_pll.pll_slave' start='0xD0' end='0xE0' /><slave name='sysid_qsys_0.control_slave' start='0xE8' end='0xF0' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1000' end='0x1800' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' /><slave name='sdram_pll.pll_slave' start='0xE0' end='0xF0' /><slave name='sysid_qsys_0.control_slave' start='0xF8' end='0x100' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1000' end='0x1800' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2841,7 +2841,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' /><slave name='to_hw_port0.s1' start='0x20' end='0x30' /><slave name='to_hw_sig.s1' start='0x40' end='0x50' /><slave name='to_hw_port9.s1' start='0x50' end='0x60' /><slave name='to_hw_port8.s1' start='0x60' end='0x70' /><slave name='to_hw_port6.s1' start='0x70' end='0x80' /><slave name='to_hw_port5.s1' start='0x80' end='0x90' /><slave name='to_hw_port4.s1' start='0x90' end='0xA0' /><slave name='to_hw_port3.s1' start='0xA0' end='0xB0' /><slave name='to_hw_port2.s1' start='0xB0' end='0xC0' /><slave name='to_hw_port1.s1' start='0xC0' end='0xD0' /><slave name='sdram_pll.pll_slave' start='0xD0' end='0xE0' /><slave name='sysid_qsys_0.control_slave' start='0xE8' end='0xF0' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0xF0' end='0xF8' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1000' end='0x1800' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory2_0.s1' start='0x0' end='0x10' /><slave name='to_hw_port0.s1' start='0x20' end='0x30' /><slave name='to_sw_sig.s1' start='0x30' end='0x40' /><slave name='to_hw_port7.s1' start='0x40' end='0x50' /><slave name='to_hw_sig.s1' start='0x50' end='0x60' /><slave name='to_hw_port9.s1' start='0x60' end='0x70' /><slave name='to_hw_port8.s1' start='0x70' end='0x80' /><slave name='to_hw_port6.s1' start='0x80' end='0x90' /><slave name='to_hw_port5.s1' start='0x90' end='0xA0' /><slave name='to_hw_port4.s1' start='0xA0' end='0xB0' /><slave name='to_hw_port3.s1' start='0xB0' end='0xC0' /><slave name='to_hw_port2.s1' start='0xC0' end='0xD0' /><slave name='to_hw_port1.s1' start='0xD0' end='0xE0' /><slave name='sdram_pll.pll_slave' start='0xE0' end='0xF0' /><slave name='sysid_qsys_0.control_slave' start='0xF8' end='0x100' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x100' end='0x108' /><slave name='nios2_qsys_0.debug_mem_slave' start='0x1000' end='0x1800' /><slave name='sdram.s1' start='0x10000000' end='0x18000000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -3512,7 +3512,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>avalon_jtag_slave</slaveName>
     <name>jtag_uart_0.avalon_jtag_slave</name>
-    <baseAddress>240</baseAddress>
+    <baseAddress>256</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -3520,7 +3520,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys_0</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys_0.control_slave</name>
-    <baseAddress>232</baseAddress>
+    <baseAddress>248</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -3536,7 +3536,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sdram_pll</moduleName>
     <slaveName>pll_slave</slaveName>
     <name>sdram_pll.pll_slave</name>
-    <baseAddress>208</baseAddress>
+    <baseAddress>224</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3568,7 +3568,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port1</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port1.s1</name>
-    <baseAddress>192</baseAddress>
+    <baseAddress>208</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3576,7 +3576,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port2</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port2.s1</name>
-    <baseAddress>176</baseAddress>
+    <baseAddress>192</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3584,7 +3584,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port3</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port3.s1</name>
-    <baseAddress>160</baseAddress>
+    <baseAddress>176</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3592,7 +3592,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port4</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port4.s1</name>
-    <baseAddress>144</baseAddress>
+    <baseAddress>160</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3600,7 +3600,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port5</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port5.s1</name>
-    <baseAddress>128</baseAddress>
+    <baseAddress>144</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3608,7 +3608,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port6</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port6.s1</name>
-    <baseAddress>112</baseAddress>
+    <baseAddress>128</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3616,7 +3616,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port8</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port8.s1</name>
-    <baseAddress>96</baseAddress>
+    <baseAddress>112</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3624,7 +3624,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_port9</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_port9.s1</name>
-    <baseAddress>80</baseAddress>
+    <baseAddress>96</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -3632,7 +3632,23 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>to_hw_sig</moduleName>
     <slaveName>s1</slaveName>
     <name>to_hw_sig.s1</name>
+    <baseAddress>80</baseAddress>
+    <span>16</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>to_hw_port7</moduleName>
+    <slaveName>s1</slaveName>
+    <name>to_hw_port7.s1</name>
     <baseAddress>64</baseAddress>
+    <span>16</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>to_sw_sig</moduleName>
+    <slaveName>s1</slaveName>
+    <name>to_sw_sig.s1</name>
+    <baseAddress>48</baseAddress>
     <span>16</span>
    </memoryBlock>
   </interface>
@@ -3927,7 +3943,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys_0</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys_0.control_slave</name>
-    <baseAddress>232</baseAddress>
+    <baseAddress>248</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -3943,7 +3959,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sdram_pll</moduleName>
     <slaveName>pll_slave</slaveName>
     <name>sdram_pll.pll_slave</name>
-    <baseAddress>208</baseAddress>
+    <baseAddress>224</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -8434,7 +8450,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1479508850</value>
+   <value>1479836601</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -8454,7 +8470,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1479508850</value>
+   <value>1479836601</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -8470,7 +8486,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1479508850</value>
+   <value>1479836601</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -18275,7 +18291,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00f0</value>
+   <value>0x0100</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18326,7 +18342,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00e8</value>
+   <value>0x00f8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18428,7 +18444,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00d0</value>
+   <value>0x00e0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18632,7 +18648,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00c0</value>
+   <value>0x00d0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18683,7 +18699,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00b0</value>
+   <value>0x00c0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18734,7 +18750,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00a0</value>
+   <value>0x00b0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18785,7 +18801,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0090</value>
+   <value>0x00a0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18836,7 +18852,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0080</value>
+   <value>0x0090</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18887,7 +18903,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0070</value>
+   <value>0x0080</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18938,7 +18954,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0060</value>
+   <value>0x0070</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18989,7 +19005,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0050</value>
+   <value>0x0060</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19040,7 +19056,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0040</value>
+   <value>0x0050</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19076,6 +19092,108 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
+   name="nios2_qsys_0.data_master/to_hw_port7.s1"
+   kind="avalon"
+   version="15.0"
+   start="nios2_qsys_0.data_master"
+   end="to_hw_port7.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0040</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_qsys_0</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>to_hw_port7</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_qsys_0.data_master/to_sw_sig.s1"
+   kind="avalon"
+   version="15.0"
+   start="nios2_qsys_0.data_master"
+   end="to_sw_sig.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0030</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_qsys_0</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>to_sw_sig</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
    name="nios2_qsys_0.instruction_master/sysid_qsys_0.control_slave"
    kind="avalon"
    version="15.0"
@@ -19091,7 +19209,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00e8</value>
+   <value>0x00f8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19193,7 +19311,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x00d0</value>
+   <value>0x00e0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20595,7 +20713,7 @@ parameters are a RESULT of the module parameters. -->
   <version>15.0</version>
  </plugin>
  <plugin>
-  <instanceCount>21</instanceCount>
+  <instanceCount>23</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
