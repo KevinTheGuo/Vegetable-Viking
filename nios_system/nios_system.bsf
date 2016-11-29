@@ -233,7 +233,7 @@ agreement for further details.
 		(text "export" (rect 149 715 334 1440)(font "Arial" (color 0 0 0)))
 		(text "to_sw_sig" (rect 84 731 222 1475)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "export" (rect 149 755 334 1520)(font "Arial" (color 0 0 0)))
-		(text " nios_system " (rect 294 776 666 1562)(font "Arial" ))
+		(text " system " (rect 317 776 682 1562)(font "Arial" ))
 		(line (pt 144 32)(pt 208 32)(line_width 1))
 		(line (pt 208 32)(pt 208 776)(line_width 1))
 		(line (pt 144 776)(pt 208 776)(line_width 1))

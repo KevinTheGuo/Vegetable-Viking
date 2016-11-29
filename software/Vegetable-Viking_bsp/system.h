@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'nios_system'
  * SOPC Builder design path: ../../nios_system.sopcinfo
  *
- * Generated: Tue Nov 22 00:45:21 CST 2016
+ * Generated: Mon Nov 28 21:37:53 CST 2016
  */
 
 /*
@@ -158,19 +158,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0xf0
+#define ALT_STDERR_BASE 0x100
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0xf0
+#define ALT_STDIN_BASE 0x100
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0xf0
+#define ALT_STDOUT_BASE 0x100
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -195,7 +195,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0xf0
+#define JTAG_UART_0_BASE 0x100
 #define JTAG_UART_0_IRQ 5
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -281,7 +281,7 @@
  */
 
 #define ALT_MODULE_CLASS_sdram_pll altpll
-#define SDRAM_PLL_BASE 0xd0
+#define SDRAM_PLL_BASE 0xe0
 #define SDRAM_PLL_IRQ -1
 #define SDRAM_PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SDRAM_PLL_NAME "/dev/sdram_pll"
@@ -295,13 +295,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0xe8
+#define SYSID_QSYS_0_BASE 0xf8
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1479508850
+#define SYSID_QSYS_0_TIMESTAMP 1480389732
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -338,7 +338,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port1 altera_avalon_pio
-#define TO_HW_PORT1_BASE 0xc0
+#define TO_HW_PORT1_BASE 0xd0
 #define TO_HW_PORT1_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT1_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT1_CAPTURE 0
@@ -365,7 +365,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port2 altera_avalon_pio
-#define TO_HW_PORT2_BASE 0xb0
+#define TO_HW_PORT2_BASE 0xc0
 #define TO_HW_PORT2_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT2_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT2_CAPTURE 0
@@ -392,7 +392,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port3 altera_avalon_pio
-#define TO_HW_PORT3_BASE 0xa0
+#define TO_HW_PORT3_BASE 0xb0
 #define TO_HW_PORT3_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT3_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT3_CAPTURE 0
@@ -419,7 +419,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port4 altera_avalon_pio
-#define TO_HW_PORT4_BASE 0x90
+#define TO_HW_PORT4_BASE 0xa0
 #define TO_HW_PORT4_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT4_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT4_CAPTURE 0
@@ -446,7 +446,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port5 altera_avalon_pio
-#define TO_HW_PORT5_BASE 0x80
+#define TO_HW_PORT5_BASE 0x90
 #define TO_HW_PORT5_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT5_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT5_CAPTURE 0
@@ -473,7 +473,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port6 altera_avalon_pio
-#define TO_HW_PORT6_BASE 0x70
+#define TO_HW_PORT6_BASE 0x80
 #define TO_HW_PORT6_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT6_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT6_CAPTURE 0
@@ -495,12 +495,39 @@
 
 
 /*
+ * to_hw_port7 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_hw_port7 altera_avalon_pio
+#define TO_HW_PORT7_BASE 0x40
+#define TO_HW_PORT7_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_HW_PORT7_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_HW_PORT7_CAPTURE 0
+#define TO_HW_PORT7_DATA_WIDTH 32
+#define TO_HW_PORT7_DO_TEST_BENCH_WIRING 0
+#define TO_HW_PORT7_DRIVEN_SIM_VALUE 0
+#define TO_HW_PORT7_EDGE_TYPE "NONE"
+#define TO_HW_PORT7_FREQ 50000000
+#define TO_HW_PORT7_HAS_IN 0
+#define TO_HW_PORT7_HAS_OUT 1
+#define TO_HW_PORT7_HAS_TRI 0
+#define TO_HW_PORT7_IRQ -1
+#define TO_HW_PORT7_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_HW_PORT7_IRQ_TYPE "NONE"
+#define TO_HW_PORT7_NAME "/dev/to_hw_port7"
+#define TO_HW_PORT7_RESET_VALUE 0
+#define TO_HW_PORT7_SPAN 16
+#define TO_HW_PORT7_TYPE "altera_avalon_pio"
+
+
+/*
  * to_hw_port8 configuration
  *
  */
 
 #define ALT_MODULE_CLASS_to_hw_port8 altera_avalon_pio
-#define TO_HW_PORT8_BASE 0x60
+#define TO_HW_PORT8_BASE 0x70
 #define TO_HW_PORT8_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT8_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT8_CAPTURE 0
@@ -527,7 +554,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_port9 altera_avalon_pio
-#define TO_HW_PORT9_BASE 0x50
+#define TO_HW_PORT9_BASE 0x60
 #define TO_HW_PORT9_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_PORT9_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_PORT9_CAPTURE 0
@@ -554,7 +581,7 @@
  */
 
 #define ALT_MODULE_CLASS_to_hw_sig altera_avalon_pio
-#define TO_HW_SIG_BASE 0x40
+#define TO_HW_SIG_BASE 0x50
 #define TO_HW_SIG_BIT_CLEARING_EDGE_REGISTER 0
 #define TO_HW_SIG_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define TO_HW_SIG_CAPTURE 0
@@ -573,5 +600,32 @@
 #define TO_HW_SIG_RESET_VALUE 0
 #define TO_HW_SIG_SPAN 16
 #define TO_HW_SIG_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_sig configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_sig altera_avalon_pio
+#define TO_SW_SIG_BASE 0x30
+#define TO_SW_SIG_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_SIG_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_SIG_CAPTURE 0
+#define TO_SW_SIG_DATA_WIDTH 2
+#define TO_SW_SIG_DO_TEST_BENCH_WIRING 0
+#define TO_SW_SIG_DRIVEN_SIM_VALUE 0
+#define TO_SW_SIG_EDGE_TYPE "NONE"
+#define TO_SW_SIG_FREQ 50000000
+#define TO_SW_SIG_HAS_IN 1
+#define TO_SW_SIG_HAS_OUT 0
+#define TO_SW_SIG_HAS_TRI 0
+#define TO_SW_SIG_IRQ -1
+#define TO_SW_SIG_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_SIG_IRQ_TYPE "NONE"
+#define TO_SW_SIG_NAME "/dev/to_sw_sig"
+#define TO_SW_SIG_RESET_VALUE 0
+#define TO_SW_SIG_SPAN 16
+#define TO_SW_SIG_TYPE "altera_avalon_pio"
 
 #endif /* __SYSTEM_H_ */

@@ -1,6 +1,108 @@
-00:45:23 **** Clean-only build of configuration Nios II for project Vegetable-Viking_bsp ****
-make clean 
-[BSP clean complete]
-00:45:32 **** Clean-only build of configuration Nios II for project Vegetable-Viking ****
-make clean 
-[Vegetable-Viking clean complete]
+00:34:37 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:34:47 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:40:38 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:40:39 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:41:02 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:41:03 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:41:07 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:47:05 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:47:06 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:47:37 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:47:38 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:47:42 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:51:55 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+00:51:56 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+00:52:21 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+01:00:45 **** Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+01:00:46 **** Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+01:01:25 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+01:09:38 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+01:09:39 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+01:09:43 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]
+01:14:30 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+[Vegetable-Viking build complete]

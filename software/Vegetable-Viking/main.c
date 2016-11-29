@@ -20,28 +20,34 @@
 //#define to_sw_port (char*) 0x00000030 // actual address here
 
 // this function takes an array of 32-bit messages and sends them all out
-int FPGAcommunicator(unsigned long* FPGAmessage)
+void FPGAcommunicator(unsigned long* FPGAmessage)
 {
-	*to_hw_sig = 3;	// 3 means we're starting communication
-
-	while(*to_sw_sig != 3);	// wait for FPGA to wake up
+	*to_hw_sig = 2;	// 2 means we're starting communication
 
 	// now we put in all our messages
-	to_hw_port0 = FPGAmessage[0];
-	to_hw_port1 = FPGAmessage[1];
-	to_hw_port2 = FPGAmessage[2];
-	to_hw_port3 = FPGAmessage[3];
-	to_hw_port4 = FPGAmessage[4];
-	to_hw_port5 = FPGAmessage[5];
-	to_hw_port6 = FPGAmessage[6];
-	to_hw_port7 = FPGAmessage[7];
-	to_hw_port8 = FPGAmessage[8];
-	to_hw_port9 = FPGAmessage[9];
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
+
+	printf("got past putting it in\n");
+
+	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
 	*to_hw_sig = 1;		// now we are done putting in messages
 
-	while(*to_sw_sig != 0) // wait for response from hardware
+	printf("almost done\n");
+
+	while(*to_sw_sig != 0); // wait for response from hardware
 	*to_hw_sig = 0;		// okay we're done now, going back to sleep
+
+	printf("message stuff done\n");
 }
 
 int main()
@@ -52,8 +58,12 @@ int main()
 	int i;
 	for (i=0; i<16; i++)
 	{
-		FPGAmessage[i] = 0;
+		printf("Puttin in our message yo\n");
+		FPGAmessage[i] = 9;
 	}
 
+	printf("Now we doing our communicatin\n");
+	FPGAcommunicator(FPGAmessage);
 
+	return 0;
 }

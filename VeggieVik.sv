@@ -23,24 +23,12 @@ module VeggieVik(input CLOCK_50,
 										 VGA_BLANK_N,			//VGA Blank signal
 										 VGA_VS,					//VGA virtical sync signal	
 										 VGA_HS,
-	/*				  // DEBUGGING OUTPUT
+/*					  // DEBUGGING OUTPUT		
 					  output [7:0] MemOut,
 					  output [18:0] frame_rdAddress_OUT,
 					  output [9:0] DrawX_OUT,     // horizontal coordinate
 								      DrawY_OUT, 
-					  output [6:0]  HEX0, HEX1);					//VGA horizontal sync signal)				 
-
-					  logic 		[7:0]  frame_input;		// input data to frame buffer
-					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
-					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
-					  logic [9:0] DrawX;
-					  logic [9:0] DrawY;
-					  logic 		frame_we;					// write enable for frame buffer
-					  logic 		[7:0] frame_output;		// output from frame buffer
-					  assign MemOut = frame_output;
-					  assign frame_rdAddress_OUT = frame_rdAddress;
-					  
-		*/			  
+*/
 					  // NIOS stuff
 					  output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
 					  inout  [31:0] DRAM_DQ,				// SDRAM Data 32 Bits
@@ -51,12 +39,29 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CKE,				// SDRAM Clock Enable
 					  output			 DRAM_WE_N,				// SDRAM Write Enable
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
-					  output			 DRAM_CLK);				// SDRAM Clock
+					  output			 DRAM_CLK,				// SDRAM Clock
+					
+					  // hex stuff
+					  output [6:0]  HEX0, HEX1);					//VGA horizontal sync signal)			
+					
+			
+					  logic 		[7:0]  frame_input;		// input data to frame buffer
+					  logic 		[18:0] frame_rdAddress;	// read address for frame buffer
+					  logic 		[18:0] frame_wrAddress;	// write address for frame buffer
+					  logic [9:0] DrawX;
+					  logic [9:0] DrawY;
+					  logic 		frame_we;					// write enable for frame buffer
+					  logic 		[7:0] frame_output;		// output from frame buffer
+					  assign MemOut = frame_output;
+					  assign frame_rdAddress_OUT = frame_rdAddress;
+					  
+					
 					  
 					  // nios system stuff
-					  nios_system nios_system_inst(
+					  nios_system nios_system(
 								 .clk_clk(Clk),         
-								 .reset_reset_n((KEY[0])),   
+								 .reset_reset_n((KEY[0])),  
+								 .sdram_clk_clk(DRAM_CLK), 
 								 .sdram_wire_addr(DRAM_ADDR), 
 								 .sdram_wire_ba(DRAM_BA),   
 								 .sdram_wire_cas_n(DRAM_CAS_N),
@@ -66,10 +71,30 @@ module VeggieVik(input CLOCK_50,
 								 .sdram_wire_dqm(DRAM_DQM),  
 								 .sdram_wire_ras_n(DRAM_RAS_N),
 								 .sdram_wire_we_n(DRAM_WE_N), 
-								 .sdram_clk_clk(DRAM_CLK),
-//								 .bmp_pixout_export(bmp_Pixel)
+								 .to_hw_port0_export(to_hw_port0),
+								 .to_hw_port1_export(to_hw_port1),
+								 .to_hw_port2_export(to_hw_port2),
+								 .to_hw_port3_export(to_hw_port3),
+								 .to_hw_port4_export(to_hw_port4),
+								 .to_hw_port5_export(to_hw_port5),
+								 .to_hw_port6_export(to_hw_port6),
+								 .to_hw_port7_export(to_hw_port7),
+								 .to_hw_port8_export(to_hw_port8),
+								 .to_hw_port9_export(to_hw_port9),
+								 .to_hw_sig_export(to_hw_sig),								 
+								 .to_sw_sig_export(to_sw_sig), 
 									);
-					  
+	
+					  // frame buffer stuff
+
+					  	// initializing basic variable stuff
+					  logic		Clk;
+					  logic 		Reset_h;  // The push buttons are active low
+					  logic 		graphics_clk;
+					 
+					  assign Clk = CLOCK_50;
+					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
+					  assign VGA_CLK = graphics_clk;	
 					  
 					  // hardware-software communication
 					  logic [1:0] to_sw_sig;
@@ -91,17 +116,6 @@ module VeggieVik(input CLOCK_50,
 										.to_hw_sig,
 										.to_sw_sig,
 										);
-	
-					  // frame buffer stuff
-
-					  	// initializing basic variable stuff
-					  logic		Clk;
-					  logic 		Reset_h;  // The push buttons are active low
-					  logic 		graphics_clk;
-					 
-					  assign Clk = CLOCK_50;
-					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
-					  assign VGA_CLK = graphics_clk;	
 					  
 					  // VGA controller stuff
 					  vga_controller vgasync_instance(
@@ -150,7 +164,7 @@ module VeggieVik(input CLOCK_50,
 									.Green(VGA_G),
 									.Blue(VGA_B));
 									
-//						HexDriver hex0(.In0(frame_output[7:4]), .Out0(HEX1));
-//						HexDriver hex1(.In0(frame_output[3:0]), .Out0(HEX0));			
+						HexDriver hex0(.In0(to_hw_port0[7:4]), .Out0(HEX1));
+						HexDriver hex1(.In0(to_hw_port0[3:0]), .Out0(HEX0));		
 			
 endmodule
