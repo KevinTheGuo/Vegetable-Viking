@@ -10,7 +10,6 @@ module hardware_software_comm (	input	clk,
 						//					input [7:0]  to_hw_port0, to_hw_port1, to_hw_port2, to_hw_port3, to_hw_port4, to_hw_port5, to_hw_port6, to_hw_port7, to_hw_port8, to_hw_port9,
 										
 											output logic [1:0]  	to_sw_sig
-	//										output logic [1:0]	
 										);
 		
 		enum logic [6:0] {RESET, WAIT,
@@ -24,8 +23,6 @@ module hardware_software_comm (	input	clk,
 				state <= RESET;
 			end 
 		end
-		
-		
 		
 		// THIS DETERMINES THE NEXT STATE
 		

@@ -40,8 +40,6 @@ module VeggieVik(input CLOCK_50,
 					  assign MemOut = frame_output;
 					  assign frame_rdAddress_OUT = frame_rdAddress;
 					  
-					  // HARDWARE SOFTWARE COMMUNICATION STUff
-					  
 		*/			  
 					  // NIOS stuff
 					  output [12:0] DRAM_ADDR,				// SDRAM Address 13 Bits
@@ -56,7 +54,7 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CLK);				// SDRAM Clock
 					  
 					  // nios system stuff
-					  nios_system nios_system(
+					  nios_system nios_system_inst(
 								 .clk_clk(Clk),         
 								 .reset_reset_n((KEY[0])),   
 								 .sdram_wire_addr(DRAM_ADDR), 
@@ -74,24 +72,24 @@ module VeggieVik(input CLOCK_50,
 					  
 					  
 					  // hardware-software communication
-					  logic 		drawingCode;
+					  logic [1:0] to_sw_sig;
+					  logic [1:0] to_hw_sig;
+					  logic [31:0] to_hw_port0;
+					  logic [31:0] to_hw_port1;
+					  logic [31:0] to_hw_port2;
+					  logic [31:0] to_hw_port3;
+					  logic [31:0] to_hw_port4;
+					  logic [31:0] to_hw_port5;
+					  logic [31:0] to_hw_port6;
+					  logic [31:0] to_hw_port7;
+					  logic [31:0] to_hw_port8;
+					  logic [31:0] to_hw_port9;					  
 					  
 					  hardware_software_comm hardware_software_comm_inst (
 										.clk(Clk),	// TO DO STILL
 										.reset(Reset_h),
 										.to_hw_sig,
-										.to_hw_port0,
-										.to_hw_port1,
-										.to_hw_port2,
-										.to_hw_port3,
-										.to_hw_port4,
-										.to_hw_port5,
-										.to_hw_port6,
-										.to_hw_port7,
-										.to_hw_port8,
-										.to_hw_port9,
 										.to_sw_sig,
-										.drawingCode
 										);
 	
 					  // frame buffer stuff
@@ -142,7 +140,7 @@ module VeggieVik(input CLOCK_50,
 									.Clk(Clk), 
 									.pixel_clk(graphics_clk),
 									.reset(reset_h),
-									.drawingCode,
+//									.drawingCode,
 									.DrawX(DrawX),
 									.DrawY(DrawY),
 									.Display(VGA_BLANK_N),
@@ -152,7 +150,7 @@ module VeggieVik(input CLOCK_50,
 									.Green(VGA_G),
 									.Blue(VGA_B));
 									
-						HexDriver hex0(.In0(frame_output[7:4]), .Out0(HEX1));
-						HexDriver hex1(.In0(frame_output[3:0]), .Out0(HEX0));			
+//						HexDriver hex0(.In0(frame_output[7:4]), .Out0(HEX1));
+//						HexDriver hex1(.In0(frame_output[3:0]), .Out0(HEX0));			
 			
 endmodule
