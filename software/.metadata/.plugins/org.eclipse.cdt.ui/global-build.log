@@ -1986,3 +1986,198 @@ Info: Building ../Vegetable-Viking_bsp/
 C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
 [BSP build complete]
 [Vegetable-Viking build complete]
+02:11:30 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking Vegetable-Viking.elf
+nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x128 --timestamp 1480469370 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+Info: (Vegetable-Viking.elf) 78 KBytes program size (code + initialized data).
+Info:                        130986 KBytes free for stack + heap.
+Info: Creating Vegetable-Viking.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
+[Vegetable-Viking build complete]
+02:11:32 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+13:29:11 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c:62:38: warning: 'struct displayPackage' declared inside parameter list
+ unsigned long messagePackager(struct displayPackage);
+                                      ^
+main.c:62:38: warning: its scope is only this definition or declaration, which is probably not what you want
+main.c: In function 'main':
+main.c:85:3: error: type of formal parameter 1 is incomplete
+   unsigned long long tempPackage = messagePackager(displayPackage[i]);
+   ^
+main.c: At top level:
+main.c:104:15: error: conflicting types for 'messagePackager'
+ unsigned long messagePackager(struct gameObject specifiedObject)
+               ^
+main.c:62:15: note: previous declaration of 'messagePackager' was here
+ unsigned long messagePackager(struct displayPackage);
+               ^
+make: *** [obj/default/main.o] Error 1
+13:29:17 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+13:30:05 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c:62:38: warning: 'struct displayPackage' declared inside parameter list
+ unsigned long messagePackager(struct displayPackage);
+                                      ^
+main.c:62:38: warning: its scope is only this definition or declaration, which is probably not what you want
+main.c: In function 'main':
+main.c:85:3: error: type of formal parameter 1 is incomplete
+   unsigned long long tempPackage = messagePackager(displayPackage[i]);
+   ^
+main.c: At top level:
+main.c:104:38: warning: 'struct displayPackage' declared inside parameter list
+ unsigned long messagePackager(struct displayPackage specifiedObject)
+                                      ^
+main.c:104:53: error: parameter 1 ('specifiedObject') has incomplete type
+ unsigned long messagePackager(struct displayPackage specifiedObject)
+                                                     ^
+make: *** [obj/default/main.o] Error 1
+13:30:06 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+13:30:27 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c:62:38: warning: 'struct displayPackage' declared inside parameter list
+ unsigned long messagePackager(struct displayPackage);
+                                      ^
+main.c:62:38: warning: its scope is only this definition or declaration, which is probably not what you want
+main.c: In function 'main':
+main.c:85:3: error: type of formal parameter 1 is incomplete
+   unsigned long long tempPackage = messagePackager(displayPackage[i]);
+   ^
+main.c: At top level:
+main.c:104:15: error: conflicting types for 'messagePackager'
+ unsigned long messagePackager(struct gameObject specifiedObject)
+               ^
+main.c:62:15: note: previous declaration of 'messagePackager' was here
+ unsigned long messagePackager(struct displayPackage);
+               ^
+make: *** [obj/default/main.o] Error 1
+13:30:27 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+13:30:39 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking Vegetable-Viking.elf
+nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x128 --timestamp 1480469370 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+Info: (Vegetable-Viking.elf) 78 KBytes program size (code + initialized data).
+Info:                        130986 KBytes free for stack + heap.
+Info: Creating Vegetable-Viking.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
+[Vegetable-Viking build complete]
+13:30:45 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+14:13:23 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking Vegetable-Viking.elf
+nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x128 --timestamp 1480469370 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+Info: (Vegetable-Viking.elf) 78 KBytes program size (code + initialized data).
+Info:                        130986 KBytes free for stack + heap.
+Info: Creating Vegetable-Viking.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
+[Vegetable-Viking build complete]
+14:13:25 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+14:39:59 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:103:11: warning: unused variable 'lastPhysixed' [-Wunused-variable]
+    double lastPhysixed = processorTime;
+           ^
+main.c: In function 'physicsEngine':
+main.c:120:60: error: 'xVelocity' undeclared (first use in this function)
+    veggieObject[i].xPosition = veggieObject[i].xPosition + xVelocity;
+                                                            ^
+main.c:120:60: note: each undeclared identifier is reported only once for each function it appears in
+main.c:121:60: error: 'yVelocity' undeclared (first use in this function)
+    veggieObject[i].yPosition = veggieObject[i].yPosition + yVelocity;
+                                                            ^
+make: *** [obj/default/main.o] Error 1
+14:40:03 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+14:41:45 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+main.c: In function 'main':
+main.c:103:11: warning: unused variable 'lastPhysixed' [-Wunused-variable]
+    double lastPhysixed = processorTime;
+           ^
+Info: Linking Vegetable-Viking.elf
+nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x128 --timestamp 1480469370 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+Info: (Vegetable-Viking.elf) 79 KBytes program size (code + initialized data).
+Info:                        130985 KBytes free for stack + heap.
+Info: Creating Vegetable-Viking.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
+[Vegetable-Viking build complete]
+14:41:53 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]
+14:42:16 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+make all 
+Info: Building ../Vegetable-Viking_bsp/
+C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
+[BSP build complete]
+Info: Compiling main.c to obj/default/main.o
+nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
+Info: Linking Vegetable-Viking.elf
+nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x128 --timestamp 1480469370 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+Info: (Vegetable-Viking.elf) 79 KBytes program size (code + initialized data).
+Info:                        130985 KBytes free for stack + heap.
+Info: Creating Vegetable-Viking.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
+[Vegetable-Viking build complete]
+14:42:18 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+make all 
+[BSP build complete]

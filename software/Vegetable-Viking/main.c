@@ -10,9 +10,11 @@
   ---------------------------------------------------------------------------*/
 // A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
 
+// include our stuff
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 // define our PIO interaction stuff
 #define to_hw_port0 (volatile unsigned long long*) 0x00000100 // actual address here
@@ -34,7 +36,7 @@
 //#define to_sw_port (char*) 0x00000030 // actual address here
 
 // struct your stuff
-struct displayPackage
+struct gameObject
 {
 	unsigned long xPosition;		// x position on the screen
 	unsigned long yPosition;		// y position on the screen
@@ -42,7 +44,11 @@ struct displayPackage
 	unsigned long objectState;		// state of the object
 //	unsigned long objectRot;		// rotation of the object (no longer included)
 	int packageType;	// type of message: 0- cursor, 1- fruit, 2- game status
+// THE FOLLOWING ARE NOT FOR TRANSMISSION
+	int xVelocity;
+	int yVelocity;
 };
+struct gameObject veggieObject[13];
 
 /* FOR GAME STATUS PACKAGE
  *	xPosition -> game score
@@ -51,59 +57,76 @@ struct displayPackage
  *	objectState -> game end state
 */
 
+// GLOBAL VARIABLES TO STORE PROCESSOR TIME
+double processorTime;
+
 // declarations of functions and stuff
-void FPGAcommunicator(unsigned long long* FPGAmessage);
-unsigned long messagePackager(struct displayPackage);
-unsigned long convertDecimalToBinary(unsigned long n);
-unsigned long convertBinaryToDecimal(unsigned long long n);
+void FPGAcommunicator();	// sends our structs to FPGA
+unsigned long messagePackager(struct gameObject);	// packages our messages
+unsigned long convertDecimalToBinary(unsigned long n);	// read the title
+unsigned long convertBinaryToDecimal(unsigned long long n);	// see above
+void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
 
 
-// our main function!!!
+// our main function!!! this is where the magic happens
 int main()
 {
-	// make our struct
-	struct displayPackage gameObject[16];
+	// initialize timing stuff
+	processorTime = (clock())/(CLOCKS_PER_SEC);
+	double lastPhysixed = processorTime;
 
-	gameObject[0].xPosition = 127;
-	gameObject[0].yPosition = 96;
-	gameObject[0].objectType = 7;
-	gameObject[0].objectState = 7;
-	gameObject[0].packageType = 1;
-
-	gameObject[11].xPosition = 34;
-	gameObject[11].yPosition = 84;
-	gameObject[11].objectType = 2;
-	gameObject[11].objectState = 4;
-	gameObject[11].packageType = 1;
-
-	gameObject[12].xPosition = 640;
-	gameObject[12].yPosition = 480;
-	gameObject[12].objectType = 0;
-	gameObject[12].objectState = 0;
-	gameObject[12].packageType = 0;
-
-	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned long long FPGAmessage[16];
-
+	// initialize all our structs
 	int i;
-	for (i=0; i<13; i++)
+	for(i=0; i<13; i++)
 	{
-		// read in our temp package
-		unsigned long long tempPackage = messagePackager(gameObject[i]);
-
-		printf("Our %dth message is %llu\n", i, tempPackage);
-
-		FPGAmessage[i] = tempPackage;
+		veggieObject[i].xPosition = 0;
+		veggieObject[i].yPosition = 0;
+		veggieObject[i].objectType = 0;
+		veggieObject[i].objectState = 0;
+		veggieObject[i].packageType = 1;
+		veggieObject[i].xVelocity = 0;
+		veggieObject[i].yVelocity = 0;
 	}
+	veggieObject[0].packageType = 0;	// pointer
+	veggieObject[12].packageType = 2;	// game status
 
-	// printf("Now we doing our communicatin\n");
-	FPGAcommunicator(FPGAmessage);
 
+	while (1);
+	{
+		// constantly updating our current time in seconds
+		processorTime = (clock())/(CLOCKS_PER_SEC);
+
+		// constantly doing physics
+		if ((processorTime - lastPhysixed) > 0.1)	// greater than .1 seconds pass
+		{
+			physicsEngine();	// call our physics engine!
+			lastPhysixed = processorTime;
+		}
+
+
+	FPGAcommunicator();	// call this every time to update the FPGA
+	}
 	return 0;
 }
 
+void physicsEngine()
+{
+	int i;
+	for(i=1; i<12; i++)	// update all our physics of all objects!
+	{
+		if(veggieObject[i].objectState != 0)	// does it even exist?
+		{
+			// PHYSICS MAGIC!
+			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
+			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
+		}
+	}
+	return;
+}
+
 // this function takes a struct and converts it into a message we can send
-unsigned long messagePackager(struct displayPackage specifiedObject)
+unsigned long messagePackager(struct gameObject specifiedObject)
 {
 	// basic variables
 	int packageType;
@@ -178,8 +201,22 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 }
 
 // this function takes an array of 32-bit messages and sends them all out
-void FPGAcommunicator(unsigned long long* FPGAmessage)
+void FPGAcommunicator()
 {
+	// initialization of message we need to send to FPGA (array of 32-bit messages)
+	unsigned long long FPGAmessage[13];
+
+	// load all of our structs in
+	int i;
+	for (i=0; i<13; i++)
+	{
+		unsigned long long tempPackage = messagePackager(veggieObject[i]);
+		printf("Our %dth message is %llu\n", i, tempPackage);
+
+		FPGAmessage[i] = tempPackage;
+	}
+
+
 	*to_hw_sig = 2;	// 2 means we're starting communication
 
 	// now we put in all our messages
@@ -206,6 +243,7 @@ void FPGAcommunicator(unsigned long long* FPGAmessage)
 	*to_hw_sig = 0;		// okay we're done now, going back to sleep
 
 	printf("message stuff done\n");
+	return;
 }
 
 // converts decimal to binary
