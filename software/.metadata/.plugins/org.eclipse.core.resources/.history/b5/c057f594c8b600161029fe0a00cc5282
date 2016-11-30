@@ -96,7 +96,7 @@ int main()
 		FPGAmessage[i] = tempPackage;
 	}
 
-	// printf("Now we doing our communicatin\n");
+	printf("Now we doing our communicatin\n");
 	FPGAcommunicator(FPGAmessage);
 
 	return 0;
@@ -149,12 +149,12 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 		tempY = convertDecimalToBinary(tempY);
 		tempType = convertDecimalToBinary(tempType);
 		tempState = convertDecimalToBinary(tempState);
-/*
+
 		printf("tempX: %llu   ", tempX);
 		printf("tempY: %llu   ", tempY);
 		printf("tempType: %llu   ", tempType);
 		printf("tempState: %llu   ", tempState);
-*/
+
 
 		// now we append everything together!
 		if (packageType == 0)	// this means we are packaging the cursor
@@ -166,7 +166,7 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 		{
 			// location not as important
 			tempBinary = tempX + tempY*10000000 + tempType*100000000000000 + tempState*100000000000000000;
-		//	printf("tempBinary: %llu   ", tempBinary);
+			printf("tempBinary: %llu   ", tempBinary);
 		}
 	}
 

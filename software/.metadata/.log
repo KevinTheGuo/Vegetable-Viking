@@ -832,3 +832,61 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.e
 
 !ENTRY org.eclipse.core.resources 2 10035 2016-11-29 22:35:27.844
 !MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2016-11-30 00:16:26.261 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:18:30.771
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:18:33.037
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:21:09.002
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:21:09.781
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:21:12.037
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:25:57.337
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:25:57.995
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:26:00.033
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:27:03.074
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:27:03.756
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:27:06.044
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:31:49.801
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:31:50.436
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:31:52.756
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:36:45.824
+!MESSAGE Terminated Launch with connection: 10USB-Blaster on localhost [USB-0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:36:46.589
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --sidp=0x128 --id=0x0 --timestamp=1480469370]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2016-11-30 00:36:48.722
+!MESSAGE Executing: [C:/altera/15.0/quartus\bin64\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --sidp=0x128 --id=0x0 --timestamp=1480469370 /cygdrive/c/ECE385/Vegetable-Viking/software/Vegetable-Viking/Vegetable-Viking.elf]

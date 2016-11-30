@@ -96,7 +96,7 @@ int main()
 		FPGAmessage[i] = tempPackage;
 	}
 
-	// printf("Now we doing our communicatin\n");
+	printf("Now we doing our communicatin\n");
 	FPGAcommunicator(FPGAmessage);
 
 	return 0;

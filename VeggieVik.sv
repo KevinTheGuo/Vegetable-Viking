@@ -173,16 +173,14 @@ module VeggieVik(input CLOCK_50,
 									.Green(VGA_G),
 									.Blue(VGA_B));
 									
-						logic [31:0] hexTest;
-						assign hexTest = 32'hABCD1234;
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(hexTest[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(hexTest[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(hexTest[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(hexTest[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(hexTest[19:16]), .Out0(HEX4));	
-						HexDriver hex5(.In0(hexTest[23:20]), .Out0(HEX5));
-						HexDriver hex6(.In0(hexTest[27:24]), .Out0(HEX6));
-						HexDriver hex7(.In0(hexTest[31:28]), .Out0(HEX7));						
+						HexDriver hex0(.In0(to_hw_port11[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(to_hw_port11[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(to_hw_port11[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(to_hw_port11[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(to_hw_port11[19:16]), .Out0(HEX4));	
+						HexDriver hex5(.In0(to_hw_port11[23:20]), .Out0(HEX5));
+						HexDriver hex6(.In0(to_hw_port11[27:24]), .Out0(HEX6));
+						HexDriver hex7(.In0(to_hw_port11[31:28]), .Out0(HEX7));						
 			
 endmodule

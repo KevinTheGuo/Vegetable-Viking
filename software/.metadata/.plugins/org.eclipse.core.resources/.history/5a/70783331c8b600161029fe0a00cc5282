@@ -91,12 +91,13 @@ int main()
 		// read in our temp package
 		unsigned long long tempPackage = messagePackager(gameObject[i]);
 
+
 		printf("Our %dth message is %llu\n", i, tempPackage);
 
 		FPGAmessage[i] = tempPackage;
 	}
 
-	// printf("Now we doing our communicatin\n");
+	printf("Now we doing our communicatin\n");
 	FPGAcommunicator(FPGAmessage);
 
 	return 0;
@@ -149,12 +150,12 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 		tempY = convertDecimalToBinary(tempY);
 		tempType = convertDecimalToBinary(tempType);
 		tempState = convertDecimalToBinary(tempState);
-/*
+
 		printf("tempX: %llu   ", tempX);
 		printf("tempY: %llu   ", tempY);
 		printf("tempType: %llu   ", tempType);
 		printf("tempState: %llu   ", tempState);
-*/
+
 
 		// now we append everything together!
 		if (packageType == 0)	// this means we are packaging the cursor
@@ -166,7 +167,7 @@ unsigned long messagePackager(struct displayPackage specifiedObject)
 		{
 			// location not as important
 			tempBinary = tempX + tempY*10000000 + tempType*100000000000000 + tempState*100000000000000000;
-		//	printf("tempBinary: %llu   ", tempBinary);
+			printf("tempBinary: %llu   ", tempBinary);
 		}
 	}
 
@@ -196,11 +197,15 @@ void FPGAcommunicator(unsigned long long* FPGAmessage)
 	*to_hw_port10 = FPGAmessage[10];
 	*to_hw_port11 = FPGAmessage[11];
 	*to_hw_port12 = FPGAmessage[12];
-//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
+	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
+
+	printf("got past putting it in\n");
 
 	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
 	*to_hw_sig = 1;		// now we are done putting in messages
+
+	printf("almost done\n");
 
 	while(*to_sw_sig != 0); // wait for response from hardware
 	*to_hw_sig = 0;		// okay we're done now, going back to sleep
@@ -211,7 +216,7 @@ void FPGAcommunicator(unsigned long long* FPGAmessage)
 // converts decimal to binary
 unsigned long convertDecimalToBinary(unsigned long n)
 {
-  // printf("decimal input: %lu   ", n);
+	printf("decimal input: %lu   ", n);
     unsigned long long binaryNumber = 0;
     int remainder, i = 1;
 
@@ -222,14 +227,14 @@ unsigned long convertDecimalToBinary(unsigned long n)
         binaryNumber += remainder*i;
         i *= 10;
     }
-  //  printf("binary ouput: %llu \n", binaryNumber);
+    printf("binary ouput: %llu \n", binaryNumber);
     return binaryNumber;
 }
 
 // converts binary to decimal!
 unsigned long convertBinaryToDecimal(unsigned long long n)
 {
- //	printf("binary input: %llu   ", n);
+	printf("binary input: %llu   ", n);
     unsigned long decimalNumber = 0, i = 0, remainder;
     while (n!=0)
     {
@@ -238,6 +243,6 @@ unsigned long convertBinaryToDecimal(unsigned long long n)
         decimalNumber += remainder*pow(2,i);
         ++i;
     }
-  //  printf("decimal output: %lu\n", decimalNumber);
+    printf("decimal output: %lu\n", decimalNumber);
     return decimalNumber;
 }
