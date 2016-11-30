@@ -4,30 +4,33 @@
 
 `timescale 1 ps / 1 ps
 module nios_system (
-		input  wire        clk_clk,            //         clk.clk
-		input  wire        reset_reset_n,      //       reset.reset_n
-		output wire        sdram_clk_clk,      //   sdram_clk.clk
-		output wire [12:0] sdram_wire_addr,    //  sdram_wire.addr
-		output wire [1:0]  sdram_wire_ba,      //            .ba
-		output wire        sdram_wire_cas_n,   //            .cas_n
-		output wire        sdram_wire_cke,     //            .cke
-		output wire        sdram_wire_cs_n,    //            .cs_n
-		inout  wire [31:0] sdram_wire_dq,      //            .dq
-		output wire [3:0]  sdram_wire_dqm,     //            .dqm
-		output wire        sdram_wire_ras_n,   //            .ras_n
-		output wire        sdram_wire_we_n,    //            .we_n
-		output wire [31:0] to_hw_port0_export, // to_hw_port0.export
-		output wire [31:0] to_hw_port1_export, // to_hw_port1.export
-		output wire [31:0] to_hw_port2_export, // to_hw_port2.export
-		output wire [31:0] to_hw_port3_export, // to_hw_port3.export
-		output wire [31:0] to_hw_port4_export, // to_hw_port4.export
-		output wire [31:0] to_hw_port5_export, // to_hw_port5.export
-		output wire [31:0] to_hw_port6_export, // to_hw_port6.export
-		output wire [31:0] to_hw_port7_export, // to_hw_port7.export
-		output wire [31:0] to_hw_port8_export, // to_hw_port8.export
-		output wire [31:0] to_hw_port9_export, // to_hw_port9.export
-		output wire [1:0]  to_hw_sig_export,   //   to_hw_sig.export
-		input  wire [1:0]  to_sw_sig_export    //   to_sw_sig.export
+		input  wire        clk_clk,             //          clk.clk
+		input  wire        reset_reset_n,       //        reset.reset_n
+		output wire        sdram_clk_clk,       //    sdram_clk.clk
+		output wire [12:0] sdram_wire_addr,     //   sdram_wire.addr
+		output wire [1:0]  sdram_wire_ba,       //             .ba
+		output wire        sdram_wire_cas_n,    //             .cas_n
+		output wire        sdram_wire_cke,      //             .cke
+		output wire        sdram_wire_cs_n,     //             .cs_n
+		inout  wire [31:0] sdram_wire_dq,       //             .dq
+		output wire [3:0]  sdram_wire_dqm,      //             .dqm
+		output wire        sdram_wire_ras_n,    //             .ras_n
+		output wire        sdram_wire_we_n,     //             .we_n
+		output wire [31:0] to_hw_port0_export,  //  to_hw_port0.export
+		output wire [31:0] to_hw_port1_export,  //  to_hw_port1.export
+		output wire [31:0] to_hw_port10_export, // to_hw_port10.export
+		output wire [31:0] to_hw_port11_export, // to_hw_port11.export
+		output wire [31:0] to_hw_port12_export, // to_hw_port12.export
+		output wire [31:0] to_hw_port2_export,  //  to_hw_port2.export
+		output wire [31:0] to_hw_port3_export,  //  to_hw_port3.export
+		output wire [31:0] to_hw_port4_export,  //  to_hw_port4.export
+		output wire [31:0] to_hw_port5_export,  //  to_hw_port5.export
+		output wire [31:0] to_hw_port6_export,  //  to_hw_port6.export
+		output wire [31:0] to_hw_port7_export,  //  to_hw_port7.export
+		output wire [31:0] to_hw_port8_export,  //  to_hw_port8.export
+		output wire [31:0] to_hw_port9_export,  //  to_hw_port9.export
+		output wire [1:0]  to_hw_sig_export,    //    to_hw_sig.export
+		input  wire [1:0]  to_sw_sig_export     //    to_sw_sig.export
 	);
 
 	wire         sdram_pll_c0_clk;                                            // sdram_pll:c0 -> [mm_interconnect_0:sdram_pll_c0_clk, rst_controller_002:clk, sdram:clk]
@@ -138,12 +141,27 @@ module nios_system (
 	wire  [31:0] mm_interconnect_0_to_hw_port7_s1_writedata;                  // mm_interconnect_0:to_hw_port7_s1_writedata -> to_hw_port7:writedata
 	wire  [31:0] mm_interconnect_0_to_sw_sig_s1_readdata;                     // to_sw_sig:readdata -> mm_interconnect_0:to_sw_sig_s1_readdata
 	wire   [1:0] mm_interconnect_0_to_sw_sig_s1_address;                      // mm_interconnect_0:to_sw_sig_s1_address -> to_sw_sig:address
+	wire         mm_interconnect_0_to_hw_port10_s1_chipselect;                // mm_interconnect_0:to_hw_port10_s1_chipselect -> to_hw_port10:chipselect
+	wire  [31:0] mm_interconnect_0_to_hw_port10_s1_readdata;                  // to_hw_port10:readdata -> mm_interconnect_0:to_hw_port10_s1_readdata
+	wire   [1:0] mm_interconnect_0_to_hw_port10_s1_address;                   // mm_interconnect_0:to_hw_port10_s1_address -> to_hw_port10:address
+	wire         mm_interconnect_0_to_hw_port10_s1_write;                     // mm_interconnect_0:to_hw_port10_s1_write -> to_hw_port10:write_n
+	wire  [31:0] mm_interconnect_0_to_hw_port10_s1_writedata;                 // mm_interconnect_0:to_hw_port10_s1_writedata -> to_hw_port10:writedata
+	wire         mm_interconnect_0_to_hw_port11_s1_chipselect;                // mm_interconnect_0:to_hw_port11_s1_chipselect -> to_hw_port11:chipselect
+	wire  [31:0] mm_interconnect_0_to_hw_port11_s1_readdata;                  // to_hw_port11:readdata -> mm_interconnect_0:to_hw_port11_s1_readdata
+	wire   [1:0] mm_interconnect_0_to_hw_port11_s1_address;                   // mm_interconnect_0:to_hw_port11_s1_address -> to_hw_port11:address
+	wire         mm_interconnect_0_to_hw_port11_s1_write;                     // mm_interconnect_0:to_hw_port11_s1_write -> to_hw_port11:write_n
+	wire  [31:0] mm_interconnect_0_to_hw_port11_s1_writedata;                 // mm_interconnect_0:to_hw_port11_s1_writedata -> to_hw_port11:writedata
+	wire         mm_interconnect_0_to_hw_port12_s1_chipselect;                // mm_interconnect_0:to_hw_port12_s1_chipselect -> to_hw_port12:chipselect
+	wire  [31:0] mm_interconnect_0_to_hw_port12_s1_readdata;                  // to_hw_port12:readdata -> mm_interconnect_0:to_hw_port12_s1_readdata
+	wire   [1:0] mm_interconnect_0_to_hw_port12_s1_address;                   // mm_interconnect_0:to_hw_port12_s1_address -> to_hw_port12:address
+	wire         mm_interconnect_0_to_hw_port12_s1_write;                     // mm_interconnect_0:to_hw_port12_s1_write -> to_hw_port12:write_n
+	wire  [31:0] mm_interconnect_0_to_hw_port12_s1_writedata;                 // mm_interconnect_0:to_hw_port12_s1_writedata -> to_hw_port12:writedata
 	wire         irq_mapper_receiver0_irq;                                    // jtag_uart_0:av_irq -> irq_mapper:receiver0_irq
 	wire  [31:0] nios2_qsys_0_irq_irq;                                        // irq_mapper:sender_irq -> nios2_qsys_0:irq
 	wire         rst_controller_reset_out_reset;                              // rst_controller:reset_out -> [irq_mapper:reset, jtag_uart_0:rst_n, mm_interconnect_0:nios2_qsys_0_reset_reset_bridge_in_reset_reset, nios2_qsys_0:reset_n, rst_translator:in_reset]
 	wire         rst_controller_reset_out_reset_req;                          // rst_controller:reset_req -> [nios2_qsys_0:reset_req, rst_translator:reset_req_in]
 	wire         nios2_qsys_0_debug_reset_request_reset;                      // nios2_qsys_0:debug_reset_request -> [rst_controller:reset_in1, rst_controller_002:reset_in1]
-	wire         rst_controller_001_reset_out_reset;                          // rst_controller_001:reset_out -> [mm_interconnect_0:sysid_qsys_0_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, rst_translator_001:in_reset, sdram_pll:reset, sysid_qsys_0:reset_n, to_hw_port0:reset_n, to_hw_port1:reset_n, to_hw_port2:reset_n, to_hw_port3:reset_n, to_hw_port4:reset_n, to_hw_port5:reset_n, to_hw_port6:reset_n, to_hw_port7:reset_n, to_hw_port8:reset_n, to_hw_port9:reset_n, to_hw_sig:reset_n, to_sw_sig:reset_n]
+	wire         rst_controller_001_reset_out_reset;                          // rst_controller_001:reset_out -> [mm_interconnect_0:sysid_qsys_0_reset_reset_bridge_in_reset_reset, onchip_memory2_0:reset, rst_translator_001:in_reset, sdram_pll:reset, sysid_qsys_0:reset_n, to_hw_port0:reset_n, to_hw_port10:reset_n, to_hw_port11:reset_n, to_hw_port12:reset_n, to_hw_port1:reset_n, to_hw_port2:reset_n, to_hw_port3:reset_n, to_hw_port4:reset_n, to_hw_port5:reset_n, to_hw_port6:reset_n, to_hw_port7:reset_n, to_hw_port8:reset_n, to_hw_port9:reset_n, to_hw_sig:reset_n, to_sw_sig:reset_n]
 	wire         rst_controller_001_reset_out_reset_req;                      // rst_controller_001:reset_req -> [onchip_memory2_0:reset_req, rst_translator_001:reset_req_in]
 	wire         rst_controller_002_reset_out_reset;                          // rst_controller_002:reset_out -> [mm_interconnect_0:sdram_reset_reset_bridge_in_reset_reset, sdram:reset_n]
 
@@ -267,6 +285,39 @@ module nios_system (
 		.chipselect (mm_interconnect_0_to_hw_port1_s1_chipselect), //                    .chipselect
 		.readdata   (mm_interconnect_0_to_hw_port1_s1_readdata),   //                    .readdata
 		.out_port   (to_hw_port1_export)                           // external_connection.export
+	);
+
+	nios_system_to_hw_port0 to_hw_port10 (
+		.clk        (clk_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_001_reset_out_reset),          //               reset.reset_n
+		.address    (mm_interconnect_0_to_hw_port10_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_to_hw_port10_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_to_hw_port10_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_to_hw_port10_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_to_hw_port10_s1_readdata),   //                    .readdata
+		.out_port   (to_hw_port10_export)                           // external_connection.export
+	);
+
+	nios_system_to_hw_port0 to_hw_port11 (
+		.clk        (clk_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_001_reset_out_reset),          //               reset.reset_n
+		.address    (mm_interconnect_0_to_hw_port11_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_to_hw_port11_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_to_hw_port11_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_to_hw_port11_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_to_hw_port11_s1_readdata),   //                    .readdata
+		.out_port   (to_hw_port11_export)                           // external_connection.export
+	);
+
+	nios_system_to_hw_port0 to_hw_port12 (
+		.clk        (clk_clk),                                      //                 clk.clk
+		.reset_n    (~rst_controller_001_reset_out_reset),          //               reset.reset_n
+		.address    (mm_interconnect_0_to_hw_port12_s1_address),    //                  s1.address
+		.write_n    (~mm_interconnect_0_to_hw_port12_s1_write),     //                    .write_n
+		.writedata  (mm_interconnect_0_to_hw_port12_s1_writedata),  //                    .writedata
+		.chipselect (mm_interconnect_0_to_hw_port12_s1_chipselect), //                    .chipselect
+		.readdata   (mm_interconnect_0_to_hw_port12_s1_readdata),   //                    .readdata
+		.out_port   (to_hw_port12_export)                           // external_connection.export
 	);
 
 	nios_system_to_hw_port0 to_hw_port2 (
@@ -442,6 +493,21 @@ module nios_system (
 		.to_hw_port1_s1_readdata                        (mm_interconnect_0_to_hw_port1_s1_readdata),                   //                                         .readdata
 		.to_hw_port1_s1_writedata                       (mm_interconnect_0_to_hw_port1_s1_writedata),                  //                                         .writedata
 		.to_hw_port1_s1_chipselect                      (mm_interconnect_0_to_hw_port1_s1_chipselect),                 //                                         .chipselect
+		.to_hw_port10_s1_address                        (mm_interconnect_0_to_hw_port10_s1_address),                   //                          to_hw_port10_s1.address
+		.to_hw_port10_s1_write                          (mm_interconnect_0_to_hw_port10_s1_write),                     //                                         .write
+		.to_hw_port10_s1_readdata                       (mm_interconnect_0_to_hw_port10_s1_readdata),                  //                                         .readdata
+		.to_hw_port10_s1_writedata                      (mm_interconnect_0_to_hw_port10_s1_writedata),                 //                                         .writedata
+		.to_hw_port10_s1_chipselect                     (mm_interconnect_0_to_hw_port10_s1_chipselect),                //                                         .chipselect
+		.to_hw_port11_s1_address                        (mm_interconnect_0_to_hw_port11_s1_address),                   //                          to_hw_port11_s1.address
+		.to_hw_port11_s1_write                          (mm_interconnect_0_to_hw_port11_s1_write),                     //                                         .write
+		.to_hw_port11_s1_readdata                       (mm_interconnect_0_to_hw_port11_s1_readdata),                  //                                         .readdata
+		.to_hw_port11_s1_writedata                      (mm_interconnect_0_to_hw_port11_s1_writedata),                 //                                         .writedata
+		.to_hw_port11_s1_chipselect                     (mm_interconnect_0_to_hw_port11_s1_chipselect),                //                                         .chipselect
+		.to_hw_port12_s1_address                        (mm_interconnect_0_to_hw_port12_s1_address),                   //                          to_hw_port12_s1.address
+		.to_hw_port12_s1_write                          (mm_interconnect_0_to_hw_port12_s1_write),                     //                                         .write
+		.to_hw_port12_s1_readdata                       (mm_interconnect_0_to_hw_port12_s1_readdata),                  //                                         .readdata
+		.to_hw_port12_s1_writedata                      (mm_interconnect_0_to_hw_port12_s1_writedata),                 //                                         .writedata
+		.to_hw_port12_s1_chipselect                     (mm_interconnect_0_to_hw_port12_s1_chipselect),                //                                         .chipselect
 		.to_hw_port2_s1_address                         (mm_interconnect_0_to_hw_port2_s1_address),                    //                           to_hw_port2_s1.address
 		.to_hw_port2_s1_write                           (mm_interconnect_0_to_hw_port2_s1_write),                      //                                         .write
 		.to_hw_port2_s1_readdata                        (mm_interconnect_0_to_hw_port2_s1_readdata),                   //                                         .readdata

@@ -23,7 +23,10 @@ module nios_system (
 	to_hw_port8_export,
 	to_hw_port9_export,
 	to_hw_sig_export,
-	to_sw_sig_export);	
+	to_sw_sig_export,
+	to_hw_port10_export,
+	to_hw_port11_export,
+	to_hw_port12_export);	
 
 	input		clk_clk;
 	input		reset_reset_n;
@@ -49,4 +52,7 @@ module nios_system (
 	output	[31:0]	to_hw_port9_export;
 	output	[1:0]	to_hw_sig_export;
 	input	[1:0]	to_sw_sig_export;
+	output	[31:0]	to_hw_port10_export;
+	output	[31:0]	to_hw_port11_export;
+	output	[31:0]	to_hw_port12_export;
 endmodule
