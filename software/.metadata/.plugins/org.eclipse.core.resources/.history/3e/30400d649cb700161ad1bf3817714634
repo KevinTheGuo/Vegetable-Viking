@@ -134,7 +134,7 @@ int main()
 			spawningEngine();	// call our spawning engine!
 			lastSpawned = elapsedTime;
 			nextSpawnTime = (rand() % 60) + 20;
-	//		printf("we generated a random number at %lu   ", nextSpawnTime);
+			printf("we generated a random number at %lu   ", nextSpawnTime);
 		}
 
 	FPGAcommunicator();	// call this every time to update the FPGA
@@ -187,7 +187,7 @@ void spawningEngine()
 void physicsEngine()
 {
 	int i;
-	for(i=1; i<15; i++)	// update all our physics of all objects!
+	for(i=1; i<16; i++)	// update all our physics of all objects!
 	{
 		if(veggieObject[i].objectState != 0)	// does it even exist?
 		{
