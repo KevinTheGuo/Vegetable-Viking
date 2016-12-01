@@ -42,6 +42,7 @@
 #define to_hw_sig (volatile char*) 0x00000070 // actual address here
 #define to_sw_sig (char*) 0x00000050 // actual address here
 
+
 // struct your stuff
 struct gameObject
 {
@@ -55,7 +56,7 @@ struct gameObject
 	int xVelocity;
 	int yVelocity;
 };
-struct gameObject veggieObject[13];
+struct gameObject veggieObject[16];
 
 /* FOR GAME STATUS PACKAGE
  *	xPosition -> game score
@@ -63,9 +64,6 @@ struct gameObject veggieObject[13];
  *	objectType -> game start state
  *	objectState -> game end state
 */
-
-// GLOBAL VARIABLES TO STORE PROCESSOR TIME
-long double processorTime;
 
 // declarations of functions and stuff
 void FPGAcommunicator();	// sends our structs to FPGA
@@ -75,23 +73,25 @@ unsigned long convertBinaryToDecimal(unsigned long long n);	// see above
 void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
 void spawningEngine();	// spawn more objects!! with randomness!!
 
-
 // our main function!!! this is where the magic happens
 int main()
 {
 	// put in our seed
-	unsigned long inputSeed = convertBinaryToDecimal(*to_sw_port0);
-	srand(inputSeed);
+	srand(*to_sw_port0);
+//	printf("Our current inputseed is %lu \n", *to_sw_port0);
 
 	// initialize timing stuff
-	processorTime = (clock())/(CLOCKS_PER_SEC);
-	long double lastPhysixed = processorTime;
-	long double lastSpawned = processorTime;
-	long double nextSpawnTime;
+	unsigned long processorStart = *to_sw_port1;
+	unsigned long processorTime = processorStart;
+	unsigned long elapsedTime;
+	unsigned long lastPhysixed;
+	unsigned long lastSpawned;
+	unsigned long nextSpawnTime;
+//	printf("our start time is %ld \n", processorStart);
 
 	// initialize all our structs
 	int i;
-	for(i=0; i<16; i++)
+	for(i=0; i<15; i++)
 	{
 		veggieObject[i].xPosition = 0;
 		veggieObject[i].yPosition = 0;
@@ -101,28 +101,40 @@ int main()
 		veggieObject[i].xVelocity = 0;
 		veggieObject[i].yVelocity = 0;
 	}
-	veggieObject[0].packageType = 0;	// pointer package
-	veggieObject[15].packageType = 2;	// game status package
+	veggieObject[0].packageType = 0;	// pointer
+	veggieObject[12].packageType = 2;	// game status
 
+	// TEST STUFF
+	veggieObject[15].xPosition = 94;
+	veggieObject[15].yPosition = 34;
+	veggieObject[15].objectType = 5;
+	veggieObject[15].objectState = 2;
+	veggieObject[15].packageType = 1;
+	veggieObject[15].xVelocity = 0;
+	veggieObject[15].yVelocity = 0;
 
-	while(1)	// this is our loop
+	while(1)
 	{
 		// constantly updating our current time in seconds
-		processorTime = (clock())/(CLOCKS_PER_SEC);
+		processorTime = *to_sw_port1;
+	//	printf("our time is %lu \n", processorTime);
+		elapsedTime = processorTime - processorStart;
+	//	printf("elapsed time is %lu \n", elapsedTime);
 
 		// constantly doing physics
-		if ((processorTime - lastPhysixed) > 0.1)	// greater than .1 seconds pass
+		if ((elapsedTime - lastPhysixed) > 1)	// greater than .1 seconds pass
 		{
 			physicsEngine();	// call our physics engine!
-			lastPhysixed = processorTime;
+			lastPhysixed = elapsedTime;
 		}
 
 		// spawning objects
-		if ((processorTime - lastSpawned) > nextSpawnTime)	// greater than random time
+		if ((elapsedTime - lastSpawned) > nextSpawnTime)	// greater than random time
 		{
 			spawningEngine();	// call our spawning engine!
-			lastSpawned = processorTime;
-			nextSpawnTime = (rand() % 6) + 2;
+			lastSpawned = elapsedTime;
+			nextSpawnTime = (rand() % 60) + 20;
+			printf("we generated a random number at %lu   ", nextSpawnTime);
 		}
 
 	FPGAcommunicator();	// call this every time to update the FPGA
@@ -133,17 +145,41 @@ int main()
 void spawningEngine()
 {
 	int i;
-	for(i=1; i<12; i++)	// let's go through our objects and see which ones are free
+	for(i=1; i<15; i++)	// let's go through our objects and see which ones are free
 	{
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
 			// RANDOM GENERATION!!
-			int randomX = (rand() % 6) + 2;
-			int randomType;
-			int randomSpeedY;
-			int randomSpeedX;
+			unsigned long randomX = (rand() % 104) + 14;
+			unsigned long randomType = (rand()% 8) + 1;
+			unsigned long randomSpeedY = (rand() % 30) + 30;
+			unsigned long randomSpeedX = (rand() % 15) - 7.5;
 
-			veggieObject[i].
+			if (randomX > 80)
+			{
+				randomSpeedX = (rand() % 15);
+			}
+			else if (randomX < 40)
+			{
+				randomSpeedX = (rand() % 15) - 15;
+			}
+
+			// now let's store these
+			veggieObject[i].xPosition = randomX;
+			veggieObject[i].yPosition = 1;
+			veggieObject[i].objectType = randomType;
+			veggieObject[i].objectState = 1;
+			veggieObject[i].xVelocity = randomSpeedX;
+			veggieObject[i].yVelocity = randomSpeedY;
+
+			printf("x is %lu  ", randomX);
+			printf("type is %lu  ", randomType);
+			printf("xvelocity is %lu  ", randomSpeedX);
+			printf("yvelocity is %lu  \n", randomSpeedY);
+
+			// now let's break
+			i = 15;
+			break;
 		}
 	}
 }
@@ -151,7 +187,7 @@ void spawningEngine()
 void physicsEngine()
 {
 	int i;
-	for(i=1; i<12; i++)	// update all our physics of all objects!
+	for(i=1; i<16; i++)	// update all our physics of all objects!
 	{
 		if(veggieObject[i].objectState != 0)	// does it even exist?
 		{
@@ -161,50 +197,6 @@ void physicsEngine()
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 		}
 	}
-	return;
-}
-
-// this function takes an array of 32-bit messages and sends them all out
-void FPGAcommunicator()
-{
-	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned long long FPGAmessage[13];
-
-	// load all of our structs in
-	int i;
-	for (i=0; i<13; i++)
-	{
-		unsigned long long tempPackage = messagePackager(veggieObject[i]);
-		printf("Our %dth message is %llu\n", i, tempPackage);
-
-		FPGAmessage[i] = tempPackage;
-	}
-
-	*to_hw_sig = 2;	// 2 means we're starting communication
-
-	// now we put in all our messages
-	*to_hw_port0 = FPGAmessage[0];
-	*to_hw_port1 = FPGAmessage[1];
-	*to_hw_port2 = FPGAmessage[2];
-	*to_hw_port3 = FPGAmessage[3];
-	*to_hw_port4 = FPGAmessage[4];
-	*to_hw_port5 = FPGAmessage[5];
-	*to_hw_port6 = FPGAmessage[6];
-	*to_hw_port7 = FPGAmessage[7];
-	*to_hw_port8 = FPGAmessage[8];
-	*to_hw_port9 = FPGAmessage[9];
-	*to_hw_port10 = FPGAmessage[10];
-	*to_hw_port11 = FPGAmessage[11];
-	*to_hw_port12 = FPGAmessage[12];
-//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
-
-	while(*to_sw_sig != 2);	// wait for FPGA to wake up
-	*to_hw_sig = 1;		// now we are done putting in messages
-
-	while(*to_sw_sig != 0); // wait for response from hardware
-	*to_hw_sig = 0;		// okay we're done now, going back to sleep
-
-	printf("message stuff done\n");
 	return;
 }
 
@@ -281,6 +273,55 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 
 	// and return it!
 	return tempDecimal;
+}
+
+// this function takes an array of 32-bit messages and sends them all out
+void FPGAcommunicator()
+{
+	// initialization of message we need to send to FPGA (array of 32-bit messages)
+	unsigned long long FPGAmessage[16];
+
+	// load all of our structs in
+	int i;
+	for (i=0; i<16; i++)
+	{
+		unsigned long long tempPackage = messagePackager(veggieObject[i]);
+	//	printf("Our %dth message is %llu\n", i, tempPackage);
+
+		FPGAmessage[i] = tempPackage;
+	}
+
+
+	*to_hw_sig = 2;	// 2 means we're starting communication
+
+	// now we put in all our messages
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
+	*to_hw_port10 = FPGAmessage[10];
+	*to_hw_port11 = FPGAmessage[11];
+	*to_hw_port12 = FPGAmessage[12];
+	*to_hw_port13 = FPGAmessage[13];
+	*to_hw_port14 = FPGAmessage[14];
+	*to_hw_port15 = FPGAmessage[15];
+//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
+
+	while(*to_sw_sig != 2);	// wait for FPGA to wake up
+
+	*to_hw_sig = 1;		// now we are done putting in messages
+
+	while(*to_sw_sig != 0); // wait for response from hardware
+	*to_hw_sig = 0;		// okay we're done now, going back to sleep
+
+//	printf("message stuff done\n");
+	return;
 }
 
 // converts decimal to binary

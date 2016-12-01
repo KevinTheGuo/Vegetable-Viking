@@ -166,7 +166,7 @@ void spawningEngine()
 
 			// now let's store these
 			veggieObject[i].xPosition = randomX;
-			veggieObject[i].yPosition = 0;
+			veggieObject[i].yPosition = 1;
 			veggieObject[i].objectType = randomType;
 			veggieObject[i].objectState = 1;
 			veggieObject[i].xVelocity = randomSpeedX;
@@ -197,9 +197,9 @@ void physicsEngine()
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
 			// let's now check if any of these objects are below the screen
-			if(veggieObject[i].yPosition < 0)
+			if(veggieObject[i].yPosition < 1)
 			{
-				// it has outlived its usefulness. ruthlessly slaughter it!
+				// it has outlived its usefullness. eliminate it!
 				veggieObject[i].xPosition = 0;
 				veggieObject[i].yPosition = 0;
 				veggieObject[i].objectType = 0;

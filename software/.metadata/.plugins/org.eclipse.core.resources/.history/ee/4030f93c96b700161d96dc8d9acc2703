@@ -46,15 +46,15 @@
 // struct your stuff
 struct gameObject
 {
-	long xPosition;		// x position on the screen
-	long yPosition;		// y position on the screen
-	long objectType;		// type of the object (different fruits/bombs)
-	long objectState;		// state of the object
-//	long objectRot;		// rotation of the object (no longer included)
+	unsigned long xPosition;		// x position on the screen
+	unsigned long yPosition;		// y position on the screen
+	unsigned long objectType;		// type of the object (different fruits/bombs)
+	unsigned long objectState;		// state of the object
+//	unsigned long objectRot;		// rotation of the object (no longer included)
 	int packageType;	// type of message: 0- cursor, 1- fruit, 2- game status
 // THE FOLLOWING ARE NOT FOR TRANSMISSION
-	double xVelocity;
-	double yVelocity;
+	int xVelocity;
+	int yVelocity;
 };
 struct gameObject veggieObject[16];
 
@@ -151,9 +151,9 @@ void spawningEngine()
 		{
 			// RANDOM GENERATION!!
 			unsigned long randomX = (rand() % 104) + 14;
-			int randomType = (rand() % 8) + 1;
-			double randomSpeedY = (rand() % 30) + 30;
-			double randomSpeedX = (rand() % 15) - 7.5;
+			unsigned long randomType = (rand() % 8) + 1;
+			unsigned long randomSpeedY = (rand() % 30) + 30;
+			unsigned long randomSpeedX = (rand() % 15) - 7.5;
 
 			if (randomX > 80)
 			{
@@ -164,19 +164,25 @@ void spawningEngine()
 				randomSpeedX = (rand() % 15) - 15;
 			}
 
+			if(randomSpeedX > 15)
+			{
+				printf("what the f, randomspeedx is %lu ", randomSpeedX);
+				randomSpeedX = randomSpeedX - 4294967290;
+			}
+
 			// now let's store these
 			veggieObject[i].xPosition = randomX;
-			veggieObject[i].yPosition = 0;
+			veggieObject[i].yPosition = 1;
 			veggieObject[i].objectType = randomType;
 			veggieObject[i].objectState = 1;
 			veggieObject[i].xVelocity = randomSpeedX;
 			veggieObject[i].yVelocity = randomSpeedY;
 
-/*			printf("x is %lu  ", randomX);
-			printf("type is %d  ", randomType);
-			printf("xvelocity is %f  ", randomSpeedX);
-			printf("yvelocity is %f  \n", randomSpeedY);
-*/
+			printf("x is %lu  ", randomX);
+			printf("type is %lu  ", randomType);
+			printf("xvelocity is %lu  ", randomSpeedX);
+			printf("yvelocity is %lu  \n", randomSpeedY);
+
 			// now let's break
 			i = 15;
 			break;
@@ -195,19 +201,6 @@ void physicsEngine()
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
-
-			// let's now check if any of these objects are below the screen
-			if(veggieObject[i].yPosition < 0)
-			{
-				// it has outlived its usefulness. ruthlessly slaughter it!
-				veggieObject[i].xPosition = 0;
-				veggieObject[i].yPosition = 0;
-				veggieObject[i].objectType = 0;
-				veggieObject[i].objectState = 0;
-				veggieObject[i].packageType = 1;
-				veggieObject[i].xVelocity = 0;
-				veggieObject[i].yVelocity = 0;
-			}
 		}
 	}
 	return;

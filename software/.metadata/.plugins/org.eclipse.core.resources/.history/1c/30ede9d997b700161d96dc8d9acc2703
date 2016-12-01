@@ -199,7 +199,7 @@ void physicsEngine()
 			// let's now check if any of these objects are below the screen
 			if(veggieObject[i].yPosition < 0)
 			{
-				// it has outlived its usefulness. ruthlessly slaughter it!
+				// it has outlived its usefullness. eliminate it!
 				veggieObject[i].xPosition = 0;
 				veggieObject[i].yPosition = 0;
 				veggieObject[i].objectType = 0;
