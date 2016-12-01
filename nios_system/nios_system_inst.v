@@ -13,6 +13,9 @@
 		.sdram_wire_we_n     (<connected-to-sdram_wire_we_n>),     //             .we_n
 		.to_hw_port0_export  (<connected-to-to_hw_port0_export>),  //  to_hw_port0.export
 		.to_hw_port1_export  (<connected-to-to_hw_port1_export>),  //  to_hw_port1.export
+		.to_hw_port10_export (<connected-to-to_hw_port10_export>), // to_hw_port10.export
+		.to_hw_port11_export (<connected-to-to_hw_port11_export>), // to_hw_port11.export
+		.to_hw_port12_export (<connected-to-to_hw_port12_export>), // to_hw_port12.export
 		.to_hw_port2_export  (<connected-to-to_hw_port2_export>),  //  to_hw_port2.export
 		.to_hw_port3_export  (<connected-to-to_hw_port3_export>),  //  to_hw_port3.export
 		.to_hw_port4_export  (<connected-to-to_hw_port4_export>),  //  to_hw_port4.export
@@ -23,8 +26,11 @@
 		.to_hw_port9_export  (<connected-to-to_hw_port9_export>),  //  to_hw_port9.export
 		.to_hw_sig_export    (<connected-to-to_hw_sig_export>),    //    to_hw_sig.export
 		.to_sw_sig_export    (<connected-to-to_sw_sig_export>),    //    to_sw_sig.export
-		.to_hw_port10_export (<connected-to-to_hw_port10_export>), // to_hw_port10.export
-		.to_hw_port11_export (<connected-to-to_hw_port11_export>), // to_hw_port11.export
-		.to_hw_port12_export (<connected-to-to_hw_port12_export>)  // to_hw_port12.export
+		.to_hw_port14_export (<connected-to-to_hw_port14_export>), // to_hw_port14.export
+		.to_hw_port13_export (<connected-to-to_hw_port13_export>), // to_hw_port13.export
+		.to_hw_port15_export (<connected-to-to_hw_port15_export>), // to_hw_port15.export
+		.to_sw_port0_export  (<connected-to-to_sw_port0_export>),  //  to_sw_port0.export
+		.to_sw_port1_export  (<connected-to-to_sw_port1_export>),  //  to_sw_port1.export
+		.to_sw_port2_export  (<connected-to-to_sw_port2_export>)   //  to_sw_port2.export
 	);
 

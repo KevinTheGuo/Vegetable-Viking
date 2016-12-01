@@ -14,6 +14,9 @@ module nios_system (
 	sdram_wire_we_n,
 	to_hw_port0_export,
 	to_hw_port1_export,
+	to_hw_port10_export,
+	to_hw_port11_export,
+	to_hw_port12_export,
 	to_hw_port2_export,
 	to_hw_port3_export,
 	to_hw_port4_export,
@@ -24,9 +27,12 @@ module nios_system (
 	to_hw_port9_export,
 	to_hw_sig_export,
 	to_sw_sig_export,
-	to_hw_port10_export,
-	to_hw_port11_export,
-	to_hw_port12_export);	
+	to_hw_port14_export,
+	to_hw_port13_export,
+	to_hw_port15_export,
+	to_sw_port0_export,
+	to_sw_port1_export,
+	to_sw_port2_export);	
 
 	input		clk_clk;
 	input		reset_reset_n;
@@ -42,6 +48,9 @@ module nios_system (
 	output		sdram_wire_we_n;
 	output	[31:0]	to_hw_port0_export;
 	output	[31:0]	to_hw_port1_export;
+	output	[31:0]	to_hw_port10_export;
+	output	[31:0]	to_hw_port11_export;
+	output	[31:0]	to_hw_port12_export;
 	output	[31:0]	to_hw_port2_export;
 	output	[31:0]	to_hw_port3_export;
 	output	[31:0]	to_hw_port4_export;
@@ -52,7 +61,10 @@ module nios_system (
 	output	[31:0]	to_hw_port9_export;
 	output	[1:0]	to_hw_sig_export;
 	input	[1:0]	to_sw_sig_export;
-	output	[31:0]	to_hw_port10_export;
-	output	[31:0]	to_hw_port11_export;
-	output	[31:0]	to_hw_port12_export;
+	output	[31:0]	to_hw_port14_export;
+	output	[31:0]	to_hw_port13_export;
+	output	[31:0]	to_hw_port15_export;
+	input	[31:0]	to_sw_port0_export;
+	input	[31:0]	to_sw_port1_export;
+	input	[7:0]	to_sw_port2_export;
 endmodule

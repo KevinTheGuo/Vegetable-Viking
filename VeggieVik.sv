@@ -15,7 +15,6 @@
 module VeggieVik(input CLOCK_50,		
 
 					  // VGA Interface 
-					  input  [3:0]  KEY, //bit 0 is set up as Reset
 					  output [7:0]  VGA_R,					//VGA Red
 										 VGA_G,					//VGA Green
 										 VGA_B,					//VGA Blue
@@ -43,8 +42,12 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK,				// SDRAM Clock
 					
-					  // hex stuff
-					  output [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7			//VGA horizontal sync signal
+					  // user IO stuff
+					  input  [17:0] SW,			// 18 switches
+					  input  [3:0]  KEY,			// 4 keys
+					  output [17:0] LEDR,		// red LED's
+					  output [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7 // 8 hexdisplays
+					
 					  );							
 					
 					  // ------------ END OF MODULE DECLARATION ------------
@@ -77,6 +80,12 @@ module VeggieVik(input CLOCK_50,
 								 .to_hw_port10_export(to_hw_port10),
 								 .to_hw_port11_export(to_hw_port11),
 								 .to_hw_port12_export(to_hw_port12),
+								 .to_hw_port13_export(to_hw_port13),
+								 .to_hw_port14_export(to_hw_port14),
+								 .to_hw_port15_export(to_hw_port15),
+								 .to_sw_port0_export(to_sw_port0),
+								 .to_sw_port1_export(to_sw_port1),
+								 .to_sw_port2_export(to_sw_port2),
 								 .to_hw_sig_export(to_hw_sig),								 
 								 .to_sw_sig_export(to_sw_sig), 
 									);
@@ -89,6 +98,8 @@ module VeggieVik(input CLOCK_50,
 					  assign Clk = CLOCK_50;
 					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
 					  assign VGA_CLK = graphics_clk;	
+					  
+					  assign LEDR[17:0] = SW[17:0];	// make led's match switches
 					
 					  // frame buffer stuff and displaying stuff
 					  logic [7:0]  frame_input;		// input data to frame buffer
@@ -117,6 +128,16 @@ module VeggieVik(input CLOCK_50,
 					  logic [31:0] to_hw_port10;				  
 					  logic [31:0] to_hw_port11;
 					  logic [31:0] to_hw_port12;
+					  logic [31:0] to_hw_port13;				  
+					  logic [31:0] to_hw_port14;
+					  logic [31:0] to_hw_port15;
+					  logic [31:0] to_sw_port0;
+					  logic [31:0] to_sw_port1;
+					  logic [7:0] to_sw_port2;
+					  
+					  // assign our software ports
+					  assign to_sw_port0[17:0] = SW[17:0];
+					  assign to_sw_port2[3:0] = KEY[3:0];
 					  
 					  // hardware-software communication module
 					  hardware_software_comm hardware_software_comm_inst (
@@ -174,13 +195,13 @@ module VeggieVik(input CLOCK_50,
 									.Blue(VGA_B));
 									
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(to_hw_port11[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(to_hw_port11[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(to_hw_port11[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(to_hw_port11[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(to_hw_port11[19:16]), .Out0(HEX4));	
-						HexDriver hex5(.In0(to_hw_port11[23:20]), .Out0(HEX5));
-						HexDriver hex6(.In0(to_hw_port11[27:24]), .Out0(HEX6));
-						HexDriver hex7(.In0(to_hw_port11[31:28]), .Out0(HEX7));						
+						HexDriver hex0(.In0(to_hw_port15[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(to_hw_port15[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(to_hw_port15[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(to_hw_port15[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(to_hw_port15[19:16]), .Out0(HEX4));	
+						HexDriver hex5(.In0(to_hw_port15[23:20]), .Out0(HEX5));
+						HexDriver hex6(.In0(to_hw_port15[27:24]), .Out0(HEX6));
+						HexDriver hex7(.In0(to_hw_port15[31:28]), .Out0(HEX7));						
 			
 endmodule

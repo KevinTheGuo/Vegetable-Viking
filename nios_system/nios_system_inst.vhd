@@ -14,6 +14,9 @@
 			sdram_wire_we_n     : out   std_logic;                                        -- we_n
 			to_hw_port0_export  : out   std_logic_vector(31 downto 0);                    -- export
 			to_hw_port1_export  : out   std_logic_vector(31 downto 0);                    -- export
+			to_hw_port10_export : out   std_logic_vector(31 downto 0);                    -- export
+			to_hw_port11_export : out   std_logic_vector(31 downto 0);                    -- export
+			to_hw_port12_export : out   std_logic_vector(31 downto 0);                    -- export
 			to_hw_port2_export  : out   std_logic_vector(31 downto 0);                    -- export
 			to_hw_port3_export  : out   std_logic_vector(31 downto 0);                    -- export
 			to_hw_port4_export  : out   std_logic_vector(31 downto 0);                    -- export
@@ -24,9 +27,12 @@
 			to_hw_port9_export  : out   std_logic_vector(31 downto 0);                    -- export
 			to_hw_sig_export    : out   std_logic_vector(1 downto 0);                     -- export
 			to_sw_sig_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
-			to_hw_port10_export : out   std_logic_vector(31 downto 0);                    -- export
-			to_hw_port11_export : out   std_logic_vector(31 downto 0);                    -- export
-			to_hw_port12_export : out   std_logic_vector(31 downto 0)                     -- export
+			to_hw_port14_export : out   std_logic_vector(31 downto 0);                    -- export
+			to_hw_port13_export : out   std_logic_vector(31 downto 0);                    -- export
+			to_hw_port15_export : out   std_logic_vector(31 downto 0);                    -- export
+			to_sw_port0_export  : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
+			to_sw_port1_export  : in    std_logic_vector(31 downto 0) := (others => 'X'); -- export
+			to_sw_port2_export  : in    std_logic_vector(7 downto 0)  := (others => 'X')  -- export
 		);
 	end component nios_system;
 
@@ -46,6 +52,9 @@
 			sdram_wire_we_n     => CONNECTED_TO_sdram_wire_we_n,     --             .we_n
 			to_hw_port0_export  => CONNECTED_TO_to_hw_port0_export,  --  to_hw_port0.export
 			to_hw_port1_export  => CONNECTED_TO_to_hw_port1_export,  --  to_hw_port1.export
+			to_hw_port10_export => CONNECTED_TO_to_hw_port10_export, -- to_hw_port10.export
+			to_hw_port11_export => CONNECTED_TO_to_hw_port11_export, -- to_hw_port11.export
+			to_hw_port12_export => CONNECTED_TO_to_hw_port12_export, -- to_hw_port12.export
 			to_hw_port2_export  => CONNECTED_TO_to_hw_port2_export,  --  to_hw_port2.export
 			to_hw_port3_export  => CONNECTED_TO_to_hw_port3_export,  --  to_hw_port3.export
 			to_hw_port4_export  => CONNECTED_TO_to_hw_port4_export,  --  to_hw_port4.export
@@ -56,8 +65,11 @@
 			to_hw_port9_export  => CONNECTED_TO_to_hw_port9_export,  --  to_hw_port9.export
 			to_hw_sig_export    => CONNECTED_TO_to_hw_sig_export,    --    to_hw_sig.export
 			to_sw_sig_export    => CONNECTED_TO_to_sw_sig_export,    --    to_sw_sig.export
-			to_hw_port10_export => CONNECTED_TO_to_hw_port10_export, -- to_hw_port10.export
-			to_hw_port11_export => CONNECTED_TO_to_hw_port11_export, -- to_hw_port11.export
-			to_hw_port12_export => CONNECTED_TO_to_hw_port12_export  -- to_hw_port12.export
+			to_hw_port14_export => CONNECTED_TO_to_hw_port14_export, -- to_hw_port14.export
+			to_hw_port13_export => CONNECTED_TO_to_hw_port13_export, -- to_hw_port13.export
+			to_hw_port15_export => CONNECTED_TO_to_hw_port15_export, -- to_hw_port15.export
+			to_sw_port0_export  => CONNECTED_TO_to_sw_port0_export,  --  to_sw_port0.export
+			to_sw_port1_export  => CONNECTED_TO_to_sw_port1_export,  --  to_sw_port1.export
+			to_sw_port2_export  => CONNECTED_TO_to_sw_port2_export   --  to_sw_port2.export
 		);
 

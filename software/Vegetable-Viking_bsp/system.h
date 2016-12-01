@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'nios_system'
  * SOPC Builder design path: ../../nios_system.sopcinfo
  *
- * Generated: Tue Nov 29 19:51:45 CST 2016
+ * Generated: Wed Nov 30 19:33:57 CST 2016
  */
 
 /*
@@ -158,19 +158,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x130
+#define ALT_STDERR_BASE 0x190
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x130
+#define ALT_STDIN_BASE 0x190
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x130
+#define ALT_STDOUT_BASE 0x190
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -195,7 +195,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x130
+#define JTAG_UART_0_BASE 0x190
 #define JTAG_UART_0_IRQ 5
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -281,7 +281,7 @@
  */
 
 #define ALT_MODULE_CLASS_sdram_pll altpll
-#define SDRAM_PLL_BASE 0x110
+#define SDRAM_PLL_BASE 0x170
 #define SDRAM_PLL_IRQ -1
 #define SDRAM_PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SDRAM_PLL_NAME "/dev/sdram_pll"
@@ -295,13 +295,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x128
+#define SYSID_QSYS_0_BASE 0x188
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1480469370
+#define SYSID_QSYS_0_TIMESTAMP 1480546884
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -438,6 +438,87 @@
 #define TO_HW_PORT12_RESET_VALUE 0
 #define TO_HW_PORT12_SPAN 16
 #define TO_HW_PORT12_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_hw_port13 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_hw_port13 altera_avalon_pio
+#define TO_HW_PORT13_BASE 0x160
+#define TO_HW_PORT13_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_HW_PORT13_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_HW_PORT13_CAPTURE 0
+#define TO_HW_PORT13_DATA_WIDTH 32
+#define TO_HW_PORT13_DO_TEST_BENCH_WIRING 0
+#define TO_HW_PORT13_DRIVEN_SIM_VALUE 0
+#define TO_HW_PORT13_EDGE_TYPE "NONE"
+#define TO_HW_PORT13_FREQ 50000000
+#define TO_HW_PORT13_HAS_IN 0
+#define TO_HW_PORT13_HAS_OUT 1
+#define TO_HW_PORT13_HAS_TRI 0
+#define TO_HW_PORT13_IRQ -1
+#define TO_HW_PORT13_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_HW_PORT13_IRQ_TYPE "NONE"
+#define TO_HW_PORT13_NAME "/dev/to_hw_port13"
+#define TO_HW_PORT13_RESET_VALUE 0
+#define TO_HW_PORT13_SPAN 16
+#define TO_HW_PORT13_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_hw_port14 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_hw_port14 altera_avalon_pio
+#define TO_HW_PORT14_BASE 0x150
+#define TO_HW_PORT14_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_HW_PORT14_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_HW_PORT14_CAPTURE 0
+#define TO_HW_PORT14_DATA_WIDTH 32
+#define TO_HW_PORT14_DO_TEST_BENCH_WIRING 0
+#define TO_HW_PORT14_DRIVEN_SIM_VALUE 0
+#define TO_HW_PORT14_EDGE_TYPE "NONE"
+#define TO_HW_PORT14_FREQ 50000000
+#define TO_HW_PORT14_HAS_IN 0
+#define TO_HW_PORT14_HAS_OUT 1
+#define TO_HW_PORT14_HAS_TRI 0
+#define TO_HW_PORT14_IRQ -1
+#define TO_HW_PORT14_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_HW_PORT14_IRQ_TYPE "NONE"
+#define TO_HW_PORT14_NAME "/dev/to_hw_port14"
+#define TO_HW_PORT14_RESET_VALUE 0
+#define TO_HW_PORT14_SPAN 16
+#define TO_HW_PORT14_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_hw_port15 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_hw_port15 altera_avalon_pio
+#define TO_HW_PORT15_BASE 0x140
+#define TO_HW_PORT15_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_HW_PORT15_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_HW_PORT15_CAPTURE 0
+#define TO_HW_PORT15_DATA_WIDTH 32
+#define TO_HW_PORT15_DO_TEST_BENCH_WIRING 0
+#define TO_HW_PORT15_DRIVEN_SIM_VALUE 0
+#define TO_HW_PORT15_EDGE_TYPE "NONE"
+#define TO_HW_PORT15_FREQ 50000000
+#define TO_HW_PORT15_HAS_IN 0
+#define TO_HW_PORT15_HAS_OUT 1
+#define TO_HW_PORT15_HAS_TRI 0
+#define TO_HW_PORT15_IRQ -1
+#define TO_HW_PORT15_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_HW_PORT15_IRQ_TYPE "NONE"
+#define TO_HW_PORT15_NAME "/dev/to_hw_port15"
+#define TO_HW_PORT15_RESET_VALUE 0
+#define TO_HW_PORT15_SPAN 16
+#define TO_HW_PORT15_TYPE "altera_avalon_pio"
 
 
 /*
@@ -681,6 +762,87 @@
 #define TO_HW_SIG_RESET_VALUE 0
 #define TO_HW_SIG_SPAN 16
 #define TO_HW_SIG_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_port0 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_port0 altera_avalon_pio
+#define TO_SW_PORT0_BASE 0x130
+#define TO_SW_PORT0_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_PORT0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_PORT0_CAPTURE 0
+#define TO_SW_PORT0_DATA_WIDTH 32
+#define TO_SW_PORT0_DO_TEST_BENCH_WIRING 0
+#define TO_SW_PORT0_DRIVEN_SIM_VALUE 0
+#define TO_SW_PORT0_EDGE_TYPE "NONE"
+#define TO_SW_PORT0_FREQ 50000000
+#define TO_SW_PORT0_HAS_IN 1
+#define TO_SW_PORT0_HAS_OUT 0
+#define TO_SW_PORT0_HAS_TRI 0
+#define TO_SW_PORT0_IRQ -1
+#define TO_SW_PORT0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_PORT0_IRQ_TYPE "NONE"
+#define TO_SW_PORT0_NAME "/dev/to_sw_port0"
+#define TO_SW_PORT0_RESET_VALUE 0
+#define TO_SW_PORT0_SPAN 16
+#define TO_SW_PORT0_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_port1 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_port1 altera_avalon_pio
+#define TO_SW_PORT1_BASE 0x120
+#define TO_SW_PORT1_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_PORT1_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_PORT1_CAPTURE 0
+#define TO_SW_PORT1_DATA_WIDTH 32
+#define TO_SW_PORT1_DO_TEST_BENCH_WIRING 0
+#define TO_SW_PORT1_DRIVEN_SIM_VALUE 0
+#define TO_SW_PORT1_EDGE_TYPE "NONE"
+#define TO_SW_PORT1_FREQ 50000000
+#define TO_SW_PORT1_HAS_IN 1
+#define TO_SW_PORT1_HAS_OUT 0
+#define TO_SW_PORT1_HAS_TRI 0
+#define TO_SW_PORT1_IRQ -1
+#define TO_SW_PORT1_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_PORT1_IRQ_TYPE "NONE"
+#define TO_SW_PORT1_NAME "/dev/to_sw_port1"
+#define TO_SW_PORT1_RESET_VALUE 0
+#define TO_SW_PORT1_SPAN 16
+#define TO_SW_PORT1_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_port2 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_port2 altera_avalon_pio
+#define TO_SW_PORT2_BASE 0x110
+#define TO_SW_PORT2_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_PORT2_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_PORT2_CAPTURE 0
+#define TO_SW_PORT2_DATA_WIDTH 8
+#define TO_SW_PORT2_DO_TEST_BENCH_WIRING 0
+#define TO_SW_PORT2_DRIVEN_SIM_VALUE 0
+#define TO_SW_PORT2_EDGE_TYPE "NONE"
+#define TO_SW_PORT2_FREQ 50000000
+#define TO_SW_PORT2_HAS_IN 1
+#define TO_SW_PORT2_HAS_OUT 0
+#define TO_SW_PORT2_HAS_TRI 0
+#define TO_SW_PORT2_IRQ -1
+#define TO_SW_PORT2_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_PORT2_IRQ_TYPE "NONE"
+#define TO_SW_PORT2_NAME "/dev/to_sw_port2"
+#define TO_SW_PORT2_RESET_VALUE 0
+#define TO_SW_PORT2_SPAN 16
+#define TO_SW_PORT2_TYPE "altera_avalon_pio"
 
 
 /*
