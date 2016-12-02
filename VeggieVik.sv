@@ -7,12 +7,15 @@
 			  \/ \___|\__, |\__, |_|\___|     \/   |_|_|\_\_|_| |_|\__, |
 						  __/ | __/ |                                  __/ |
 						 |___/ |___/                                  |___/ 
-  ---------------------------------------------------------------------------*/
+---------------------------------------------------------------------------*/
 // A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
-
 // THIS IS IT LADIES AND GENTS
 
-module VeggieVik(input CLOCK_50,		
+/*---------------------------------------------------------------------------
+									VEGGIEVIK INSTANTIATION
+---------------------------------------------------------------------------*/
+module VeggieVik(// Clock input
+					  input CLOCK_50,		
 
 					  // VGA Interface 
 					  output [7:0]  VGA_R,					//VGA Red
@@ -41,6 +44,9 @@ module VeggieVik(input CLOCK_50,
 					  output			 DRAM_WE_N,				// SDRAM Write Enable
 					  output			 DRAM_CS_N,				// SDRAM Chip Select
 					  output			 DRAM_CLK,				// SDRAM Clock
+					  
+					  // ARDUINO!!! input from header
+					  input  [35:0] GPIO,
 					
 					  // user IO stuff
 					  input  [17:0] SW,			// 18 switches

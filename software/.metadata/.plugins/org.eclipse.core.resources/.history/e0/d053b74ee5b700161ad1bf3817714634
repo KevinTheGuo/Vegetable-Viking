@@ -7,7 +7,7 @@
 			  \/ \___|\__, |\__, |_|\___|     \/   |_|_|\_\_|_| |_|\__, |
 					  __/ | __/ |                                  __/ |
 					 |___/ |___/                                  |___/
----------------------------------------------------------------------------*/
+  ---------------------------------------------------------------------------*/
 // A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
 
 // include our stuff
@@ -196,11 +196,6 @@ void physicsEngine()
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
-			printf("object %d!   ", i);
-			printf("xPosition is  %l ", veggieObject[i].xPosition);
-			printf("yPosition is  %l ", veggieObject[i].yPosition);
-			printf("yVelocity is  %l \n", veggieObject[i].yVelocity);
-
 			// let's now check if any of these objects are below the screen
 			if(veggieObject[i].yPosition < 0)
 			{
@@ -212,7 +207,7 @@ void physicsEngine()
 				veggieObject[i].packageType = 1;
 				veggieObject[i].xVelocity = 0;
 				veggieObject[i].yVelocity = 0;
-				printf("eliminating object %d! \n", i);
+				printf("eliminating object %d!   ", i);
 			}
 		}
 	}
