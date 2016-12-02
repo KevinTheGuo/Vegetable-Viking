@@ -18,6 +18,7 @@
 #Unignore soc folder
 !/nios_system/
 !/software/
+!/VeggieDuino/
 
 
 
