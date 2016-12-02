@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_qsys_0' in SOPC Builder design 'nios_system'
  * SOPC Builder design path: ../../nios_system.sopcinfo
  *
- * Generated: Wed Nov 30 19:33:57 CST 2016
+ * Generated: Fri Dec 02 02:28:46 CST 2016
  */
 
 /*
@@ -158,19 +158,19 @@
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
 #define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x190
+#define ALT_STDERR_BASE 0x1b0
 #define ALT_STDERR_DEV jtag_uart_0
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x190
+#define ALT_STDIN_BASE 0x1b0
 #define ALT_STDIN_DEV jtag_uart_0
 #define ALT_STDIN_IS_JTAG_UART
 #define ALT_STDIN_PRESENT
 #define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
 #define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x190
+#define ALT_STDOUT_BASE 0x1b0
 #define ALT_STDOUT_DEV jtag_uart_0
 #define ALT_STDOUT_IS_JTAG_UART
 #define ALT_STDOUT_PRESENT
@@ -195,7 +195,7 @@
  */
 
 #define ALT_MODULE_CLASS_jtag_uart_0 altera_avalon_jtag_uart
-#define JTAG_UART_0_BASE 0x190
+#define JTAG_UART_0_BASE 0x1b0
 #define JTAG_UART_0_IRQ 5
 #define JTAG_UART_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_0_NAME "/dev/jtag_uart_0"
@@ -281,7 +281,7 @@
  */
 
 #define ALT_MODULE_CLASS_sdram_pll altpll
-#define SDRAM_PLL_BASE 0x170
+#define SDRAM_PLL_BASE 0x190
 #define SDRAM_PLL_IRQ -1
 #define SDRAM_PLL_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SDRAM_PLL_NAME "/dev/sdram_pll"
@@ -295,13 +295,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x188
+#define SYSID_QSYS_0_BASE 0x1a8
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1480546884
+#define SYSID_QSYS_0_TIMESTAMP 1480657077
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -843,6 +843,60 @@
 #define TO_SW_PORT2_RESET_VALUE 0
 #define TO_SW_PORT2_SPAN 16
 #define TO_SW_PORT2_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_port3 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_port3 altera_avalon_pio
+#define TO_SW_PORT3_BASE 0x180
+#define TO_SW_PORT3_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_PORT3_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_PORT3_CAPTURE 0
+#define TO_SW_PORT3_DATA_WIDTH 16
+#define TO_SW_PORT3_DO_TEST_BENCH_WIRING 0
+#define TO_SW_PORT3_DRIVEN_SIM_VALUE 0
+#define TO_SW_PORT3_EDGE_TYPE "NONE"
+#define TO_SW_PORT3_FREQ 50000000
+#define TO_SW_PORT3_HAS_IN 1
+#define TO_SW_PORT3_HAS_OUT 0
+#define TO_SW_PORT3_HAS_TRI 0
+#define TO_SW_PORT3_IRQ -1
+#define TO_SW_PORT3_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_PORT3_IRQ_TYPE "NONE"
+#define TO_SW_PORT3_NAME "/dev/to_sw_port3"
+#define TO_SW_PORT3_RESET_VALUE 0
+#define TO_SW_PORT3_SPAN 16
+#define TO_SW_PORT3_TYPE "altera_avalon_pio"
+
+
+/*
+ * to_sw_port4 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_to_sw_port4 altera_avalon_pio
+#define TO_SW_PORT4_BASE 0x170
+#define TO_SW_PORT4_BIT_CLEARING_EDGE_REGISTER 0
+#define TO_SW_PORT4_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TO_SW_PORT4_CAPTURE 0
+#define TO_SW_PORT4_DATA_WIDTH 16
+#define TO_SW_PORT4_DO_TEST_BENCH_WIRING 0
+#define TO_SW_PORT4_DRIVEN_SIM_VALUE 0
+#define TO_SW_PORT4_EDGE_TYPE "NONE"
+#define TO_SW_PORT4_FREQ 50000000
+#define TO_SW_PORT4_HAS_IN 1
+#define TO_SW_PORT4_HAS_OUT 0
+#define TO_SW_PORT4_HAS_TRI 0
+#define TO_SW_PORT4_IRQ -1
+#define TO_SW_PORT4_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TO_SW_PORT4_IRQ_TYPE "NONE"
+#define TO_SW_PORT4_NAME "/dev/to_sw_port4"
+#define TO_SW_PORT4_RESET_VALUE 0
+#define TO_SW_PORT4_SPAN 16
+#define TO_SW_PORT4_TYPE "altera_avalon_pio"
 
 
 /*

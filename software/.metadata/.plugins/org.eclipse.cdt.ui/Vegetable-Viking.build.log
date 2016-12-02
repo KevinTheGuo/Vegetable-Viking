@@ -1,37 +1,18 @@
-22:19:57 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+02:30:16 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
 make all 
 Info: Building ../Vegetable-Viking_bsp/
 C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
 [BSP build complete]
 Info: Compiling main.c to obj/default/main.o
 nios2-elf-gcc -xc -MP -MMD -c -I../Vegetable-Viking_bsp//HAL/inc -I../Vegetable-Viking_bsp/ -I../Vegetable-Viking_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALT_SINGLE_THREADED    -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o obj/default/main.o main.c
-main.c: In function 'physicsEngine':
-main.c:202:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-    printf("xPosition is  %l ", veggieObject[i].xPosition);
-    ^
-main.c:202:4: warning: too many arguments for format [-Wformat-extra-args]
-main.c:202:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-main.c:202:4: warning: too many arguments for format [-Wformat-extra-args]
-main.c:203:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-    printf("yPosition is  %l ", veggieObject[i].yPosition);
-    ^
-main.c:203:4: warning: too many arguments for format [-Wformat-extra-args]
-main.c:203:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-main.c:203:4: warning: too many arguments for format [-Wformat-extra-args]
-main.c:204:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-    printf("yVelocity is  %l \n", veggieObject[i].yVelocity);
-    ^
-main.c:204:4: warning: too many arguments for format [-Wformat-extra-args]
-main.c:204:4: warning: unknown conversion type character 0x20 in format [-Wformat=]
-main.c:204:4: warning: too many arguments for format [-Wformat-extra-args]
 Info: Linking Vegetable-Viking.elf
 nios2-elf-g++  -T'../Vegetable-Viking_bsp//linker.x' -msys-crt0='../Vegetable-Viking_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../Vegetable-Viking_bsp/   -Wl,-Map=Vegetable-Viking.map   -O0 -g -Wall   -mno-hw-div -mno-hw-mul -mno-hw-mulx  -o Vegetable-Viking.elf obj/default/main.o -lm -msys-lib=m
-nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x188 --timestamp 1480546884 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
+nios2-elf-insert Vegetable-Viking.elf --thread_model hal --cpu_name nios2_qsys_0 --qsys true --simulation_enabled false --id 0 --sidp 0x1a8 --timestamp 1480657077 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name nios_system --quartus_project_dir "C:/ECE385/Vegetable-Viking" --jdi C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../VeggieVik.jdi --sopcinfo C:/ECE385/Vegetable-Viking/software/Vegetable-Viking_bsp/../../nios_system.sopcinfo
 Info: (Vegetable-Viking.elf) 81 KBytes program size (code + initialized data).
-Info:                        130984 KBytes free for stack + heap.
+Info:                        130983 KBytes free for stack + heap.
 Info: Creating Vegetable-Viking.objdump
 nios2-elf-objdump --disassemble --syms --all-header --source Vegetable-Viking.elf >Vegetable-Viking.objdump
 [Vegetable-Viking build complete]
 
-22:20:09 Build Finished (took 12s.330ms)
+02:30:18 Build Finished (took 2s.107ms)
 

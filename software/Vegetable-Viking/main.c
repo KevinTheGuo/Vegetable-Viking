@@ -215,9 +215,9 @@ void physicsEngine()
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
 			printf("object %d!   ", i);
-			printf("xPosition is  %l ", veggieObject[i].xPosition);
-			printf("yPosition is  %l ", veggieObject[i].yPosition);
-			printf("yVelocity is  %l \n", veggieObject[i].yVelocity);
+			printf("xPosition is  %li ", veggieObject[i].xPosition);
+			printf("yPosition is  %li ", veggieObject[i].yPosition);
+			printf("yVelocity is  %f \n", veggieObject[i].yVelocity);
 
 			// let's now check if any of these objects are below the screen
 			if(veggieObject[i].yPosition < 0)
@@ -359,6 +359,34 @@ void port2Unpackager()
 	port2 = convertDecimalToBinary(port2);
 
 	// now let's unpack it one by one
+	int unpackaged[5];
+	int i;
+	for(i=0; i<5; i++)
+	{
+		unpackaged[i] = port2 % 10;
+
+		port2 /= 10;
+	}
+
+	// now let's assign out all the statements
+	key1 = unpackaged[2];
+	key2 = unpackaged[3];
+	key3 = unpackaged[4];
+	cursorStreak = unpackaged[1];
+	cursorClicked = unpackaged[0];
+
+	if(key1)
+	{
+		printf("key1 pressed!");
+	}
+	if(key2)
+	{
+		printf("key2 pressed!");
+	}
+	if(key3)
+	{
+		printf("key3 pressed!");
+	}
 
 
 }
