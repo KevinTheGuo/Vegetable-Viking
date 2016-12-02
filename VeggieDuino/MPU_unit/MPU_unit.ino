@@ -24,6 +24,7 @@ struct dataPackage{
   unsigned int xCoordinate;    
   unsigned int yCoordinate;
   unsigned int streakActive;
+  unsigned int buttonClicked;
 };
 struct dataPackage radioPackage;
 
@@ -47,6 +48,7 @@ void setup()
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
   radioPackage.streakActive = 0;  
+  radioPackage.buttonClicked = 0;
 }
 
 void loop() 

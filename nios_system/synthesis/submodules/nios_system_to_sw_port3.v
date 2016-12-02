@@ -1,4 +1,4 @@
-//Legal Notice: (C)2010 Altera Corporation. All rights reserved.  Your
+//Legal Notice: (C)2016 Altera Corporation. All rights reserved.  Your
 //use of Altera Corporation's design tools, logic functions and other
 //software and tools, and its AMPP partner logic functions, and any
 //output files any of the foregoing (including device programming or
@@ -18,27 +18,41 @@
 // altera message_level Level1 
 // altera message_off 10034 10035 10036 10037 10230 10240 10030 
 
-module nios_system_sysid_qsys_0 (
-               // inputs:
-                address,
-                clock,
-                reset_n,
+module nios_system_to_sw_port3 (
+                                 // inputs:
+                                  address,
+                                  clk,
+                                  in_port,
+                                  reset_n,
 
-               // outputs:
-                readdata
-             )
+                                 // outputs:
+                                  readdata
+                               )
 ;
 
   output  [ 31: 0] readdata;
-  input            address;
-  input            clock;
+  input   [  1: 0] address;
+  input            clk;
+  input   [ 15: 0] in_port;
   input            reset_n;
 
-  wire    [ 31: 0] readdata;
-  //control_slave, which is an e_avalon_slave
-  assign readdata = address ? 1480657077 : 0;
+  wire             clk_en;
+  wire    [ 15: 0] data_in;
+  wire    [ 15: 0] read_mux_out;
+  reg     [ 31: 0] readdata;
+  assign clk_en = 1;
+  //s1, which is an e_avalon_slave
+  assign read_mux_out = {16 {(address == 0)}} & data_in;
+  always @(posedge clk or negedge reset_n)
+    begin
+      if (reset_n == 0)
+          readdata <= 0;
+      else if (clk_en)
+          readdata <= {32'b0 | read_mux_out};
+    end
+
+
+  assign data_in = in_port;
 
 endmodule
-
-
 

@@ -53,7 +53,6 @@ module VeggieVik(// Clock input
 					  input  [3:0]  KEY,			// 4 keys
 					  output [17:0] LEDR,		// red LED's
 					  output [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7 // 8 hexdisplays
-					
 					  );							
 					
 					  // ------------ END OF MODULE DECLARATION ------------
@@ -92,6 +91,8 @@ module VeggieVik(// Clock input
 								 .to_sw_port0_export(to_sw_port0),
 								 .to_sw_port1_export(to_sw_port1),
 								 .to_sw_port2_export(to_sw_port2),
+								 .to_sw_port3_export(to_sw_port3),
+								 .to_sw_port4_export(to_sw_port4),								 
 								 .to_hw_sig_export(to_hw_sig),								 
 								 .to_sw_sig_export(to_sw_sig), 
 									);
@@ -147,11 +148,22 @@ module VeggieVik(// Clock input
 					  logic [31:0] to_sw_port0;
 					  logic [31:0] to_sw_port1;
 					  logic [7:0] to_sw_port2;
+					  logic [15:0] to_sw_port3;
+					  logic [15:0] to_sw_port4;
 					  
 					  // assign our software ports
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
-					  assign to_sw_port2[3:0] = KEY[3:0];			// assign buttons for whatever
+					  assign to_sw_port2[5:0] = {KEY[3:0], GPIO[12:11]};			// assign buttons for whatever
+					  
+					  // arduino-FPGA communication module
+					  arduino_fpga_comm arduino_fpga_comm_inst (
+										.clk(Clk),
+										.reset(Reset_h),
+										.GPIO,
+										.xCoordinate(to_sw_port3[10:0]),
+										.yCoordinate(to_sw_port4[10:0])
+										);
 					  
 					  // hardware-software communication module
 					  hardware_software_comm hardware_software_comm_inst (

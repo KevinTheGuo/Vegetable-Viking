@@ -24,22 +24,24 @@ struct dataPackage{
   unsigned int xCoordinate;    
   unsigned int yCoordinate;
   unsigned int streakActive;
+  unsigned int buttonClicked;
 };
 struct dataPackage radioPackage;
 
-// all our pin constants!
-const int xyPin = 3;
-const int coordinatePin0 = 3;
-const int coordinatePin1 = 2;
-const int coordinatePin2 = 3;
-const int coordinatePin3 = 3;
-const int coordinatePin4 = 3;
-const int coordinatePin5 = 3;
-const int coordinatePin6 = 3;
-const int coordinatePin7 = 3;
-const int coordinatePin8 = 3;
-const int coordinatePin9 = 3;
-const int streakPin = 3;
+// all our pin constants!             STILL NEED TO ASSIGN ARDUINO PINS
+const int coordinatePin0 = 3;   // GPIO pin 0
+const int coordinatePin1 = 2;   // GPIO pin 1
+const int coordinatePin2 = 3;   // GPIO pin 2
+const int coordinatePin3 = 3;   // GPIO pin 3
+const int coordinatePin4 = 3;   // GPIO pin 4
+const int coordinatePin5 = 3;   // GPIO pin 5
+const int coordinatePin6 = 3;   // GPIO pin 6
+const int coordinatePin7 = 3;   // GPIO pin 7
+const int coordinatePin8 = 3;   // GPIO pin 8
+const int coordinatePin9 = 3;   // GPIO pin 9
+const int xyPin = 3;            // GPIO pin 10
+const int streakPin = 3;        // GPIO pin 11
+const int clickedPin = 3;       // GPIO pin 12
 
 // our timer variable
 unsigned long currentMillis; 
@@ -71,9 +73,9 @@ void setup()
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
   radioPackage.streakActive = 0;
+  radioPackage.buttonClicked = 0;
 
-  // doing all our pin stuff
-  pinMode(xyPin, OUTPUT);   
+  // doing all our pinmode stuff   
   pinMode(coordinatePin0, OUTPUT); 
   pinMode(coordinatePin1, OUTPUT);   
   pinMode(coordinatePin2, OUTPUT); 
@@ -85,6 +87,8 @@ void setup()
   pinMode(coordinatePin8, OUTPUT); 
   pinMode(coordinatePin9, OUTPUT); 
   pinMode(streakPin, OUTPUT);   
+  pinMode(xyPin, OUTPUT);
+  pinMode(clickedPin, OUTPUT);
 
   // let's fill our arrays with 0's and stuff
   int i;
@@ -109,7 +113,7 @@ void loop()
     decimalToBinary(radioPackage.yCoordinate, 10, yArray);
   }
 
-  if(currentMillis - lastTransmittedMillis >= 5)    // change our transmission once every 5 milliseconds
+  if(currentMillis - lastTransmittedMillis >= 5)    // make a new transmission once every 5 milliseconds
   {
     lastTransmittedMillis = currentMillis;
 
@@ -127,7 +131,7 @@ void loop()
       digitalWrite(coordinatePin8, xArray[8]); 
       digitalWrite(coordinatePin9, xArray[9]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
-      transmittedType = 0;   // flip around our xy pin 
+      transmittedType = 0;   // TRANSMITTED X indicator
     }
     else   // this means our last transmitted was x
     {
@@ -143,13 +147,17 @@ void loop()
       digitalWrite(coordinatePin8, yArray[8]); 
       digitalWrite(coordinatePin9, yArray[9]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
-      transmittedType = 1;   // flip around our xy pin 
+      transmittedType = 1;   // TRANSMITTED Y indicator
     }
+      // stuff we always do
+      digitalWrite(streakPin, radioPackage.streakActive); 
+      digitalWrite(clickedPin, radioPackage.buttonClicked); 
   }
 }
 
 void decimalToBinary(unsigned int decimal, int inputSize, int* binaryArray)
 {
+  // haha i actually have very little idea how this works
   unsigned int mask = 1U << (inputSize-1);
   int i;
   for(i=0; i<inputSize; i++)
