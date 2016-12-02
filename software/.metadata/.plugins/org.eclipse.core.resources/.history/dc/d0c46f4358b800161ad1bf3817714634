@@ -38,11 +38,11 @@
 #define to_sw_port0 (unsigned long*) 0x00000130 // switch input
 #define to_sw_port1 (unsigned long*) 0x00000120 // .1 sec counter
 #define to_sw_port2 (char*) 0x00000110 // 3 key signals + cursor status
-#define to_sw_port3 (unsigned int*) 0x00000180 // cursor x coordinate input
-#define to_sw_port4 (unsigned int*) 0x00000170 // cursor y coordinate input
+#define to_sw_port3 (unsigned int*) 0x00000180 // x coordinate input
+#define to_sw_port4 (unsigned int*) 0x00000170 // y coordinate input
 // hardware-software signals
-#define to_hw_sig (volatile char*) 0x00000070 // to hw sig
-#define to_sw_sig (char*) 0x00000050 // to sw sig
+#define to_hw_sig (volatile char*) 0x00000070 // actual address here
+#define to_sw_sig (char*) 0x00000050 // actual address here
 
 
 // struct your stuff
@@ -67,25 +67,17 @@ struct gameObject veggieObject[16];
  *	objectState -> game end state
 */
 
-// random variables for cursor status
-int xCursor;	// xcoordinate
-int yCursor;	// ycoordinate
-int cursorStreak;	// whether cursor has a streak or not
-int cursorClicked;	// whether our thingy was clicked!
-
-// random variables for key button status
-int key1;
-int key2;
-int key3;
+// our cursor coordinate variables
+unsigned int xCursor;
+unsigned int yCursor;
 
 // declarations of functions and stuff
-void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
-void spawningEngine();	// spawn more objects!! with randomness!!
 void FPGAcommunicator();	// sends our structs to FPGA
 unsigned long messagePackager(struct gameObject);	// packages our messages
-void port2Unpackager();
 unsigned long convertDecimalToBinary(unsigned long n);	// read the title
 unsigned long convertBinaryToDecimal(unsigned long long n);	// see above
+void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
+void spawningEngine();	// spawn more objects!! with randomness!!
 
 // our main function!!! this is where the magic happens
 int main()
@@ -103,10 +95,9 @@ int main()
 	unsigned long nextSpawnTime;
 //	printf("our start time is %ld \n", processorStart);
 
-	// initialize our cursor and key stuff
+	// initialize our cursor
 	xCursor = *to_sw_port3;
 	yCursor = *to_sw_port4;
-	port2Unpackager();
 
 	// initialize all our structs
 	int i;
@@ -237,56 +228,7 @@ void physicsEngine()
 	return;
 }
 
-// this function takes an array of 32-bit messages and sends them all out
-void FPGAcommunicator()
-{
-	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned long long FPGAmessage[16];
-
-	// load all of our structs in
-	int i;
-	for (i=0; i<16; i++)
-	{
-		unsigned long long tempPackage = messagePackager(veggieObject[i]);
-	//	printf("Our %dth message is %llu\n", i, tempPackage);
-
-		FPGAmessage[i] = tempPackage;
-	}
-
-
-	*to_hw_sig = 2;	// 2 means we're starting communication
-
-	// now we put in all our messages
-	*to_hw_port0 = FPGAmessage[0];
-	*to_hw_port1 = FPGAmessage[1];
-	*to_hw_port2 = FPGAmessage[2];
-	*to_hw_port3 = FPGAmessage[3];
-	*to_hw_port4 = FPGAmessage[4];
-	*to_hw_port5 = FPGAmessage[5];
-	*to_hw_port6 = FPGAmessage[6];
-	*to_hw_port7 = FPGAmessage[7];
-	*to_hw_port8 = FPGAmessage[8];
-	*to_hw_port9 = FPGAmessage[9];
-	*to_hw_port10 = FPGAmessage[10];
-	*to_hw_port11 = FPGAmessage[11];
-	*to_hw_port12 = FPGAmessage[12];
-	*to_hw_port13 = FPGAmessage[13];
-	*to_hw_port14 = FPGAmessage[14];
-	*to_hw_port15 = FPGAmessage[15];
-//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
-
-	while(*to_sw_sig != 2);	// wait for FPGA to wake up
-
-	*to_hw_sig = 1;		// now we are done putting in messages
-
-	while(*to_sw_sig != 0); // wait for response from hardware
-	*to_hw_sig = 0;		// okay we're done now, going back to sleep
-
-//	printf("message stuff done\n");
-	return;
-}
-
-// this function takes a single struct and converts it into a message we can send
+// this function takes a struct and converts it into a message we can send
 unsigned long messagePackager(struct gameObject specifiedObject)
 {
 	// basic variables
@@ -343,7 +285,9 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		// now we append everything together!
 		tempBinary = tempX + tempY*10000000 + tempType*100000000000000 + tempState*100000000000000000;
 		//	printf("tempBinary: %llu   ", tempBinary);
+		}
 	}
+
 	// and convert it back to decimal!
 	tempDecimal = convertBinaryToDecimal(tempBinary);
 
@@ -351,16 +295,53 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 	return tempDecimal;
 }
 
-// this function unpacks to software port 2 into its 5 different signals
-void port2Unpackager()
+// this function takes an array of 32-bit messages and sends them all out
+void FPGAcommunicator()
 {
-	// read it in and convert to binary
-	unsigned long port2 = *to_sw_port2;
-	port2 = convertDecimalToBinary(port2);
+	// initialization of message we need to send to FPGA (array of 32-bit messages)
+	unsigned long long FPGAmessage[16];
 
-	// now let's unpack it one by one
+	// load all of our structs in
+	int i;
+	for (i=0; i<16; i++)
+	{
+		unsigned long long tempPackage = messagePackager(veggieObject[i]);
+	//	printf("Our %dth message is %llu\n", i, tempPackage);
+
+		FPGAmessage[i] = tempPackage;
+	}
 
 
+	*to_hw_sig = 2;	// 2 means we're starting communication
+
+	// now we put in all our messages
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
+	*to_hw_port10 = FPGAmessage[10];
+	*to_hw_port11 = FPGAmessage[11];
+	*to_hw_port12 = FPGAmessage[12];
+	*to_hw_port13 = FPGAmessage[13];
+	*to_hw_port14 = FPGAmessage[14];
+	*to_hw_port15 = FPGAmessage[15];
+//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
+
+	while(*to_sw_sig != 2);	// wait for FPGA to wake up
+
+	*to_hw_sig = 1;		// now we are done putting in messages
+
+	while(*to_sw_sig != 0); // wait for response from hardware
+	*to_hw_sig = 0;		// okay we're done now, going back to sleep
+
+//	printf("message stuff done\n");
+	return;
 }
 
 // converts decimal to binary

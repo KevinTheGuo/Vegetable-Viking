@@ -358,8 +358,6 @@ void port2Unpackager()
 	unsigned long port2 = *to_sw_port2;
 	port2 = convertDecimalToBinary(port2);
 
-	// now let's unpack it one by one
-
 
 }
 

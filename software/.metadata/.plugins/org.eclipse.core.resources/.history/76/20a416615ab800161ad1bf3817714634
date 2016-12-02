@@ -351,16 +351,9 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 	return tempDecimal;
 }
 
-// this function unpacks to software port 2 into its 5 different signals
 void port2Unpackager()
 {
-	// read it in and convert to binary
-	unsigned long port2 = *to_sw_port2;
-	port2 = convertDecimalToBinary(port2);
-
-	// now let's unpack it one by one
-
-
+	int port2 = *to_sw_port2;
 }
 
 // converts decimal to binary

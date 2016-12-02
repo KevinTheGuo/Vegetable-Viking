@@ -98,10 +98,11 @@ module VeggieVik(// Clock input
 									);
 					
 					  // initializing basic variable stuff
-					  logic		Clk;
-					  logic 		Reset_h;  // The push buttons are active low
-					  logic 		graphics_clk;
-					  logic 		[19:0] Clk_10;
+					  logic			Clk;
+					  logic 			Reset_h;  // The push buttons are active low
+					  logic 			graphics_clk;
+					  logic [19:0] Clk_10;		// our .1 second counter
+					  logic [10:0] xCoordinate, yCoordinate;
 					 
 					  assign Clk = CLOCK_50;
 					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
@@ -155,14 +156,16 @@ module VeggieVik(// Clock input
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
 					  assign to_sw_port2[5:0] = {KEY[3:0], GPIO[12:11]};			// assign buttons for whatever
+					  assign to_sw_port3[10:0] = xCoordinate;
+					  assign to_sw_port4[10:0] = yCoordinate;
 					  
 					  // arduino-FPGA communication module
 					  arduino_fpga_comm arduino_fpga_comm_inst (
 										.clk(Clk),
 										.reset(Reset_h),
 										.GPIO,
-										.xCoordinate(to_sw_port3[10:0]),
-										.yCoordinate(to_sw_port4[10:0])
+										.xCoordinate,
+										.yCoordinate
 										);
 					  
 					  // hardware-software communication module
