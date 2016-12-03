@@ -1856,3 +1856,36 @@ java.lang.Exception: Connected system ID hash not found on target at expected ba
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2016-12-02 02:26:01.942 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_05
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product -pluginCustomization C:/altera/15.0/nios2eds/bin/eclipse_nios2/plugin_customization.ini
+
+!ENTRY com.altera.sbtgui.launch 4 0 2016-12-03 00:42:09.551
+!MESSAGE Unable to validate connection settings.
+!STACK 0
+java.lang.Exception
+	at com.altera.embeddedsw.flash.model.internal.SystemConsoleConnectionModel.validateConnectionSettings(SystemConsoleConnectionModel.java:555)
+	at com.altera.sbtgui.launch.hardware.AbstractNios2CLaunchDelegate.launch(AbstractNios2CLaunchDelegate.java:115)
+	at com.altera.sbtgui.launch.hardware.Nios2HardwareLaunchDelegate.launch(Nios2HardwareLaunchDelegate.java:98)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY com.altera.sbtgui.launch 4 0 2016-12-03 00:42:09.581
+!MESSAGE Unable to validate connection settings.
+!STACK 0
+java.lang.Exception
+	at com.altera.embeddedsw.flash.model.internal.SystemConsoleConnectionModel.validateConnectionSettings(SystemConsoleConnectionModel.java:555)
+	at com.altera.sbtgui.launch.hardware.AbstractNios2CLaunchDelegate.launch(AbstractNios2CLaunchDelegate.java:115)
+	at com.altera.sbtgui.launch.hardware.Nios2HardwareLaunchDelegate.launch(Nios2HardwareLaunchDelegate.java:98)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:858)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:707)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1018)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$8.run(DebugUIPlugin.java:1222)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)

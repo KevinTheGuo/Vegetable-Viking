@@ -10,8 +10,14 @@
 ---------------------------------------------------------------------------*/
 // A revolutionary addition to the popular Fruit Ninja game! Coming soon, to you, on FPGA!
 
+// our regular includes and stuff
 #include <SPI.h>
 #include "RF24.h"
+#include "I2Cdev.h"
+#include "MPU6050_6Axis_MotionApps20.h"
+#if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
+    #include "Wire.h"
+#endif
 
 // the Radio object
 RF24 radio(7,8);
@@ -53,9 +59,10 @@ void setup()
 
 void loop() 
 {
+
+  
   // now we send out info!
   // Serial.println(F("Sending our info"));
-   
   // now we are constantly sending our stuff
    if (!radio.write(&radioPackage, sizeof(radioPackage)))
    {
