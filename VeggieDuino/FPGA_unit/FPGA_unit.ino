@@ -28,19 +28,18 @@ struct dataPackage{
 struct dataPackage radioPackage;
 
 // all our pin constants!             STILL NEED TO ASSIGN ARDUINO PINS
-const int coordinatePin0 = 3;   // GPIO pin 0
-const int coordinatePin1 = 2;   // GPIO pin 1
-const int coordinatePin2 = 3;   // GPIO pin 2
-const int coordinatePin3 = 3;   // GPIO pin 3
-const int coordinatePin4 = 3;   // GPIO pin 4
-const int coordinatePin5 = 3;   // GPIO pin 5
-const int coordinatePin6 = 3;   // GPIO pin 6
-const int coordinatePin7 = 3;   // GPIO pin 7
-const int coordinatePin8 = 3;   // GPIO pin 8
-const int coordinatePin9 = 3;   // GPIO pin 9
-const int xyPin = 3;            // GPIO pin 10
-const int streakPin = 3;        // GPIO pin 11
-const int clickedPin = 3;       // GPIO pin 12
+const int coordinatePin0 = 2;   // GPIO pin 0
+const int coordinatePin1 = 3;   // GPIO pin 1
+const int coordinatePin2 = 4;   // GPIO pin 2
+const int coordinatePin3 = 5;   // GPIO pin 3
+const int coordinatePin4 = 6;   // GPIO pin 4
+const int coordinatePin5 = 9;   // GPIO pin 5
+const int coordinatePin6 = 10;   // GPIO pin 6
+const int coordinatePin7 = 14;   // GPIO pin 7      14 = A0
+const int coordinatePin8 = 15;   // GPIO pin 8      15 = A1
+const int coordinatePin9 = 16;   // GPIO pin 9      16 = A2
+const int xyPin = 17;            // GPIO pin 10     17 = A3
+const int streakPin = 18;        // GPIO pin 11     18 = A4
 
 // our timer variable
 unsigned long currentMillis; 
@@ -86,7 +85,6 @@ void setup()
   pinMode(coordinatePin9, OUTPUT); 
   pinMode(streakPin, OUTPUT);   
   pinMode(xyPin, OUTPUT);
-  pinMode(clickedPin, OUTPUT);
 
   // let's fill our arrays with 0's and stuff
   int i;
@@ -138,6 +136,7 @@ void loop()
       digitalWrite(coordinatePin9, xArray[9]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
       transmittedType = 0;   // TRANSMITTED X indicator
+      Serial.println(F("transmitted X"));
     }
     else   // this means our last transmitted was x
     {
@@ -154,10 +153,10 @@ void loop()
       digitalWrite(coordinatePin9, yArray[9]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
       transmittedType = 1;   // TRANSMITTED Y indicator
+      Serial.println(F("transmitted Y"));
     }
       // stuff we always do
       digitalWrite(streakPin, radioPackage.streakActive); 
-      digitalWrite(clickedPin, radioPackage.buttonClicked); 
   }
 }
 

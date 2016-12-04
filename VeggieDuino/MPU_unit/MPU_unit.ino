@@ -188,7 +188,7 @@ void loop()
 */    
   // now turn these into our 640x480 coordinate system
   radioPackage.xCoordinate = 4*currYaw + 320;
-  radioPackage.yCoordinate = 3*currPitch + 240;  
+  radioPackage.yCoordinate = 4*currPitch + 240;  
 
   // also check for boundaries
   if(radioPackage.xCoordinate > 640)
@@ -226,18 +226,13 @@ void loop()
     radioPackage.streakActive = 0;
   }
 
-  // send our button input, even though its probs useless now
-  radioPackage.buttonClicked = (!digitalRead(buttonPin));
-
   // print statements
   Serial.print(F("xCoord: "));
   Serial.print(radioPackage.xCoordinate);
   Serial.print(F("    yCoord: "));
   Serial.print(radioPackage.yCoordinate);
   Serial.print(F("    streak: "));
-  Serial.print(radioPackage.streakActive);
-  Serial.print(F("    clicked: "));
-  Serial.println(radioPackage.buttonClicked);
+  Serial.println(radioPackage.streakActive);
     
   // send our radio message every loop!
  if(!radio.write(&radioPackage, sizeof(radioPackage)))
