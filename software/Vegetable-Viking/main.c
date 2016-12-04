@@ -328,6 +328,10 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		tempType = specifiedObject.objectType;
 		tempState = specifiedObject.objectState;
 
+		// take X and Y and divide them by 5 to fit in our message
+		tempX = tempX/5 - 1;
+		tempY = tempY/5 - 1;
+
 		// and convert stuff to binary!
 		tempX = convertDecimalToBinary(tempX);
 		tempY = convertDecimalToBinary(tempY);

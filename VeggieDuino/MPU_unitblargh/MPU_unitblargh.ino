@@ -60,7 +60,8 @@ byte addresses[][6] = {"veggi","vikin"};
 struct dataPackage{
   int xCoordinate;    
   int yCoordinate;
-  bool streakActive;
+  unsigned int streakActive;
+  unsigned int buttonClicked;
 };
 struct dataPackage radioPackage;
 
@@ -86,10 +87,10 @@ void setup()
   devStatus = mpu.dmpInitialize();
 
   // set offsets
-  mpu.setXGyroOffset(191);
+  mpu.setXGyroOffset(192);
   mpu.setYGyroOffset(2);
-  mpu.setZGyroOffset(-22);
-  mpu.setZAccelOffset(1289); // 1688 factory default for my test chip
+  mpu.setZGyroOffset(-21);
+  mpu.setZAccelOffset(1277); // 1688 factory default for my test chip
   
   // make sure all our MPU stuff worked, and turn it on!
   if (devStatus == 0) {
@@ -133,6 +134,7 @@ void setup()
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
   radioPackage.streakActive = 0;  
+  radioPackage.buttonClicked = 0;
 
   // do our input pullup! this means it is normally high, and active low
   pinMode(buttonPin, INPUT_PULLUP); 
@@ -212,7 +214,7 @@ void loop()
   currentMillis = millis();
   
   // check if angular velocity is above our threshold (or has been recently)
-  if((gyro > 10) || (gyro < -10))
+  if(gyro > 3)
   {
     radioPackage.streakActive = 1;
     streakMillis = currentMillis;   // update last time we had a streak
@@ -254,10 +256,6 @@ void loop()
     delay(1000);
 
     mpu.dmpInitialize();
-    mpu.setXGyroOffset(191);
-    mpu.setYGyroOffset(2);
-    mpu.setZGyroOffset(-22);
-    mpu.setZAccelOffset(1289); // 1688 factory default for my test chip
     mpu.setDMPEnabled(true);
     // enable Arduino interrupt detection
     Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));

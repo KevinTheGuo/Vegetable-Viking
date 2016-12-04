@@ -224,13 +224,13 @@ module VeggieVik(// Clock input
 									.Blue(VGA_B));
 									
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(to_hw_port15[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(to_hw_port15[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(to_hw_port15[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(to_hw_port15[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(to_hw_port15[19:16]), .Out0(HEX4));	
-						HexDriver hex5(.In0(to_hw_port15[23:20]), .Out0(HEX5));
-						HexDriver hex6(.In0(to_hw_port15[27:24]), .Out0(HEX6));
-						HexDriver hex7(.In0(to_hw_port15[31:28]), .Out0(HEX7));						
+						HexDriver hex0(.In0(to_hw_port0[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(to_hw_port0[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(to_hw_port0[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(to_hw_port0[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(to_hw_port0[19:16]), .Out0(HEX4));	
+						HexDriver hex5(.In0(to_hw_port0[23:20]), .Out0(HEX5));
+						HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
+						HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));						
 			
 endmodule
