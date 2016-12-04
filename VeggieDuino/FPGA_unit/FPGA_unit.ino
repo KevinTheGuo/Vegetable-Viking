@@ -21,10 +21,9 @@ byte addresses[][6] = {"veggi","vikin"};
 
 // our struct for transmission
 struct dataPackage{
-  unsigned int xCoordinate;    
-  unsigned int yCoordinate;
-  unsigned int streakActive;
-  unsigned int buttonClicked;
+  int xCoordinate;    
+  int yCoordinate;
+  bool streakActive;
 };
 struct dataPackage radioPackage;
 
@@ -73,7 +72,6 @@ void setup()
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
   radioPackage.streakActive = 0;
-  radioPackage.buttonClicked = 0;
 
   // doing all our pinmode stuff   
   pinMode(coordinatePin0, OUTPUT); 
@@ -103,16 +101,24 @@ void loop()
 {
   if(radio.available())
   {
-    Serial.println(F("We got something!"));
+  //    Serial.println(F("We got something!"));
     while(radio.available())
     {
       radio.read(&radioPackage, sizeof(radioPackage));  // read in our thing
     }
+    Serial.print("x is ");
+    Serial.print(radioPackage.xCoordinate);
+    Serial.print("     y is ");
+    Serial.print(radioPackage.yCoordinate);
+    Serial.print("     streak is ");
+    Serial.println(radioPackage.streakActive);
     // now let's put our stuff into our arrays
     decimalToBinary(radioPackage.xCoordinate, 10, xArray);
     decimalToBinary(radioPackage.yCoordinate, 10, yArray);
   }
 
+  // timer stuff
+  currentMillis = millis();
   if(currentMillis - lastTransmittedMillis >= 5)    // make a new transmission once every 5 milliseconds
   {
     lastTransmittedMillis = currentMillis;

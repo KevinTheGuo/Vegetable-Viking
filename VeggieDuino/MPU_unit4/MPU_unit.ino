@@ -58,15 +58,18 @@ byte addresses[][6] = {"veggi","vikin"};
 
 // our struct for transmission
 struct dataPackage{
-  int xCoordinate;    
-  int yCoordinate;
-  bool streakActive;
+  unsigned int xCoordinate;    
+  unsigned int yCoordinate;
+  unsigned int streakActive;
+  unsigned int buttonClicked;
 };
 struct dataPackage radioPackage;
 
-// our timer variable
-unsigned long currentMillis = 0; 
-unsigned long streakMillis = 0; 
+// global variables for determining our grid
+float currYaw;
+float currPitch;
+float centeredYaw;
+float centeredPitch;
 
 void setup() 
 {
@@ -86,10 +89,10 @@ void setup()
   devStatus = mpu.dmpInitialize();
 
   // set offsets
-  mpu.setXGyroOffset(191);
+  mpu.setXGyroOffset(192);
   mpu.setYGyroOffset(2);
-  mpu.setZGyroOffset(-22);
-  mpu.setZAccelOffset(1289); // 1688 factory default for my test chip
+  mpu.setZGyroOffset(-21);
+  mpu.setZAccelOffset(1277); // 1688 factory default for my test chip
   
   // make sure all our MPU stuff worked, and turn it on!
   if (devStatus == 0) {
@@ -133,6 +136,7 @@ void setup()
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
   radioPackage.streakActive = 0;  
+  radioPackage.buttonClicked = 0;
 
   // do our input pullup! this means it is normally high, and active low
   pinMode(buttonPin, INPUT_PULLUP); 
@@ -150,23 +154,22 @@ void loop()
   // get current FIFO count
   fifoCount = mpu.getFIFOCount();
 
-  // wait for correct available data length, should be a VERY short wait
-  while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
+      // wait for correct available data length, should be a VERY short wait
+      while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
 
-  // read a packet from FIFO
-  mpu.getFIFOBytes(fifoBuffer, packetSize);
-  mpu.resetFIFO();    // AND CLEAR THE FFER
-  
-  // track FIFO count here in case there is > 1 packet available
-  // (this lets us immediately read more without waiting for an interrupt)
-  fifoCount -= packetSize;
+      // read a packet from FIFO
+      mpu.getFIFOBytes(fifoBuffer, packetSize);
+      mpu.resetFIFO();    // AND CLEAR THE FFER
+      
+      // track FIFO count here in case there is > 1 packet available
+      // (this lets us immediately read more without waiting for an interrupt)
+      fifoCount -= packetSize;
 
 // displaying yaw, pitch and roll
   mpu.dmpGetQuaternion(&q, fifoBuffer);
   mpu.dmpGetGyro(&gyro, fifoBuffer);
   mpu.dmpGetGravity(&gravity, &q);
   mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-/*
   Serial.print("ypr\t");
   Serial.print(ypr[0] * 180/M_PI);
   Serial.print("\t");
@@ -176,48 +179,9 @@ void loop()
   Serial.print("\t");
   Serial.print("angular velocity is");
   Serial.println(gyro);
-*/
-  
-  // save our currpitch and yaw
-  float currYaw = (ypr[0] * 180/M_PI);
-  float currPitch = -(ypr[1] * 180/M_PI);
-/*  Serial.print(F("currYaw is "));
-  Serial.print(currYaw);
-  Serial.print(F("      currPitch is "));
-  Serial.println(currPitch);
-*/    
-  // now turn these into our 640x480 coordinate system
-  radioPackage.xCoordinate = 4*currYaw + 320;
-  radioPackage.yCoordinate = 3*currPitch + 240;  
 
-  // also check for boundaries
-  if(radioPackage.xCoordinate > 640)
-  {
-    radioPackage.xCoordinate = 640;
-  }
-  else if(radioPackage.xCoordinate < 0)
-  {
-    radioPackage.xCoordinate = 0;
-  }
-  if(radioPackage.yCoordinate > 480)
-  {
-    radioPackage.yCoordinate = 480;
-  }
-  else if(radioPackage.yCoordinate < 0)
-  {
-    radioPackage.yCoordinate = 0;
-  }  
-
-  // timer stuff
-  currentMillis = millis();
-  
-  // check if angular velocity is above our threshold (or has been recently)
-  if((gyro > 10) || (gyro < -10))
-  {
-    radioPackage.streakActive = 1;
-    streakMillis = currentMillis;   // update last time we had a streak
-  }
-  else if (currentMillis - streakMillis < 100)
+  // check if angular velocity is above our threshold
+  if(gyro > 10)
   {
     radioPackage.streakActive = 1;
   }
@@ -225,24 +189,14 @@ void loop()
   {
     radioPackage.streakActive = 0;
   }
+  // do the rest of our sending
+  currPitch = (ypr[1] * 180/M_PI);
+  currYaw = (ypr[0] * 180/M_PI);
 
-  // send our button input, even though its probs useless now
-  radioPackage.buttonClicked = (!digitalRead(buttonPin));
-
-  // print statements
-  Serial.print(F("xCoord: "));
-  Serial.print(radioPackage.xCoordinate);
-  Serial.print(F("    yCoord: "));
-  Serial.print(radioPackage.yCoordinate);
-  Serial.print(F("    streak: "));
-  Serial.print(radioPackage.streakActive);
-  Serial.print(F("    clicked: "));
-  Serial.println(radioPackage.buttonClicked);
-    
   // send our radio message every loop!
  if(!radio.write(&radioPackage, sizeof(radioPackage)))
  {
- //  Serial.println(F("oopsies, our stuff was not sent correctly"));
+   Serial.println(F("oopsies, our stuff was not sent correctly"));
  }  
 
   // check if our button has been pressed! (active low)
@@ -251,13 +205,8 @@ void loop()
     // if it's pressed, reset out MPU!
     Serial.println(F("reset our MPU!"));
     mpu.setDMPEnabled(false);
-    delay(1000);
-
-    mpu.dmpInitialize();
-    mpu.setXGyroOffset(191);
-    mpu.setYGyroOffset(2);
-    mpu.setZGyroOffset(-22);
-    mpu.setZAccelOffset(1289); // 1688 factory default for my test chip
+    delay(100);
+    
     mpu.setDMPEnabled(true);
     // enable Arduino interrupt detection
     Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
@@ -267,7 +216,9 @@ void loop()
     // set our DMP Ready flag so the main loop() function knows it's okay to use it
     Serial.println(F("DMP ready! Waiting for first interrupt..."));
     dmpReady = true;
-    Serial.println(F("RESET is DONE!!!"));
+
+    // get expected DMP packet size for later comparison
+    packetSize = mpu.dmpGetFIFOPacketSize();
  }
 }
 
