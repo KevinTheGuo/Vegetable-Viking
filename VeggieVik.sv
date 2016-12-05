@@ -197,7 +197,7 @@ module VeggieVik(// Clock input
 									.pixel_clk(graphics_clk));
 					  
 						assign frame_we = 1'b1;		
-						//assign frame_rdAddress = 19'h00004;
+						
 						// frame buffer initialization
 						Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
@@ -208,14 +208,7 @@ module VeggieVik(// Clock input
 									.q(frame_output)
 									);
 								
-						/*test_memory fuckyou( .Clk(Clk),
-													.Reset(Reset_h), 
-													.Out(frame_output),
-													.A(frame_rdAddress));
-					  assign DrawX_OUT = DrawX;
-					  assign DrawY_OUT = DrawY;							
 						
-									*/
 						// frame displayer initialization
 						frame_displayer frame_displayer_inst(
 									.Clk(Clk), 
