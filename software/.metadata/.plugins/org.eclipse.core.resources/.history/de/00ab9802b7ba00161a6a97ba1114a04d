@@ -276,12 +276,11 @@ void FPGAcommunicator()
 	*to_hw_port15 = FPGAmessage[15];
 //	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
 
-// actually didnt need this tbh :p
-//	while(*to_sw_sig != 2);	// wait for FPGA to wake up
+	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
 	*to_hw_sig = 1;		// now we are done putting in messages
 
-//	while(*to_sw_sig != 0); // wait for response from hardware
+	while(*to_sw_sig != 0); // wait for response from hardware
 	*to_hw_sig = 0;		// okay we're done now, going back to sleep
 
 //	printf("message stuff done\n");
@@ -379,7 +378,7 @@ void port2Unpackager()
 	key2 = unpackaged[3];
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[0];
-	cursorClicked = unpackaged[1];
+	cursorClicked = unpackaged[0];
 
 	for(i=4; i>=0; i--)
 	{

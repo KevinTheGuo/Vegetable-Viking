@@ -276,7 +276,7 @@ void FPGAcommunicator()
 	*to_hw_port15 = FPGAmessage[15];
 //	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
 
-// actually didnt need this tbh :p
+// actually didnt need this tbh
 //	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
 	*to_hw_sig = 1;		// now we are done putting in messages

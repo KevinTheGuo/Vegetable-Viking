@@ -214,12 +214,12 @@ void loop()
   currentMillis = millis();
   
   // check if angular velocity is above our threshold (or has been recently)
-  if((gyro > 25) || (gyro < -25))
+  if((gyro > 30) || (gyro < -30))
   {
     radioPackage.streakActive = 1;
     streakMillis = currentMillis;   // update last time we had a streak
   }
-  else if (currentMillis - streakMillis < 100)
+  else if (currentMillis - streakMillis < 150)
   {
     radioPackage.streakActive = 1;
   }

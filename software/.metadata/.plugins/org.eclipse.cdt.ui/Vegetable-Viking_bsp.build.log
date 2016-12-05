@@ -1,6 +1,6 @@
-19:21:53 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
+00:43:39 **** Incremental Build of configuration Nios II for project Vegetable-Viking_bsp ****
 make all 
 [BSP build complete]
 
-19:21:54 Build Finished (took 1s.369ms)
+00:43:40 Build Finished (took 769ms)
 

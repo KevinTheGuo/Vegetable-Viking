@@ -56,9 +56,9 @@ bool yArray[10];
 
 void setup() 
 {
-  Serial.begin(9600);
-  Serial.println(F("Welcome to Veggie Viking! The newest revolution that's sweeping the nation!"));
-  Serial.println(F("This is the FPGA unit"));
+//  Serial.begin(9600);
+//  Serial.println(F("Welcome to Veggie Viking! The newest revolution that's sweeping the nation!"));
+//  Serial.println(F("This is the FPGA unit"));
 
   // set our radio stuff
   radio.begin();
@@ -112,7 +112,7 @@ void loop()
     {
       radio.read(&radioPackage, sizeof(radioPackage));  // read in our thing
     }
-    Serial.print("x is ");
+/*    Serial.print("x is ");
     Serial.print(radioPackage.xCoordinate);
     Serial.print("     y is ");
     Serial.print(radioPackage.yCoordinate);
@@ -120,7 +120,7 @@ void loop()
     Serial.print(radioPackage.streakActive);
     Serial.print("     button is ");
     Serial.println(radioPackage.buttonClicked);
-  }
+*/  }
 
     // now let's put our stuff into our arrays
     decimalToBinary(radioPackage.xCoordinate, 10, xArray);
@@ -152,7 +152,7 @@ void loop()
     else   // this means our last transmitted was x
     {
       // TRANSMIT Y
-      digitalWrite(coordinatePin1, yArray[9]); 
+      digitalWrite(coordinatePin0, yArray[9]); 
       digitalWrite(coordinatePin1, yArray[8]); 
       digitalWrite(coordinatePin2, yArray[7]); 
       digitalWrite(coordinatePin3, yArray[6]); 
@@ -170,7 +170,6 @@ void loop()
       digitalWrite(streakPin, radioPackage.streakActive); 
       digitalWrite(buttonPin, radioPackage.buttonClicked); 
   }
-           
 }
 
 void decimalToBinary(unsigned int decimal, int inputSize, bool* binaryArray)
