@@ -24,33 +24,35 @@ struct dataPackage{
   int xCoordinate;    
   int yCoordinate;
   bool streakActive;
+  bool buttonClicked;
 };
 struct dataPackage radioPackage;
 
 // all our pin constants!             STILL NEED TO ASSIGN ARDUINO PINS
-const int coordinatePin0 = 2;   // GPIO pin 0
-const int coordinatePin1 = 3;   // GPIO pin 1
-const int coordinatePin2 = 4;   // GPIO pin 2
-const int coordinatePin3 = 5;   // GPIO pin 3
-const int coordinatePin4 = 6;   // GPIO pin 4
-const int coordinatePin5 = 9;   // GPIO pin 5
-const int coordinatePin6 = 10;   // GPIO pin 6
-const int coordinatePin7 = 14;   // GPIO pin 7      14 = A0
-const int coordinatePin8 = 15;   // GPIO pin 8      15 = A1
-const int coordinatePin9 = 16;   // GPIO pin 9      16 = A2
-const int xyPin = 17;            // GPIO pin 10     17 = A3
-const int streakPin = 18;        // GPIO pin 11     18 = A4
+const int coordinatePin0 = 2;   // GPIO pin 0                       yellow
+const int coordinatePin1 = 3;   // GPIO pin 1                       green
+const int coordinatePin2 = 4;   // GPIO pin 2                       blue
+const int coordinatePin3 = 5;   // GPIO pin 3                       purple
+const int coordinatePin4 = 6;   // GPIO pin 4                       grey
+const int coordinatePin5 = 9;   // GPIO pin 5                       white
+const int coordinatePin6 = 10;   // GPIO pin 6                      black
+const int coordinatePin7 = 14;   // GPIO pin 7      14 = A0         brown
+const int coordinatePin8 = 15;   // GPIO pin 8      15 = A1         red
+const int coordinatePin9 = 16;   // GPIO pin 9      16 = A2         orange
+const int xyPin = 17;            // GPIO pin 10     17 = A3         short white
+const int streakPin = 18;        // GPIO pin 11     18 = A4         short grey
+const int buttonPin = 19;        // GPIO pin 12     19 = A5         short orange
 
 // our timer variable
 unsigned long currentMillis; 
 unsigned long lastTransmittedMillis; 
 
 // our last transmitted type
-int transmittedType;    // 0 means last transmitted was x, 1 means y
+bool transmittedType;    // 0 means last transmitted was x, 1 means y
 
 // our binary arrays
-int xArray[10];
-int yArray[10];
+bool xArray[10];
+bool yArray[10];
 
 void setup() 
 {
@@ -68,9 +70,14 @@ void setup()
   radio.openReadingPipe(1,addresses[1]);
   radio.startListening();
 
-  radioPackage.xCoordinate = 0;
-  radioPackage.yCoordinate = 0;
-  radioPackage.streakActive = 0;
+  radioPackage.xCoordinate = 420;
+  radioPackage.yCoordinate = 75;
+  radioPackage.streakActive = 1;
+  radioPackage.buttonClicked = 0;
+
+  // now let's put our stuff into our arrays
+  decimalToBinary(radioPackage.xCoordinate, 10, xArray);
+  decimalToBinary(radioPackage.yCoordinate, 10, yArray);
 
   // doing all our pinmode stuff   
   pinMode(coordinatePin0, OUTPUT); 
@@ -82,9 +89,10 @@ void setup()
   pinMode(coordinatePin6, OUTPUT); 
   pinMode(coordinatePin7, OUTPUT); 
   pinMode(coordinatePin8, OUTPUT); 
-  pinMode(coordinatePin9, OUTPUT); 
-  pinMode(streakPin, OUTPUT);   
+  pinMode(coordinatePin9, OUTPUT);  
   pinMode(xyPin, OUTPUT);
+  pinMode(streakPin, OUTPUT);  
+  pinMode(buttonPin, OUTPUT);
 
   // let's fill our arrays with 0's and stuff
   int i;
@@ -109,58 +117,63 @@ void loop()
     Serial.print("     y is ");
     Serial.print(radioPackage.yCoordinate);
     Serial.print("     streak is ");
-    Serial.println(radioPackage.streakActive);
+    Serial.print(radioPackage.streakActive);
+    Serial.print("     button is ");
+    Serial.println(radioPackage.buttonClicked);
+  }
+
     // now let's put our stuff into our arrays
     decimalToBinary(radioPackage.xCoordinate, 10, xArray);
     decimalToBinary(radioPackage.yCoordinate, 10, yArray);
-  }
 
   // timer stuff
   currentMillis = millis();
-  if(currentMillis - lastTransmittedMillis >= 5)    // make a new transmission once every 5 milliseconds
+  if(currentMillis - lastTransmittedMillis >= 2)    // make a new transmission once every 2 milliseconds
   {
     lastTransmittedMillis = currentMillis;
 
     if(transmittedType)   // this means our last transmitted was y
     {
       // TRANSMIT X
-      digitalWrite(coordinatePin0, xArray[0]); 
-      digitalWrite(coordinatePin1, xArray[1]); 
-      digitalWrite(coordinatePin2, xArray[2]); 
-      digitalWrite(coordinatePin3, xArray[3]); 
-      digitalWrite(coordinatePin4, xArray[4]); 
-      digitalWrite(coordinatePin5, xArray[5]); 
-      digitalWrite(coordinatePin6, xArray[6]); 
-      digitalWrite(coordinatePin7, xArray[7]); 
-      digitalWrite(coordinatePin8, xArray[8]); 
-      digitalWrite(coordinatePin9, xArray[9]); // i am kevin hear me rawr
+      digitalWrite(coordinatePin0, xArray[9]);      // reverse our order cause thats how we made it, huh!!
+      digitalWrite(coordinatePin1, xArray[8]); 
+      digitalWrite(coordinatePin2, xArray[7]); 
+      digitalWrite(coordinatePin3, xArray[6]); 
+      digitalWrite(coordinatePin4, xArray[5]); 
+      digitalWrite(coordinatePin5, xArray[4]); 
+      digitalWrite(coordinatePin6, xArray[3]); 
+      digitalWrite(coordinatePin7, xArray[2]); 
+      digitalWrite(coordinatePin8, xArray[1]); 
+      digitalWrite(coordinatePin9, xArray[0]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
       transmittedType = 0;   // TRANSMITTED X indicator
-      Serial.println(F("transmitted X"));
+ //     Serial.println(F("transmitted X"));
     }
     else   // this means our last transmitted was x
     {
       // TRANSMIT Y
-      digitalWrite(coordinatePin0, yArray[0]); 
-      digitalWrite(coordinatePin1, yArray[1]); 
-      digitalWrite(coordinatePin2, yArray[2]); 
-      digitalWrite(coordinatePin3, yArray[3]); 
-      digitalWrite(coordinatePin4, yArray[4]); 
-      digitalWrite(coordinatePin5, yArray[5]); 
-      digitalWrite(coordinatePin6, yArray[6]); 
-      digitalWrite(coordinatePin7, yArray[7]); 
-      digitalWrite(coordinatePin8, yArray[8]); 
-      digitalWrite(coordinatePin9, yArray[9]); // i am kevin hear me rawr
+      digitalWrite(coordinatePin1, yArray[9]); 
+      digitalWrite(coordinatePin1, yArray[8]); 
+      digitalWrite(coordinatePin2, yArray[7]); 
+      digitalWrite(coordinatePin3, yArray[6]); 
+      digitalWrite(coordinatePin4, yArray[5]); 
+      digitalWrite(coordinatePin5, yArray[4]); 
+      digitalWrite(coordinatePin6, yArray[3]); 
+      digitalWrite(coordinatePin7, yArray[2]); 
+      digitalWrite(coordinatePin8, yArray[1]); 
+      digitalWrite(coordinatePin9, yArray[0]); // i am kevin hear me rawr
       digitalWrite(xyPin, transmittedType); 
       transmittedType = 1;   // TRANSMITTED Y indicator
-      Serial.println(F("transmitted Y"));
+  //    Serial.println(F("transmitted Y"));
     }
       // stuff we always do
       digitalWrite(streakPin, radioPackage.streakActive); 
+      digitalWrite(buttonPin, radioPackage.buttonClicked); 
   }
+           
 }
 
-void decimalToBinary(unsigned int decimal, int inputSize, int* binaryArray)
+void decimalToBinary(unsigned int decimal, int inputSize, bool* binaryArray)
 {
   // haha i actually have very little idea how this works
   unsigned int mask = 1U << (inputSize-1);

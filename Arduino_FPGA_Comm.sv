@@ -6,18 +6,18 @@
 module arduino_fpga_comm (	input	clk,
 									input	reset,
 									input [35:0] GPIO,
-									output [10:0] xCoordinate,
-									output [10:0] yCoordinate
+									output [9:0] xCoordinate,
+									output [9:0] yCoordinate
 								  );
 								  
 		// hehe, we're just gonna skip the reset functionality
 		
-		always @ (posedge GPIO[10]) 	// POSEDGE(1) MEANS Y HAS JUST FINISHED
+		always @ (negedge GPIO[10]) 	// POSEDGE(1) MEANS Y HAS JUST FINISHED
 			begin		
 				yCoordinate = GPIO[9:0];
 			end
 	
-		always @ (negedge GPIO[10]) 	// NEGEDGE(0) MEANS X HAS JUST FINISHED
+		always @ (posedge GPIO[10]) 	// NEGEDGE(0) MEANS X HAS JUST FINISHED
 			begin		
 				xCoordinate = GPIO[9:0];
 			end

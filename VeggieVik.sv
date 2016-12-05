@@ -52,6 +52,7 @@ module VeggieVik(// Clock input
 					  input  [17:0] SW,			// 18 switches
 					  input  [3:0]  KEY,			// 4 keys
 					  output [17:0] LEDR,		// red LED's
+					  output [8:0] LEDG,			// green LED's
 					  output [6:0]  HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6, HEX7 // 8 hexdisplays
 					  );							
 					
@@ -102,13 +103,20 @@ module VeggieVik(// Clock input
 					  logic 			Reset_h;  // The push buttons are active low
 					  logic 			graphics_clk;
 					  logic [19:0] Clk_10;		// our .1 second counter
-					  logic [10:0] xCoordinate, yCoordinate;
+					  logic [9:0] xCoordinate, yCoordinate;
 					 
 					  assign Clk = CLOCK_50;
 					  assign Reset_h= ~(KEY[0]);  // The push buttons are active low
 					  assign VGA_CLK = graphics_clk;	
 					  
 					  assign LEDR[17:0] = SW[17:0];	// make led's match switches
+					  assign LEDG[5:2] = KEY[3:0];	// make first set of green LED's match buttons
+					  assign LEDG[0] = GPIO[11];	// make the rest of the LED's light up when we streak
+					  assign LEDG[1] = GPIO[11];
+					  assign LEDG[6] = GPIO[11];
+					  assign LEDG[7] = GPIO[11];
+					  assign LEDG[8] = GPIO[12];	// assign buttonclicked to this random one
+					  
 					
 					  // our timer module
 					  system_clock CPU_clock(.clk(CLOCK_50),
@@ -156,8 +164,8 @@ module VeggieVik(// Clock input
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
 					  assign to_sw_port2[5:0] = {KEY[3:0], GPIO[12:11]};			// assign buttons for whatever
-					  assign to_sw_port3[10:0] = xCoordinate;
-					  assign to_sw_port4[10:0] = yCoordinate;
+					  assign to_sw_port3[9:0] = xCoordinate;
+					  assign to_sw_port4[9:0] = yCoordinate;
 					  
 					  // arduino-FPGA communication module
 					  arduino_fpga_comm arduino_fpga_comm_inst (
@@ -224,13 +232,24 @@ module VeggieVik(// Clock input
 									.Blue(VGA_B));
 									
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(to_hw_port0[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(to_hw_port0[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(to_hw_port0[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(to_hw_port0[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(to_hw_port0[19:16]), .Out0(HEX4));	
-						HexDriver hex5(.In0(to_hw_port0[23:20]), .Out0(HEX5));
+						HexDriver hex0(.In0(xCoordinate[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(xCoordinate[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(xCoordinate[9:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(0), .Out0(HEX3));		
+						HexDriver hex4(.In0(0), .Out0(HEX4));	
+						HexDriver hex5(.In0(yCoordinate[3:0]), .Out0(HEX5));		
+						HexDriver hex6(.In0(yCoordinate[7:4]), .Out0(HEX6));	
+						HexDriver hex7(.In0(yCoordinate[9:8]), .Out0(HEX7));
+
+						/*
+						HexDriver hex0(.In0(xCoordinate[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(xCoordinate[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(xCoordinate[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(yCoordinate[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(yCoordinate[19:16]), .Out0(HEX4));	
+						HexDriver hex5(.In0(yCoordinate[23:20]), .Out0(HEX5));
 						HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
-						HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));						
+						HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));	
+						*/
 			
 endmodule

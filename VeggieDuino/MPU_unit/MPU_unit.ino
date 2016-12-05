@@ -61,6 +61,7 @@ struct dataPackage{
   int xCoordinate;    
   int yCoordinate;
   bool streakActive;
+  bool buttonClicked;
 };
 struct dataPackage radioPackage;
 
@@ -132,7 +133,8 @@ void setup()
   // initialize our structs
   radioPackage.xCoordinate = 0;
   radioPackage.yCoordinate = 0;
-  radioPackage.streakActive = 0;  
+  radioPackage.streakActive = 0; 
+  radioPackage.buttonClicked = 0;   
 
   // do our input pullup! this means it is normally high, and active low
   pinMode(buttonPin, INPUT_PULLUP); 
@@ -212,7 +214,7 @@ void loop()
   currentMillis = millis();
   
   // check if angular velocity is above our threshold (or has been recently)
-  if((gyro > 10) || (gyro < -10))
+  if((gyro > 20) || (gyro < -20))
   {
     radioPackage.streakActive = 1;
     streakMillis = currentMillis;   // update last time we had a streak
@@ -244,8 +246,18 @@ void loop()
  if(!digitalRead(buttonPin))
  {
     // if it's pressed, reset out MPU!
-    Serial.println(F("reset our MPU!"));
+    Serial.println(F("button clicked! reset our MPU!"));
     mpu.setDMPEnabled(false);
+
+    // update radio
+    radioPackage.xCoordinate = 320;
+    radioPackage.streakActive = 0; 
+    radioPackage.buttonClicked = 1;  
+    if(!radio.write(&radioPackage, sizeof(radioPackage)))
+    {
+    //  Serial.println(F("oopsies, our stuff was not sent correctly"));
+    }  
+    // and delay for a sec
     delay(1000);
 
     mpu.dmpInitialize();
@@ -263,6 +275,7 @@ void loop()
     Serial.println(F("DMP ready! Waiting for first interrupt..."));
     dmpReady = true;
     Serial.println(F("RESET is DONE!!!"));
+    radioPackage.buttonClicked = 0;   // do our button stuff
  }
 }
 
