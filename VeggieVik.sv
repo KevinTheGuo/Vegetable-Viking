@@ -110,7 +110,7 @@ module VeggieVik(// Clock input
 					  assign VGA_CLK = graphics_clk;	
 					  
 					  assign LEDR[17:0] = SW[17:0];	// make led's match switches
-					  assign LEDG[5:2] = KEY[3:0];	// make first set of green LED's match buttons
+					  assign LEDG[5:2] = ~(KEY[3:0]);	// make first set of green LED's match buttons
 					  assign LEDG[0] = GPIO[11];	// make the rest of the LED's light up when we streak
 					  assign LEDG[1] = GPIO[11];
 					  assign LEDG[6] = GPIO[11];
@@ -163,7 +163,7 @@ module VeggieVik(// Clock input
 					  // assign our software ports
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
-					  assign to_sw_port2[5:0] = {KEY[3:0], GPIO[12:11]};			// assign buttons for whatever
+					  assign to_sw_port2[5:0] = {~(KEY[3:0]), GPIO[12:11]};			// assign buttons for whatever
 					  assign to_sw_port3[9:0] = xCoordinate;
 					  assign to_sw_port4[9:0] = yCoordinate;
 					  

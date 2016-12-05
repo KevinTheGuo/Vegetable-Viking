@@ -212,7 +212,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 3;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
@@ -378,11 +378,6 @@ void port2Unpackager()
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[1];
 	cursorClicked = unpackaged[0];
-
-	for(i=0; i<5; i++)
-	{
-		unpackaged[i];
-	}
 
 	if(key1)
 	{

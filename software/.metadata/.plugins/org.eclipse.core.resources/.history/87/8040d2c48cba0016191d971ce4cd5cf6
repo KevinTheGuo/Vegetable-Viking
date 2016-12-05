@@ -212,7 +212,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 3;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);

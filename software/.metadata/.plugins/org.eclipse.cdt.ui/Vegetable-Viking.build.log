@@ -1,9 +1,9 @@
-00:42:21 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
+19:22:00 **** Incremental Build of configuration Nios II for project Vegetable-Viking ****
 make all 
 Info: Building ../Vegetable-Viking_bsp/
 C:/altera/15.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../Vegetable-Viking_bsp/
 [BSP build complete]
 [Vegetable-Viking build complete]
 
-00:42:22 Build Finished (took 905ms)
+19:22:04 Build Finished (took 4s.104ms)
 
