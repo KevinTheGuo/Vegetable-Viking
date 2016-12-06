@@ -136,8 +136,8 @@ void setup()
   radio.stopListening();
 
   // initialize our structs
-  radioPackage.xCoordinate = 0;
-  radioPackage.yCoordinate = 0;
+  radioPackage.xCoordinate = 320;
+  radioPackage.yCoordinate = 240;
   radioPackage.streakActive = 0; 
   radioPackage.buttonClicked = 0;   
 
@@ -260,9 +260,9 @@ void loop()
     Serial.print(F("xCoord: "));
     Serial.print(radioPackage.xCoordinate);
     Serial.print(F("    yCoord: "));
-    Serial.print(radioPackage.yCoordinate);
+    Serial.println(radioPackage.yCoordinate);
     radioPackage.xCoordinate = prevX;
-    radioPackage.xCoordinate = prevY;
+    radioPackage.yCoordinate = prevY;
   }
 
   // timer stuff

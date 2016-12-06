@@ -380,7 +380,7 @@ void port2Unpackager()
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[0];
 	cursorClicked = unpackaged[1];
-/*
+
 	for(i=4; i>=0; i--)
 	{
 		printf("%d", unpackaged[i]);
@@ -406,7 +406,7 @@ void port2Unpackager()
 	{
 		printf("clicked!");
 	}
-*/
+
 }
 
 // converts decimal to binary

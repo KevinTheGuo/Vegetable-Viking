@@ -19,32 +19,129 @@ module frame_displayer
 			output logic [7:0]  Red, Green, Blue);	// output our RGB values!!!
 			
 			// create some of our parameters
-    parameter [9:0] ScreenX = 640;     // width of x axis
-    parameter [9:0] ScreenY = 480;     // width of y axis
+			 parameter [9:0] ScreenX = 640;     // width of x axis
+			 parameter [9:0] ScreenY = 480;     // width of y axis
 			
 			parameter [19:0] spriteOffset	= 307200;
 			parameter [10:0] spriteWidth = 64;
 			 
-			// Declare arrays that will be assigned below
-			logic [7:0] spriteHeight [7:0];
-			logic [9:0] spriteOffset [7:0];
+			// Declare and initialize the heights and offsets that will be used in the drawing process
+			
+			// Broccoli
+			parameter [7:0] sprite1Height = 65;
+			parameter [1:0] sprite1Offset = 0;
+			
+			// Eggplant
+			parameter [7:0] sprite2Height = 81;
+			parameter [14:0] sprite2Offset = 4160; // 65 * 64
+			
+			// Potatoes
+			parameter [7:0] sprite3Height = 85;
+			parameter [14:0] sprite3Offset = 9344; // 146 * 64
+			
+			// Carrot
+			parameter [7:0] sprite4Height = 39;
+			parameter [14:0] sprite4Offset = 14784; // 231 * 64
+			
+			// Cabbage
+			parameter [7:0] sprite5Height = 66;
+			parameter [14:0] sprite5Offset = 17280; // 270 * 64
+			
+			// Radish
+			parameter [7:0] sprite6Height = 64;
+			parameter [14:0] sprite6Offset = 21504; // 336 * 64
+			
+			// Tomato
+			parameter [7:0] sprite7Height = 42;
+			parameter [14:0] sprite7Offset = 25600; // 400 * 64
+			
+			// Onion
+			parameter [7:0] sprite8Height = 69;
+			parameter [14:0] sprite8Offset = 28288; // 442 * 64
+			
+			parameter [2:0] positionMultiplier = 5;
 			
 			
+			// spriteX[19:17] ===> sprite state (if it's 0, it doesn't exist yet)
+			// spriteX[13:7]  ===> xPos
+			// spriteX[6:0]   ===> yPos
 			
-				
+			logic palette; // 0 for background palette, 1 for vegetable sprite palette
 			
-			
-			
-			
-			// we split up our frame display into two parts, a memory fetcher and VGA displayer
-			
-			// this takes our drawx and drawy and, if they're valid, sends a frame read address
 			always_ff @ (posedge pixel_clk)
 					begin
-						if(Display/* && (DrawX < 8'd64)*/)
-							frame_rdAddress = (DrawX + (DrawY*ScreenX));
+						if(Display)
+							begin
+							if((sprite1[19:17] != 3'b0) // Sprite 1
+								&& (DrawX >= (sprite1[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite1[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite1[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite1[6: 0] * positionMultiplier) + sprite1Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite1Offset 
+									+ (DrawX - (sprite1[13:7] * positionMultiplier)) + ((DrawY - (sprite1[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else if((sprite2[19:17] != 3'b0) // Sprite 2
+								&& (DrawX >= (sprite2[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite2[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite2[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite2[6: 0] * positionMultiplier) + sprite2Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite2Offset 
+									+ (DrawX - (sprite2[13:7] * positionMultiplier)) + ((DrawY - (sprite2[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else if((sprite3[19:17] != 3'b0) // Sprite 3
+								&& (DrawX >= (sprite3[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite3[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite3[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite3[6: 0] * positionMultiplier) + sprite3Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite3Offset 
+									+ (DrawX - (sprite3[13:7] * positionMultiplier)) + ((DrawY - (sprite3[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else if((sprite4[19:17] != 3'b0) // Sprite 4
+								&& (DrawX >= (sprite4[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite4[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite4[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite4[6: 0] * positionMultiplier) + sprite4Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite4Offset 
+									+ (DrawX - (sprite4[13:7] * positionMultiplier)) + ((DrawY - (sprite4[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else if((sprite5[19:17] != 3'b0) // Sprite 5
+								&& (DrawX >= (sprite5[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite5[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite5[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite5[6: 0] * positionMultiplier) + sprite5Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite5Offset 
+									+ (DrawX - (sprite5[13:7] * positionMultiplier)) + ((DrawY - (sprite5[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else if((sprite6[19:17] != 3'b0) // Sprite 6
+								&& (DrawX >= (sprite6[13:7] * positionMultiplier)) 
+								&& (DrawX < ((sprite6[13:7] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite6[6: 0] * positionMultiplier))
+								&& (DrawY < ((sprite6[6: 0] * positionMultiplier) + sprite6Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite6Offset 
+									+ (DrawX - (sprite6[13:7] * positionMultiplier)) + ((DrawY - (sprite6[6: 0] * positionMultiplier)) * spriteWidth);
+									palette = 1'b1;
+								end
+							else
+								begin
+									frame_rdAddress = (DrawX + (DrawY*ScreenX));
+									palette = 1'b0;
+								end
+							end
 						else
+							begin
 							frame_rdAddress = 19'h00000;
+							end
 					end
 			
 			// now we can take our frame output and do some palette magic!
@@ -52,6 +149,8 @@ module frame_displayer
 				begin 
 					if(Display)
 						begin	
+							if(palette)
+							begin
 							unique case(frame_output)
 								8'h0:
 	begin
@@ -1589,7 +1688,12 @@ module frame_displayer
 		Green = 8'hff;
 		Blue = 8'hff;
 	end
-	/*8'h0:
+	endcase
+	end
+	else
+	begin
+	unique case(frame_output)
+	8'h0:
 	begin
 		Red = 8'h0;
 		Green = 8'h0;
@@ -3124,10 +3228,11 @@ module frame_displayer
 		Red = 8'hff;
 		Green = 8'hff;
 		Blue = 8'hff;
-	end*/
+	end
 
 
 						endcase	
+					end
 					end
 					else
 						begin

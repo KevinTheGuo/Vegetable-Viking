@@ -10,7 +10,7 @@ module hardware_software_comm (	input	clk,
 											output [1:0] to_sw_sig
 										);
 		
-	/	enum logic [3:0] {RESET, WAIT,
+	/*	enum logic [3:0] {RESET, WAIT,
 								READ_MSG, 
 								ACK_MSG} state, next_state;
 
@@ -86,5 +86,5 @@ module hardware_software_comm (	input	clk,
 					end
 			endcase
 		end
-	
+	*/
 endmodule
