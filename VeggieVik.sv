@@ -123,15 +123,16 @@ module VeggieVik(// Clock input
 											  .reset(reset_h),
 											  .Clk_100
 											  );
-					
+											  
 					  // frame buffer stuff and displaying stuff
 					  logic [7:0]  frame_input;		// input data to frame buffer
 					  logic [18:0] frame_rdAddress;	// read address for frame buffer
+					  logic [18:0] bgFrame_rdAddress; // read address for the background image stored in the frame buffer
 					  logic [18:0] frame_wrAddress;	// write address for frame buffer
 					  logic [9:0] DrawX;
 					  logic [9:0] DrawY;
 					  logic frame_we;					// write enable for frame buffer
-					  logic [7:0] frame_output;		// output from frame buffer
+					  logic [7:0] frame_output, bgFrame_output;		// output from frame buffer
 					  assign MemOut = frame_output;
 					  assign frame_rdAddress_OUT = frame_rdAddress;
 					  
@@ -196,17 +197,30 @@ module VeggieVik(// Clock input
 									.DrawY(DrawY), 
 									.pixel_clk(graphics_clk));
 					  
-						assign frame_we = 1'b1;		
+						assign frame_we = 1'b0;		
 						
 						// frame buffer initialization
-						Frame_Buffer frame_buffer_inst(
+						/*Frame_Buffer frame_buffer_inst(
 									.clock(Clk),
 									.data(frame_input),
 									.rdaddress(frame_rdAddress),
 									.wraddress(frame_wrAddress),
 									.wren(frame_we),
 									.q(frame_output)
+									);*/
+									
+						Frame_Buffer	Frame_Buffer_inst (
+									.address_a ( frame_rdAddress ),
+									.address_b ( bgFrame_rdAddress ),
+									.clock ( Clk ),
+									.data_a ( frame_input ),
+									.data_b ( frame_input ),
+									.wren_a ( frame_we ),
+									.wren_b ( frame_we ),
+									.q_a ( frame_output ),
+									.q_b ( bgFrame_output )
 									);
+
 								
 						
 						// frame displayer initialization
@@ -220,6 +234,8 @@ module VeggieVik(// Clock input
 									.Display(VGA_BLANK_N),
 									.frame_output(frame_output),
 									.frame_rdAddress(frame_rdAddress),
+									.bgFrame_output(bgFrame_output),
+									.bgFrame_rdAddress(bgFrame_rdAddress),
 									.sprite1(to_hw_port1[19:0]),
 									.sprite2(to_hw_port2[19:0]), 
 									.sprite3(to_hw_port3[19:0]), 

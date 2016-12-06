@@ -101,7 +101,7 @@ int main()
 	unsigned long lastPhysixed;
 	unsigned long lastSpawned;
 	unsigned long nextSpawnTime;
-	printf("our start time is %ld \n", processorStart);
+//	printf("our start time is %ld \n", processorStart);
 
 	// initialize our cursor and key stuff
 	xCursor = *to_sw_port3;
@@ -135,12 +135,12 @@ int main()
 	{
 		// constantly updating our current time in seconds
 		processorTime = *to_sw_port1;
-		printf("our time is %lu \n", processorTime);
+//		printf("our time is %lu \n", processorTime);
 		elapsedTime = processorTime - processorStart;
-		printf("elapsed time is %lu \n", elapsedTime);
+//		printf("elapsed time is %lu \n", elapsedTime);
 
 		// constantly doing physics
-		if ((elapsedTime - lastPhysixed) > 2)	// greater than .02 seconds pass
+		if ((elapsedTime - lastPhysixed) > 1)	// greater than .02 seconds pass
 		{
 			physicsEngine();	// call our physics engine!
 			lastPhysixed = elapsedTime;
@@ -172,16 +172,16 @@ void spawningEngine()
 			// RANDOM GENERATION!!
 			unsigned long randomX = (rand() % 540) + 50;
 			int randomType = (rand() % 8) + 1;
-			double randomSpeedY = (rand() % 10) + 20;
-			double randomSpeedX = (rand() % 15) - 7.5;
+			double randomSpeedY = (rand() % 25) + 40;
+			double randomSpeedX = (rand() % 40) - 20;
 
 			if (randomX < 100)
 			{
-				randomSpeedX = (rand() % 15);
+				randomSpeedX = (rand() % 40);
 			}
 			else if (randomX > 540)
 			{
-				randomSpeedX = (rand() % 15) - 15;
+				randomSpeedX = (rand() % 40) - 40;
 			}
 
 			// now let's store these
@@ -214,7 +214,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 5;
 
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
@@ -247,14 +247,14 @@ void FPGAcommunicator()
 
 	// load all of our structs in
 	int i;
-	for (i=0; i<16; i++)
+	for (i=0; i<7; i++)
 	{
 		unsigned long tempPackage = messagePackager(veggieObject[i]);
 	//	printf("Our %dth message is %llu\n", i, tempPackage);
 
 		FPGAmessage[i] = tempPackage;
 	}
-	*to_hw_sig = 2;	// 2 means we're starting communication
+//	*to_hw_sig = 2;	// 2 means we're starting communication
 
 	// now we put in all our messages
 	*to_hw_port0 = FPGAmessage[0];
@@ -273,18 +273,17 @@ void FPGAcommunicator()
 	*to_hw_port13 = FPGAmessage[13];
 	*to_hw_port14 = FPGAmessage[14];
 	*to_hw_port15 = FPGAmessage[15];
-//	printf("FPGAmessage 11 is %llu \n", FPGAmessage[11]);
 
 // actually didnt need this tbh :p
-//	while(*to_sw_sig != 2);	// wait for FPGA to wake up
+/*	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
 	*to_hw_sig = 1;		// now we are done putting in messages
 
-//	while(*to_sw_sig != 0); // wait for response from hardware
+	while(*to_sw_sig != 0); // wait for response from hardware
 	*to_hw_sig = 0;		// okay we're done now, going back to sleep
 
-//	printf("message stuff done\n");
-	return;
+	printf("message stuff done\n");
+*/	return;
 }
 
 // this function takes a single struct and converts it into a message we can send
@@ -298,7 +297,7 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 	// figure out how to package it
 	packageType = specifiedObject.packageType;
 
-	if (packageType == 1)
+	if (packageType == 100)		// impossible number for now
 	{
 		// this means we are packaging our game package instead
 		unsigned long long tempScore, tempTime, tempStart, tempEnd;
@@ -347,7 +346,6 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		printf("tempType: %llu   ", tempType);
 		printf("tempState: %llu   ", tempState);
 */
-
 		// now we append everything together!
 		tempBinary = tempX + tempY*10000000 + tempType*100000000000000 + tempState*100000000000000000;
 		//	printf("tempBinary: %llu   ", tempBinary);
@@ -372,7 +370,6 @@ void port2Unpackager()
 	for(i=0; i<5; i++)
 	{
 		unpackaged[i] = port2 % 10;
-
 		port2 /= 10;
 	}
 
@@ -382,39 +379,12 @@ void port2Unpackager()
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[0];
 	cursorClicked = unpackaged[1];
-
-/*	for(i=4; i>=0; i--)
-	{
-		printf("%d", unpackaged[i]);
-	}
-	printf("\n");
-*/	if(key1)
-	{
-		printf("key1 pressed!");
-	}
-	if(key2)
-	{
-		printf("key2 pressed!");
-	}
-	if(key3)
-	{
-		printf("key3 pressed!");
-	}
-	if(cursorStreak)
-	{
-		printf("cursorstreak!");
-	}
-	if(cursorClicked)
-	{
-		printf("clicked!");
-	}
-
 }
 
 // converts decimal to binary
 unsigned long convertDecimalToBinary(unsigned long n)
 {
-  // printf("decimal input: %lu   ", n);
+/*  // printf("decimal input: %lu   ", n);
     unsigned long long binaryNumber = 0;
     int remainder, i = 1;
 
@@ -427,20 +397,31 @@ unsigned long convertDecimalToBinary(unsigned long n)
     }
   //  printf("binary ouput: %llu \n", binaryNumber);
     return binaryNumber;
+    */
+
+    if (n == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return (n % 2 + 10 * convertDecimalToBinary(n / 2));
+    }
 }
 
 // converts binary to decimal! (NOW FASTER AND BETTER THAN EVER!!)
 unsigned long convertBinaryToDecimal(unsigned long long n)
 {
  //	printf("binary input: %llu   ", n);
-    unsigned long  decimal = 0, base = 1, remainder;
-    while (n > 0)
+    unsigned decimal = 0;
+    int i;
+    for(i = 0; n > 0; ++i)
     {
-        remainder = n%10;
-        decimal = decimal + remainder * base;
-        n = n/10;
-        base = base*2;
+        if((n % 10) == 1)
+            decimal += (1 << i);
+
+        n /= 10;
     }
-  //  printf("decimal output: %lu\n", decimalNumber);
+
     return decimal;
 }
