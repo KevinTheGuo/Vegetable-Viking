@@ -69,9 +69,14 @@ struct dataPackage radioPackage;
 unsigned long currentMillis = 0; 
 unsigned long streakMillis = 0; 
 
+// whole buncha global variables
+int prevX, prevY;
+float currYaw, currPitch, currRoll, prevYaw, prevPitch, prevRoll;
+long currGrav, prevGrav;
+
 void setup() 
 {
-  Serial.begin(115200);
+  Serial.begin(38400);
   Serial.println(F("Welcome to Veggie Viking! The newest revolution that's sweeping the nation!"));
   Serial.println(F("This is the MPU unit"));
 
@@ -138,6 +143,9 @@ void setup()
 
   // do our input pullup! this means it is normally high, and active low
   pinMode(buttonPin, INPUT_PULLUP); 
+
+  // and set a gravity thing so it wont scream at me
+  prevGrav = 8000;
 }
 
 void loop() 
@@ -165,9 +173,10 @@ void loop()
 
 // displaying yaw, pitch and roll
   mpu.dmpGetQuaternion(&q, fifoBuffer);
-  mpu.dmpGetGyro(&gyro, fifoBuffer);
   mpu.dmpGetGravity(&gravity, &q);
   mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+  mpu.dmpGetAccel(&aa, fifoBuffer);
+//  mpu.dmpGetGyro(&gyro, fifoBuffer);    // probably don't need this anymore
 /*
   Serial.print("ypr\t");
   Serial.print(ypr[0] * 180/M_PI);
@@ -179,19 +188,53 @@ void loop()
   Serial.print("angular velocity is");
   Serial.println(gyro);
 */
+
   
-  // save our currpitch and yaw
-  float currYaw = (ypr[0] * 180/M_PI);
-  float currPitch = -(ypr[1] * 180/M_PI);
+  // save previous coordinate values
+  prevX = radioPackage.xCoordinate;
+  prevY = radioPackage.yCoordinate;
+  prevRoll = currRoll;    // and roll!
+  prevGrav = currGrav;    // and gravity!
+  
+  // save our currpitch and yaw (and roll and gravity!)
+  currYaw = (ypr[0] * 180/M_PI);
+  currPitch = -(ypr[1] * 180/M_PI);
+  currRoll = (ypr[2] * 180/M_PI);
+  currGrav = aa.z;
+
 /*  Serial.print(F("currYaw is "));
   Serial.print(currYaw);
   Serial.print(F("      currPitch is "));
   Serial.println(currPitch);
 */    
-  // now turn these into our 640x480 coordinate system
-  radioPackage.xCoordinate = 4*currYaw + 320;
-  radioPackage.yCoordinate = 4*currPitch + 240;  
 
+  // disregard crazy gravity values
+  if(abs(currGrav - prevGrav) > 6000)
+  {
+    Serial.println(F("Woah there! Who forgot to pay the gravity bill?!"));
+    currGrav = prevGrav;
+  }
+
+  // now turn these into our 640x480 coordinate system
+  if((currRoll > 50) || (currRoll < -50)) // are we vertical?
+  {
+    radioPackage.yCoordinate = 4*currPitch + 240; //disregard x coordinate
+  }
+  else if(currGrav > 2000)    // check if orientation is upright
+  {
+    radioPackage.xCoordinate = 4*currYaw + 320; 
+    radioPackage.yCoordinate = 4*currPitch + 240;      
+  }
+  else if(currGrav < -2000)              // else it's not upright
+  {
+    radioPackage.xCoordinate = -(4*currYaw) + 320;    // flip x 
+    radioPackage.yCoordinate = 4*currPitch + 240;       
+  }
+  else  // SENSOR FUSION!!! gravity and roll work together to eliminate glitches!
+  {
+    radioPackage.yCoordinate = 4*currPitch + 240;
+  }
+  
   // also check for boundaries
   if(radioPackage.xCoordinate > 640)
   {
@@ -210,16 +253,28 @@ void loop()
     radioPackage.yCoordinate = 0;
   }  
 
+  // disregard crazy coordinate values
+  if((abs(radioPackage.xCoordinate - prevX) > 200) || (abs(radioPackage.yCoordinate - prevY) > 100))
+  {
+    Serial.print(F("Woah there! Got a crazy coordinate!         "));
+    Serial.print(F("xCoord: "));
+    Serial.print(radioPackage.xCoordinate);
+    Serial.print(F("    yCoord: "));
+    Serial.print(radioPackage.yCoordinate);
+    radioPackage.xCoordinate = prevX;
+    radioPackage.xCoordinate = prevY;
+  }
+
   // timer stuff
   currentMillis = millis();
   
   // check if angular velocity is above our threshold (or has been recently)
-  if((gyro > 30) || (gyro < -30))
+  if((abs(radioPackage.xCoordinate - prevX)+abs(radioPackage.yCoordinate - prevY)) > 7)
   {
     radioPackage.streakActive = 1;
     streakMillis = currentMillis;   // update last time we had a streak
   }
-  else if (currentMillis - streakMillis < 150)
+  else if (currentMillis - streakMillis < 50)
   {
     radioPackage.streakActive = 1;
   }
@@ -233,9 +288,14 @@ void loop()
   Serial.print(radioPackage.xCoordinate);
   Serial.print(F("    yCoord: "));
   Serial.print(radioPackage.yCoordinate);
-  Serial.print(F("    streak: "));
-  Serial.println(radioPackage.streakActive);
-    
+  Serial.print(F("    Streak: "));
+  Serial.print(radioPackage.streakActive);
+  Serial.print(F("    Gravity: "));
+  Serial.print(currGrav);
+  Serial.print(F("    Roll: "));
+  Serial.println(currRoll);
+
+  
   // send our radio message every loop!
  if(!radio.write(&radioPackage, sizeof(radioPackage)))
  {
