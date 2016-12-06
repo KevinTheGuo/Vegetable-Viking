@@ -163,7 +163,7 @@ module VeggieVik(// Clock input
 					  // assign our software ports
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
-					  assign to_sw_port2[5:0] = {~(KEY[3:0]), GPIO[12:11]};			// assign buttons for whatever
+					  assign to_sw_port2[5:0] = {~(KEY[3:1]), GPIO[12:11]};			// assign buttons for whatever
 					  assign to_sw_port3[9:0] = xCoordinate;
 					  assign to_sw_port4[9:0] = yCoordinate;
 					  
@@ -228,6 +228,9 @@ module VeggieVik(// Clock input
 									.sprite6(to_hw_port6[19:0]), 
 									.sprite7(to_hw_port7[19:0]),
 									.sprite8(to_hw_port8[19:0]), 
+									.cursorX(XCoordinate),
+									.cursorY(YCoordinate),
+									.streakIndicator(GPIO[11]),
 									//.sprite9, sprite10, sprite11, sprite12, sprite13, sprite14,
 									.Red(VGA_R),
 									.Green(VGA_G),

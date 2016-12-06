@@ -170,16 +170,16 @@ void spawningEngine()
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
 			// RANDOM GENERATION!!
-			unsigned long randomX = (rand() % 104) + 14;
+			unsigned long randomX = (rand() % 540) + 50;
 			int randomType = (rand() % 8) + 1;
-			double randomSpeedY = (rand() % 30) + 30;
+			double randomSpeedY = (rand() % 10) + 20;
 			double randomSpeedX = (rand() % 15) - 7.5;
 
-			if (randomX > 80)
+			if (randomX < 100)
 			{
 				randomSpeedX = (rand() % 15);
 			}
-			else if (randomX < 40)
+			else if (randomX > 540)
 			{
 				randomSpeedX = (rand() % 15) - 15;
 			}
@@ -202,6 +202,10 @@ void spawningEngine()
 			break;
 		}
 	}
+
+		printf("x is %lu  ", veggieObject[1].xPosition);
+		printf("xvelocity is %f  ", veggieObject[1].xVelocity);
+		printf("yvelocity is %f  \n", veggieObject[1].yVelocity);
 }
 
 void physicsEngine()
@@ -214,7 +218,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 3;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
@@ -249,13 +253,11 @@ void FPGAcommunicator()
 	int i;
 	for (i=0; i<16; i++)
 	{
-		unsigned long long tempPackage = messagePackager(veggieObject[i]);
+		unsigned long tempPackage = messagePackager(veggieObject[i]);
 	//	printf("Our %dth message is %llu\n", i, tempPackage);
 
 		FPGAmessage[i] = tempPackage;
 	}
-
-
 	*to_hw_sig = 2;	// 2 means we're starting communication
 
 	// now we put in all our messages
@@ -331,6 +333,9 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		tempType = specifiedObject.objectType;
 		tempState = specifiedObject.objectState;
 
+		// invert Y cause murgle messed up
+		tempY = 480 - tempY;
+
 		// take X and Y and divide them by 5 to fit in our message
 		tempX = tempX/5 - 1;
 		tempY = tempY/5 - 1;
@@ -381,13 +386,13 @@ void port2Unpackager()
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[0];
 	cursorClicked = unpackaged[1];
-/*
-	for(i=4; i>=0; i--)
+
+/*	for(i=4; i>=0; i--)
 	{
 		printf("%d", unpackaged[i]);
 	}
 	printf("\n");
-	if(key1)
+*/	if(key1)
 	{
 		printf("key1 pressed!");
 	}
@@ -407,7 +412,7 @@ void port2Unpackager()
 	{
 		printf("clicked!");
 	}
-*/
+
 }
 
 // converts decimal to binary
@@ -428,18 +433,18 @@ unsigned long convertDecimalToBinary(unsigned long n)
     return binaryNumber;
 }
 
-// converts binary to decimal!
+// converts binary to decimal! (NOW FASTER AND BETTER THAN EVER!!)
 unsigned long convertBinaryToDecimal(unsigned long long n)
 {
  //	printf("binary input: %llu   ", n);
-    unsigned long decimalNumber = 0, i = 0, remainder;
-    while (n!=0)
+    unsigned long  decimal = 0, base = 1, remainder;
+    while (n > 0)
     {
         remainder = n%10;
-        n /= 10;
-        decimalNumber += remainder*pow(2,i);
-        ++i;
+        decimal = decimal + remainder * base;
+        n = n/10;
+        base = base*2;
     }
   //  printf("decimal output: %lu\n", decimalNumber);
-    return decimalNumber;
+    return decimal;
 }
