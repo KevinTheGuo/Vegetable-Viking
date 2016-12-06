@@ -139,13 +139,15 @@ int main()
 		elapsedTime = processorTime - processorStart;
 	//	printf("elapsed time is %lu \n", elapsedTime);
 
+
+		printf("starting physics \n");
 		// constantly doing physics
 		if ((elapsedTime - lastPhysixed) > 1)	// greater than .1 seconds pass
 		{
 			physicsEngine();	// call our physics engine!
 			lastPhysixed = elapsedTime;
 		}
-
+		printf("starting spawning \n");
 		// spawning objects
 		if ((elapsedTime - lastSpawned) > nextSpawnTime)	// greater than random time
 		{
@@ -154,10 +156,11 @@ int main()
 			nextSpawnTime = (rand() % 60) + 20;
 	//		printf("we generated a random number at %lu   ", nextSpawnTime);
 		}
-
+	printf("starting unpackaging \n");
 	port2Unpackager();	// keep unpacking our stuff!
-
+	printf("starting communicating \n");
 	FPGAcommunicator();	// call this every time to update the FPGA
+	printf("looping \n");
 	}
 	return 0;
 }

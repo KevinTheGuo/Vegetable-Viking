@@ -218,6 +218,7 @@ void loop()
   // now turn these into our 640x480 coordinate system
   if((currRoll > 50) || (currRoll < -50)) // are we vertical?
   {
+    radioPackage.xCoordinate = prevX;
     radioPackage.yCoordinate = 4*currPitch + 240; //disregard x coordinate
   }
   else if(currGrav > 2000)    // check if orientation is upright
@@ -232,6 +233,7 @@ void loop()
   }
   else  // SENSOR FUSION!!! gravity and roll work together to eliminate glitches!
   {
+    radioPackage.xCoordinate = prevX;
     radioPackage.yCoordinate = 4*currPitch + 240;
   }
   

@@ -156,7 +156,6 @@ int main()
 		}
 
 	port2Unpackager();	// keep unpacking our stuff!
-
 	FPGAcommunicator();	// call this every time to update the FPGA
 	}
 	return 0;

@@ -73,63 +73,63 @@ module frame_displayer
 						if(Display)
 							begin
 							if((sprite1[19:17] != 3'b0) // Sprite 1
-								&& (DrawX >= (sprite1[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite1[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite1[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite1[6: 0] * positionMultiplier) + sprite1Height)))
+								&& (DrawX >= (sprite1[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite1[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite1[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite1[13:7] * positionMultiplier) + sprite1Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite1Offset 
-									+ (DrawX - (sprite1[13:7] * positionMultiplier)) + ((DrawY - (sprite1[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite1[6: 0] * positionMultiplier)) + ((DrawY - (sprite1[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else if((sprite2[19:17] != 3'b0) // Sprite 2
-								&& (DrawX >= (sprite2[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite2[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite2[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite2[6: 0] * positionMultiplier) + sprite2Height)))
+								&& (DrawX >= (sprite2[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite2[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite2[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite2[13:7] * positionMultiplier) + sprite2Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite2Offset 
-									+ (DrawX - (sprite2[13:7] * positionMultiplier)) + ((DrawY - (sprite2[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite2[6:0] * positionMultiplier)) + ((DrawY - (sprite2[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else if((sprite3[19:17] != 3'b0) // Sprite 3
-								&& (DrawX >= (sprite3[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite3[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite3[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite3[6: 0] * positionMultiplier) + sprite3Height)))
+								&& (DrawX >= (sprite3[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite3[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite3[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite3[13:7] * positionMultiplier) + sprite3Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite3Offset 
-									+ (DrawX - (sprite3[13:7] * positionMultiplier)) + ((DrawY - (sprite3[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite3[6: 0] * positionMultiplier)) + ((DrawY - (sprite3[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else if((sprite4[19:17] != 3'b0) // Sprite 4
-								&& (DrawX >= (sprite4[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite4[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite4[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite4[6: 0] * positionMultiplier) + sprite4Height)))
+								&& (DrawX >= (sprite4[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite4[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite4[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite4[13:7] * positionMultiplier) + sprite4Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite4Offset 
-									+ (DrawX - (sprite4[13:7] * positionMultiplier)) + ((DrawY - (sprite4[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite4[6: 0] * positionMultiplier)) + ((DrawY - (sprite4[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else if((sprite5[19:17] != 3'b0) // Sprite 5
-								&& (DrawX >= (sprite5[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite5[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite5[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite5[6: 0] * positionMultiplier) + sprite5Height)))
+								&& (DrawX >= (sprite5[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite5[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite5[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite5[13:7] * positionMultiplier) + sprite5Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite5Offset 
-									+ (DrawX - (sprite5[13:7] * positionMultiplier)) + ((DrawY - (sprite5[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite5[6: 0] * positionMultiplier)) + ((DrawY - (sprite5[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else if((sprite6[19:17] != 3'b0) // Sprite 6
-								&& (DrawX >= (sprite6[13:7] * positionMultiplier)) 
-								&& (DrawX < ((sprite6[13:7] * positionMultiplier) + spriteWidth)) 
-								&& (DrawY >= (sprite6[6: 0] * positionMultiplier))
-								&& (DrawY < ((sprite6[6: 0] * positionMultiplier) + sprite6Height)))
+								&& (DrawX >= (sprite6[6: 0] * positionMultiplier)) 
+								&& (DrawX < ((sprite6[6: 0] * positionMultiplier) + spriteWidth)) 
+								&& (DrawY >= (sprite6[13:7] * positionMultiplier))
+								&& (DrawY < ((sprite6[13:7] * positionMultiplier) + sprite6Height)))
 								begin
 									frame_rdAddress = spriteOffset + sprite6Offset 
-									+ (DrawX - (sprite6[13:7] * positionMultiplier)) + ((DrawY - (sprite6[6: 0] * positionMultiplier)) * spriteWidth);
+									+ (DrawX - (sprite6[6: 0] * positionMultiplier)) + ((DrawY - (sprite6[13:7] * positionMultiplier)) * spriteWidth);
 									palette = 1'b1;
 								end
 							else
