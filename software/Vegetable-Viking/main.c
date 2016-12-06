@@ -354,6 +354,7 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		tempY = tempY/5 - 1;
 
 		// and convert stuff to binary!
+		// SEE IF WE CAN SEND TO HARDWARE TO DO THIS PROCESS
 		tempX = convertDecimalToBinary(tempX);
 		tempY = convertDecimalToBinary(tempY);
 		tempType = convertDecimalToBinary(tempType);
@@ -369,6 +370,7 @@ unsigned long messagePackager(struct gameObject specifiedObject)
 		//	printf("tempBinary: %llu   ", tempBinary);
 	}
 	// and convert it back to decimal!
+	// SEE IF WE CAN SEND TO HARDWARE TO DO THIS
 	tempDecimal = convertBinaryToDecimal(tempBinary);
 
 	// and return it!
