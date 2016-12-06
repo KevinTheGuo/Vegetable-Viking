@@ -75,14 +75,7 @@ module frame_displayer
 					begin
 						if(Display)
 							begin
-							if(((DrawX - cursorX) * (DrawX - cursorX) + (DrawY - cursorY) * (DrawY - cursorY)) <= 7'd100) 
-								begin
-									if(streakIndicator)
-										palette = 2'b10;
-									else
-										palette = 2'b11;
-								end
-							else if((sprite1[19:17] != 3'b0) // Sprite 1
+							if((sprite1[19:17] != 3'b0) // Sprite 1
 								&& (DrawX >= (sprite1[6: 0] * positionMultiplier)) 
 								&& (DrawX < ((sprite1[6: 0] * positionMultiplier) + spriteWidth)) 
 								&& (DrawY >= (sprite1[13:7] * positionMultiplier))
@@ -159,7 +152,22 @@ module frame_displayer
 				begin 
 					if(Display)
 						begin	
-							if(palette == 2'b01)
+							if(((DrawX - cursorX) * (DrawX - cursorX) + (DrawY - (480 - cursorY)) * (DrawY - (480 - cursorY))) <= 100)
+								begin
+									if(streakIndicator)
+										begin
+											Red = 8'hff;
+											Green = 8'hff;
+											Blue = 8'hff;
+										end
+									else
+										begin
+											Red = 8'hCF;
+											Green = 8'hB5;
+											Blue = 8'h3B;
+										end
+								end
+							else if(palette == 2'b01)
 								begin
 									unique case(frame_output)
 									8'h0:
@@ -3243,17 +3251,11 @@ module frame_displayer
 
 							endcase	
 								end
-							else if(palette == 2'b10)
-								begin
-									Red = 8'hff;
-									Green = 8'hff;
-									Blue = 8'hff;
-								end
 							else
 								begin
-									Red = 8'hff;
-									Green = 8'hc0;
-									Blue = 8'hcb;
+									Red = 8'h00;
+									Green = 8'h00;
+									Blue = 8'hff;
 								end
 						end
 					else

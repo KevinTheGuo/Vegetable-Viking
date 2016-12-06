@@ -36,7 +36,7 @@
 #define to_hw_port15 (volatile unsigned long*) 0x00000140 // __V__
 // from hardware, to software
 #define to_sw_port0 (unsigned long*) 0x00000130 // switch input
-#define to_sw_port1 (unsigned long*) 0x00000120 // .1 sec counter
+#define to_sw_port1 (unsigned long*) 0x00000120 // .01 sec counter (100 hz)
 #define to_sw_port2 (char*) 0x00000110 // 3 key signals + cursor status
 #define to_sw_port3 (unsigned int*) 0x00000180 // cursor x coordinate input
 #define to_sw_port4 (unsigned int*) 0x00000170 // cursor y coordinate input
@@ -101,7 +101,7 @@ int main()
 	unsigned long lastPhysixed;
 	unsigned long lastSpawned;
 	unsigned long nextSpawnTime;
-//	printf("our start time is %ld \n", processorStart);
+	printf("our start time is %ld \n", processorStart);
 
 	// initialize our cursor and key stuff
 	xCursor = *to_sw_port3;
@@ -135,12 +135,12 @@ int main()
 	{
 		// constantly updating our current time in seconds
 		processorTime = *to_sw_port1;
-	//	printf("our time is %lu \n", processorTime);
+		printf("our time is %lu \n", processorTime);
 		elapsedTime = processorTime - processorStart;
-	//	printf("elapsed time is %lu \n", elapsedTime);
+		printf("elapsed time is %lu \n", elapsedTime);
 
 		// constantly doing physics
-		if ((elapsedTime - lastPhysixed) > 1)	// greater than .1 seconds pass
+		if ((elapsedTime - lastPhysixed) > 2)	// greater than .02 seconds pass
 		{
 			physicsEngine();	// call our physics engine!
 			lastPhysixed = elapsedTime;
@@ -202,10 +202,6 @@ void spawningEngine()
 			break;
 		}
 	}
-
-		printf("x is %lu  ", veggieObject[1].xPosition);
-		printf("xvelocity is %f  ", veggieObject[1].xVelocity);
-		printf("yvelocity is %f  \n", veggieObject[1].yVelocity);
 }
 
 void physicsEngine()

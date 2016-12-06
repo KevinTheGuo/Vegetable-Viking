@@ -42,7 +42,6 @@ VectorInt16 aaWorld;    // [x, y, z]            world-frame accel sensor measure
 VectorFloat gravity;    // [x, y, z]            gravity vector
 float euler[3];         // [psi, theta, phi]    Euler angle container
 float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
-int gyro;
 
 // MPU interruption detection
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
@@ -74,12 +73,22 @@ int prevX, prevY;
 float currYaw, currPitch, currRoll, prevYaw, prevPitch, prevRoll;
 long currGrav, prevGrav;
 
+// glitch tracker, to see if we've encountered a glitch this loop
+int antiGlitch;
+
+// anti-anti-glitch variable, prevents us from staying in anti-glitch mode for too long
+int glitchCounter;
+
+// and a mode that tells us whether to operate normally or ignore antiglitch
+int deGlitchMode;
+
+
 void setup() 
 {
-  Serial.begin(38400);
+/*  Serial.begin(38400);
   Serial.println(F("Welcome to Veggie Viking! The newest revolution that's sweeping the nation!"));
   Serial.println(F("This is the MPU unit"));
-
+*/
   // join I2C bus (I2Cdev library doesn't do this automatically)
   #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
       Wire.begin();
@@ -100,16 +109,16 @@ void setup()
   // make sure all our MPU stuff worked, and turn it on!
   if (devStatus == 0) {
       // turn on the DMP, now that it's ready
-      Serial.println(F("Enabling DMP..."));
+//      Serial.println(F("Enabling DMP..."));
       mpu.setDMPEnabled(true);
 
       // enable Arduino interrupt detection
-      Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
+//      Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
       attachInterrupt(0, dmpDataReady, RISING);
       mpuIntStatus = mpu.getIntStatus();
 
       // set our DMP Ready flag so the main loop() function knows it's okay to use it
-      Serial.println(F("DMP ready! Waiting for first interrupt..."));
+//      Serial.println(F("DMP ready! Waiting for first interrupt..."));
       dmpReady = true;
 
       // get expected DMP packet size for later comparison
@@ -119,10 +128,10 @@ void setup()
       // 1 = initial memory load failed
       // 2 = DMP configuration updates failed
       // (if it's going to break, usually the code will be 1)
-      Serial.print(F("DMP Initialization failed (code "));
+/*      Serial.print(F("DMP Initialization failed (code "));
       Serial.print(devStatus);
       Serial.println(F(")"));
-  }
+*/  }
 
   // set our radio stuff
   radio.begin();
@@ -146,12 +155,20 @@ void setup()
 
   // and set a gravity thing so it wont scream at me
   prevGrav = 8000;
+
+  // and antiglitch
+  antiGlitch = 0;
+  glitchCounter = 0;
+  deGlitchMode = 1;
 }
 
 void loop() 
 {
   // if programming failed, don't try to do anything
   if (!dmpReady) return;
+
+  // timer stuff
+  currentMillis = millis();
 
   // reset interrupt flag and get INT_STATUS byte
   mpuInterrupt = false;
@@ -176,7 +193,6 @@ void loop()
   mpu.dmpGetGravity(&gravity, &q);
   mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
   mpu.dmpGetAccel(&aa, fifoBuffer);
-//  mpu.dmpGetGyro(&gyro, fifoBuffer);    // probably don't need this anymore
 /*
   Serial.print("ypr\t");
   Serial.print(ypr[0] * 180/M_PI);
@@ -188,7 +204,6 @@ void loop()
   Serial.print("angular velocity is");
   Serial.println(gyro);
 */
-
   
   // save previous coordinate values
   prevX = radioPackage.xCoordinate;
@@ -209,10 +224,11 @@ void loop()
 */    
 
   // disregard crazy gravity values
-  if(abs(currGrav - prevGrav) > 6000)
+  if((abs(currGrav - prevGrav) > 6000) && (deGlitchMode))
   {
-    Serial.println(F("Woah there! Who forgot to pay the gravity bill?!"));
+//    Serial.println(F("Woah there! Who forgot to pay the gravity bill?!"));
     currGrav = prevGrav;
+    antiGlitch = 1;
   }
 
   // now turn these into our 640x480 coordinate system
@@ -256,19 +272,17 @@ void loop()
   }  
 
   // disregard crazy coordinate values
-  if((abs(radioPackage.xCoordinate - prevX) > 200) || (abs(radioPackage.yCoordinate - prevY) > 100))
+  if(((abs(radioPackage.xCoordinate - prevX) > 64) || (abs(radioPackage.yCoordinate - prevY) > 48)) && (deGlitchMode))
   {
-    Serial.print(F("Woah there! Got a crazy coordinate!         "));
+/*    Serial.print(F("Woah there! Got a crazy coordinate!         "));
     Serial.print(F("xCoord: "));
     Serial.print(radioPackage.xCoordinate);
     Serial.print(F("    yCoord: "));
     Serial.println(radioPackage.yCoordinate);
-    radioPackage.xCoordinate = prevX;
+*/    radioPackage.xCoordinate = prevX;
     radioPackage.yCoordinate = prevY;
+    antiGlitch = 1;
   }
-
-  // timer stuff
-  currentMillis = millis();
   
   // check if angular velocity is above our threshold (or has been recently)
   if((abs(radioPackage.xCoordinate - prevX)+abs(radioPackage.yCoordinate - prevY)) > 7)
@@ -284,7 +298,7 @@ void loop()
   {
     radioPackage.streakActive = 0;
   }
-
+/*
   // print statements
   Serial.print(F("xCoord: "));
   Serial.print(radioPackage.xCoordinate);
@@ -296,8 +310,25 @@ void loop()
   Serial.print(currGrav);
   Serial.print(F("    Roll: "));
   Serial.println(currRoll);
+*/
+  // our antiglitch stuff
+  if(antiGlitch)
+  {
+    glitchCounter++;
+  }
+  else
+  {
+    glitchCounter = 0;
+  }
 
-  
+  // whether to stay in deGlitch mode or not
+  deGlitchMode = 1;
+  if(glitchCounter == 25)
+  {
+    deGlitchMode = 0;
+    glitchCounter = 0;
+  }
+
   // send our radio message every loop!
  if(!radio.write(&radioPackage, sizeof(radioPackage)))
  {
@@ -308,7 +339,7 @@ void loop()
  if(!digitalRead(buttonPin))
  {
     // if it's pressed, reset out MPU!
-    Serial.println(F("button clicked! reset our MPU!"));
+//    Serial.println(F("button clicked! reset our MPU!"));
     mpu.setDMPEnabled(false);
 
     // update radio
@@ -329,14 +360,12 @@ void loop()
     mpu.setZAccelOffset(1289); // 1688 factory default for my test chip
     mpu.setDMPEnabled(true);
     // enable Arduino interrupt detection
-    Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
     attachInterrupt(0, dmpDataReady, RISING);
     mpuIntStatus = mpu.getIntStatus();
 
     // set our DMP Ready flag so the main loop() function knows it's okay to use it
-    Serial.println(F("DMP ready! Waiting for first interrupt..."));
+//    Serial.println(F("RESET is DONE!!!"));
     dmpReady = true;
-    Serial.println(F("RESET is DONE!!!"));
     radioPackage.buttonClicked = 0;   // do our button stuff
  }
 }

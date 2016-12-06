@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Dec 5, 2016 11:34:30 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1481002470600</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Dec 6, 2016 1:23:37 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1481009017026</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\ECE385\Vegetable-Viking\software\Vegetable-Viking_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\nios_system.sopcinfo</SopcDesignFile>

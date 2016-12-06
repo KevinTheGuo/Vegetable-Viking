@@ -102,7 +102,7 @@ module VeggieVik(// Clock input
 					  logic			Clk;
 					  logic 			Reset_h;  // The push buttons are active low
 					  logic 			graphics_clk;
-					  logic [19:0] Clk_100;		// our .1 second counter
+					  logic [19:0] Clk_100;		// our .01 second counter
 					  logic [9:0] xCoordinate, yCoordinate;
 					 
 					  assign Clk = CLOCK_50;
@@ -228,8 +228,8 @@ module VeggieVik(// Clock input
 									.sprite6(to_hw_port6[19:0]), 
 									.sprite7(to_hw_port7[19:0]),
 									.sprite8(to_hw_port8[19:0]), 
-									.cursorX(XCoordinate),
-									.cursorY(YCoordinate),
+									.cursorX(xCoordinate),
+									.cursorY(yCoordinate),
 									.streakIndicator(GPIO[11]),
 									//.sprite9, sprite10, sprite11, sprite12, sprite13, sprite14,
 									.Red(VGA_R),
@@ -237,24 +237,13 @@ module VeggieVik(// Clock input
 									.Blue(VGA_B));
 									
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(xCoordinate[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(xCoordinate[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(xCoordinate[9:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(0), .Out0(HEX3));		
-						HexDriver hex4(.In0(0), .Out0(HEX4));	
-						HexDriver hex5(.In0(yCoordinate[3:0]), .Out0(HEX5));		
-						HexDriver hex6(.In0(yCoordinate[7:4]), .Out0(HEX6));	
-						HexDriver hex7(.In0(yCoordinate[9:8]), .Out0(HEX7));
-
-						/*
-						HexDriver hex0(.In0(xCoordinate[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(xCoordinate[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(xCoordinate[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(yCoordinate[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(yCoordinate[19:16]), .Out0(HEX4));	
-						HexDriver hex5(.In0(yCoordinate[23:20]), .Out0(HEX5));
-						HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
-						HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));	
-						*/
+						HexDriver hex0(.In0(Clk_100[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(Clk_100[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(Clk_100[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(Clk_100[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(Clk_100[19:16]), .Out0(HEX4));	
+			//			HexDriver hex5(.In0(yCoordinate[23:20]), .Out0(HEX5));
+			//			HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
+			//			HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));	
 			
 endmodule

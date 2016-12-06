@@ -4,7 +4,7 @@ module system_clock(input clk,
 						 );
 						
 // generate 100 Hz from 50 MHz
-logic [17:0] counter;
+logic [19:0] counter;
 // reg [19:0] Clk_100 = 0;
 
 always @(posedge clk or posedge reset) 
