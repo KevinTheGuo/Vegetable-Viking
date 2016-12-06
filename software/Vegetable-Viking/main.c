@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <time.h>
 
 // define our PIO interaction stuff
 // from software, to hardware
@@ -27,13 +26,14 @@
 #define to_hw_port6 (volatile unsigned long*) 0x000000a0 //    |
 #define to_hw_port7 (volatile unsigned long*) 0x00000060 //    |
 #define to_hw_port8 (volatile unsigned long*) 0x00000090 //    |
-#define to_hw_port9 (volatile unsigned long*) 0x00000080 //    |
+/*#define to_hw_port9 (volatile unsigned long*) 0x00000080 //    |
 #define to_hw_port10 (volatile unsigned long*) 0x00000040 //   |
 #define to_hw_port11 (volatile unsigned long*) 0x00000030 //   |
 #define to_hw_port12 (volatile unsigned long*) 0x00000020 //   |
 #define to_hw_port13 (volatile unsigned long*) 0x00000160 //   |
 #define to_hw_port14 (volatile unsigned long*) 0x00000150 //   |
 #define to_hw_port15 (volatile unsigned long*) 0x00000140 // __V__
+*/
 // from hardware, to software
 #define to_sw_port0 (unsigned long*) 0x00000130 // switch input
 #define to_sw_port1 (unsigned long*) 0x00000120 // .01 sec counter (100 hz)
@@ -41,8 +41,8 @@
 #define to_sw_port3 (unsigned int*) 0x00000180 // cursor x coordinate input
 #define to_sw_port4 (unsigned int*) 0x00000170 // cursor y coordinate input
 // hardware-software signals
-#define to_hw_sig (volatile char*) 0x00000070 // to hw sig
-#define to_sw_sig (char*) 0x00000050 // to sw sig
+//#define to_hw_sig (volatile char*) 0x00000070 // to hw sig
+//#define to_sw_sig (char*) 0x00000050 // to sw sig
 
 
 // struct your stuff
@@ -58,7 +58,7 @@ struct gameObject
 	double xVelocity;
 	double yVelocity;
 };
-struct gameObject veggieObject[16];
+struct gameObject veggieObject[8];
 
 /* FOR GAME STATUS PACKAGE
  *	xPosition -> game score
@@ -81,6 +81,7 @@ int key3;
 // declarations of functions and stuff
 void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
 void spawningEngine();	// spawn more objects!! with randomness!!
+void sliceEngine();		// determines when objects are sliced, and how they behave
 void FPGAcommunicator();	// sends our structs to FPGA
 unsigned long messagePackager(struct gameObject);	// packages our messages
 void port2Unpackager();
@@ -110,7 +111,7 @@ int main()
 
 	// initialize all our structs
 	int i;
-	for(i=0; i<16; i++)
+	for(i=0; i<8; i++)
 	{
 		veggieObject[i].xPosition = 0;
 		veggieObject[i].yPosition = 0;
@@ -151,63 +152,19 @@ int main()
 		{
 			spawningEngine();	// call our spawning engine!
 			lastSpawned = elapsedTime;
-			nextSpawnTime = (rand() % 60) + 20;
+			nextSpawnTime = (rand() % 50) + 50;
 	//		printf("we generated a random number at %lu   ", nextSpawnTime);
 		}
-
 	port2Unpackager();	// keep unpacking our stuff!
-
 	FPGAcommunicator();	// call this every time to update the FPGA
 	}
 	return 0;
 }
 
-void spawningEngine()
-{
-	int i;
-	for(i=1; i<16; i++)	// let's go through our objects and see which ones are free
-	{
-		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
-		{
-			// RANDOM GENERATION!!
-			unsigned long randomX = (rand() % 540) + 50;
-			int randomType = (rand() % 8) + 1;
-			double randomSpeedY = (rand() % 25) + 40;
-			double randomSpeedX = (rand() % 40) - 20;
-
-			if (randomX < 100)
-			{
-				randomSpeedX = (rand() % 40);
-			}
-			else if (randomX > 540)
-			{
-				randomSpeedX = (rand() % 40) - 40;
-			}
-
-			// now let's store these
-			veggieObject[i].xPosition = randomX;
-			veggieObject[i].yPosition = 0;
-			veggieObject[i].objectType = randomType;
-			veggieObject[i].objectState = 1;
-			veggieObject[i].xVelocity = randomSpeedX;
-			veggieObject[i].yVelocity = randomSpeedY;
-
-/*			printf("x is %lu  ", randomX);
-			printf("type is %d  ", randomType);
-			printf("xvelocity is %f  ", randomSpeedX);
-			printf("yvelocity is %f  \n", randomSpeedY);
-*/
-			// now let's break
-			i = 42;
-			break;
-		}
-	}
-}
-
 void physicsEngine()
 {
 	int i;
-	for(i=1; i<16; i++)	// update all our physics of all objects!
+	for(i=1; i<8; i++)	// update all our physics of all objects!
 	{
 		if(veggieObject[i].objectState != 0)	// does it even exist?
 		{
@@ -239,15 +196,76 @@ void physicsEngine()
 	return;
 }
 
+void spawningEngine()
+{
+	int i;
+	for(i=1; i<8; i++)	// let's go through our objects and see which ones are free
+	{
+		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
+		{
+			// RANDOM GENERATION!!
+			unsigned long randomX = (rand() % 540) + 50;
+			int randomType = (rand() % 8) + 1;
+			double randomSpeedY = (rand() % 22) + 45;
+			double randomSpeedX = (rand() % 40) - 20;
+
+			if (randomX < 100)
+			{
+				randomSpeedX = (rand() % 40);
+			}
+			else if (randomX > 540)
+			{
+				randomSpeedX = (rand() % 40) - 40;
+			}
+
+			// now let's store these
+			veggieObject[i].xPosition = randomX;
+			veggieObject[i].yPosition = 0;
+			veggieObject[i].objectType = randomType;
+			veggieObject[i].objectState = 1;
+			veggieObject[i].xVelocity = randomSpeedX;
+			veggieObject[i].yVelocity = randomSpeedY;
+
+/*			printf("x is %lu  ", randomX);
+			printf("type is %d  ", randomType);
+			printf("xvelocity is %f  ", randomSpeedX);
+			printf("yvelocity is %f  \n", randomSpeedY);
+*/
+			// now let's break
+			i = 42;
+			break;
+		}
+	}
+}
+
+void sliceEngine()
+{
+	int i;
+	for(i=1; i<8; i++)	// let's go through our objects and see which ones collide
+	{
+		if(veggieObject[i].objectState != 0)	// only if it exists
+		{
+			// let's grab the vegetable coordinates
+			int xVeggie = veggieObject[i].xPosition;
+			int yVeggie = veggieObject[i].xPosition;
+
+			// check if they collide with the pointer
+			// now let's break
+			i = 42;
+			break;
+		}
+	}
+}
+
 // this function takes an array of 32-bit messages and sends them all out
 void FPGAcommunicator()
 {
 	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned long long FPGAmessage[16];
+	unsigned long long FPGAmessage[8];
 
 	// load all of our structs in
 	int i;
-	for (i=0; i<7; i++)
+	for (i=0; i<8; i++)
 	{
 		unsigned long tempPackage = messagePackager(veggieObject[i]);
 	//	printf("Our %dth message is %llu\n", i, tempPackage);
@@ -266,14 +284,14 @@ void FPGAcommunicator()
 	*to_hw_port6 = FPGAmessage[6];
 	*to_hw_port7 = FPGAmessage[7];
 	*to_hw_port8 = FPGAmessage[8];
-	*to_hw_port9 = FPGAmessage[9];
+/*	*to_hw_port9 = FPGAmessage[9];
 	*to_hw_port10 = FPGAmessage[10];
 	*to_hw_port11 = FPGAmessage[11];
 	*to_hw_port12 = FPGAmessage[12];
 	*to_hw_port13 = FPGAmessage[13];
 	*to_hw_port14 = FPGAmessage[14];
 	*to_hw_port15 = FPGAmessage[15];
-
+*/
 // actually didnt need this tbh :p
 /*	while(*to_sw_sig != 2);	// wait for FPGA to wake up
 
