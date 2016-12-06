@@ -1,33 +1,33 @@
 module system_clock(input clk,
 						  input reset,
-						  output [19:0] Clk_10
+						  output [19:0] Clk_100
 						 );
 						
-// generate 10 Hz from 50 MHz
-logic [22:0] counter;
-// reg [19:0] Clk_10 = 0;
+// generate 100 Hz from 50 MHz
+logic [17:0] counter;
+// reg [19:0] Clk_100 = 0;
 
 always @(posedge clk or posedge reset) 
   begin
     if (reset)
 		begin
         counter <= 0;
-        Clk_10 <= 0;
+        Clk_100 <= 0;
 		end 
-	 else if (Clk_10 > 1000000)
+	 else if (Clk_100 > 1000000)
 		begin
-		  Clk_10 <= 0;
+		  Clk_100 <= 0;
 		end
 	 else
 		begin
-        if (counter < 4999999) 
+        if (counter < 499999) 
 			begin
             counter <= counter + 1;
 			end 
 		  else 
 			begin
             counter <= 0;
-            Clk_10 <= Clk_10 + 1;
+            Clk_100 <= Clk_100 + 1;
 			end
 		  end
   end

@@ -102,7 +102,7 @@ module VeggieVik(// Clock input
 					  logic			Clk;
 					  logic 			Reset_h;  // The push buttons are active low
 					  logic 			graphics_clk;
-					  logic [19:0] Clk_10;		// our .1 second counter
+					  logic [19:0] Clk_100;		// our .1 second counter
 					  logic [9:0] xCoordinate, yCoordinate;
 					 
 					  assign Clk = CLOCK_50;
@@ -121,7 +121,7 @@ module VeggieVik(// Clock input
 					  // our timer module
 					  system_clock CPU_clock(.clk(CLOCK_50),
 											  .reset(reset_h),
-											  .Clk_10
+											  .Clk_100
 											  );
 					
 					  // frame buffer stuff and displaying stuff
@@ -162,7 +162,7 @@ module VeggieVik(// Clock input
 					  
 					  // assign our software ports
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
-					  assign to_sw_port1[19:0] = Clk_10[19:0];	// assign our clock
+					  assign to_sw_port1[19:0] = Clk_100[19:0];	// assign our clock
 					  assign to_sw_port2[5:0] = {~(KEY[3:1]), GPIO[12:11]};			// assign buttons for whatever
 					  assign to_sw_port3[9:0] = xCoordinate;
 					  assign to_sw_port4[9:0] = yCoordinate;
