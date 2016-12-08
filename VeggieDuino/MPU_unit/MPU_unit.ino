@@ -137,7 +137,7 @@ void setup()
   radio.begin();
   radio.setDataRate(RF24_250KBPS);
   radio.setChannel(108);
-//  radio.setPALevel(RF24_PA_HIGH); // we might need to do this or not
+  radio.setPALevel(RF24_PA_LOW); // we might need to do this or not
 
   // open radio pipes
   radio.openWritingPipe(addresses[1]);
@@ -232,17 +232,17 @@ void loop()
   }
 
   // now turn these into our 640x480 coordinate system
-  if((currRoll > 50) || (currRoll < -50)) // are we vertical?
+  if((currRoll > 60) || (currRoll < -60)) // are we vertical?
   {
     radioPackage.xCoordinate = prevX;
     radioPackage.yCoordinate = 4*currPitch + 240; //disregard x coordinate
   }
-  else if(currGrav > 2000)    // check if orientation is upright
+  else if(currGrav > 1000)    // check if orientation is upright
   {
     radioPackage.xCoordinate = 4*currYaw + 320; 
     radioPackage.yCoordinate = 4*currPitch + 240;      
   }
-  else if(currGrav < -2000)              // else it's not upright
+  else if(currGrav < -1000)              // else it's not upright
   {
     radioPackage.xCoordinate = -(4*currYaw) + 320;    // flip x 
     radioPackage.yCoordinate = 4*currPitch + 240;       
@@ -285,7 +285,7 @@ void loop()
   }
   
   // check if angular velocity is above our threshold (or has been recently)
-  if((abs(radioPackage.xCoordinate - prevX)+abs(radioPackage.yCoordinate - prevY)) > 7)
+  if((abs(radioPackage.xCoordinate - prevX)+abs(radioPackage.yCoordinate - prevY)) > 6)
   {
     radioPackage.streakActive = 1;
     streakMillis = currentMillis;   // update last time we had a streak

@@ -58,7 +58,7 @@ struct gameObject
 	double xVelocity;
 	double yVelocity;
 };
-struct gameObject veggieObject[8];
+struct gameObject veggieObject[16];
 
 /* FOR GAME STATUS PACKAGE
  *	xPosition -> game score
@@ -68,8 +68,8 @@ struct gameObject veggieObject[8];
 */
 
 // random variables for cursor status
-int xCursor;	// xcoordinate
-int yCursor;	// ycoordinate
+unsigned int xCursor;	// xcoordinate
+unsigned int yCursor;	// ycoordinate
 int cursorStreak;	// whether cursor has a streak or not
 int cursorClicked;	// whether our thingy was clicked!
 
@@ -82,6 +82,7 @@ int key3;
 void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
 void spawningEngine();	// spawn more objects!! with randomness!!
 void sliceEngine();		// determines when objects are sliced, and how they behave
+void disintegrateEngine();	// handles the disintegration animation of fruits/bomb
 void FPGAcommunicator();	// sends our structs to FPGA
 unsigned long messagePackager(struct gameObject);	// packages our messages
 void port2Unpackager();
@@ -99,9 +100,10 @@ int main()
 	unsigned long processorStart = *to_sw_port1;
 	unsigned long processorTime = processorStart;
 	unsigned long elapsedTime;
-	unsigned long lastPhysixed;
-	unsigned long lastSpawned;
-	unsigned long nextSpawnTime;
+	unsigned long lastPhysixed = processorTime;
+	unsigned long lastSpawned = processorTime;
+	unsigned long nextSpawnTime = processorTime;
+	unsigned long lastDisintegrated = processorTime;
 //	printf("our start time is %ld \n", processorStart);
 
 	// initialize our cursor and key stuff
@@ -111,7 +113,7 @@ int main()
 
 	// initialize all our structs
 	int i;
-	for(i=0; i<8; i++)
+	for(i=0; i<16; i++)
 	{
 		veggieObject[i].xPosition = 0;
 		veggieObject[i].yPosition = 0;
@@ -155,7 +157,13 @@ int main()
 			nextSpawnTime = (rand() % 50) + 50;
 	//		printf("we generated a random number at %lu   ", nextSpawnTime);
 		}
-	port2Unpackager();	// keep unpacking our stuff!
+
+		if ((elapsedTime - lastDisintegrated) > 20)	// greater than .2 sec
+		{
+			disintegrateEngine();	// call our spawning engine!
+			lastDisintegrated = elapsedTime;
+		}
+	port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
 	FPGAcommunicator();	// call this every time to update the FPGA
 	}
 	return 0;
@@ -164,7 +172,7 @@ int main()
 void physicsEngine()
 {
 	int i;
-	for(i=1; i<8; i++)	// update all our physics of all objects!
+	for(i=1; i<16; i++)	// update all our physics of all objects!
 	{
 		if(veggieObject[i].objectState != 0)	// does it even exist?
 		{
@@ -172,13 +180,12 @@ void physicsEngine()
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
 			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 5;
-
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
 			printf("yPosition is  %li ", veggieObject[i].yPosition);
 			printf("yVelocity is  %f \n", veggieObject[i].yVelocity);
 	*/
-			// let's now check if any of these objects are below the screen
+			// let's now check if any of these objects are beyond the screen
 			if((veggieObject[i].yPosition < 0) || (veggieObject[i].xPosition < 0) || (veggieObject[i].xPosition > 640))
 			{
 				// it has outlived its usefulness. ruthlessly slaughter it!
@@ -199,7 +206,7 @@ void physicsEngine()
 void spawningEngine()
 {
 	int i;
-	for(i=1; i<8; i++)	// let's go through our objects and see which ones are free
+	for(i=1; i<16; i++)	// let's go through our objects and see which ones are free
 	{
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
@@ -225,47 +232,95 @@ void spawningEngine()
 			veggieObject[i].objectState = 1;
 			veggieObject[i].xVelocity = randomSpeedX;
 			veggieObject[i].yVelocity = randomSpeedY;
-
 /*			printf("x is %lu  ", randomX);
 			printf("type is %d  ", randomType);
 			printf("xvelocity is %f  ", randomSpeedX);
 			printf("yvelocity is %f  \n", randomSpeedY);
 */
-			// now let's break
 			i = 42;
 			break;
 		}
 	}
 }
-/*
+
 void sliceEngine()
 {
 	int i;
-	for(i=1; i<8; i++)	// let's go through our objects and see which ones collide
+	for(i=1; i<16; i++)	// let's go through our objects and see which ones collide
 	{
-		if(veggieObject[i].objectState != 0)	// only if it exists
+		if(veggieObject[i].objectState == 1)	// only if it is in perfect state
 		{
 			// let's grab the vegetable coordinates
-			int xVeggie = veggieObject[i].xPosition;
-			int yVeggie = veggieObject[i].xPosition;
+			int veggieX = veggieObject[i].xPosition;
+			int veggieY = veggieObject[i].xPosition;
 
-			// check if they collide with the pointer
-			// now let's break
-			i = 42;
-			break;
+			// let's set our collision box
+			int collideX, collideY;
+			int offsetX = 10;
+			if((veggieObject[i].objectType == 1)) //eggplant
+			{
+				collideX = 45;
+				collideY = 85;
+			}
+			else if((veggieObject[i].objectType == 2))	// potato
+			{
+				collideX = 45;
+				collideY = 80;
+			}
+			else if((veggieObject[i].objectType == 3)) 	// carrot
+			{
+				collideX = 45;
+				collideY = 40;
+			}
+			else if((veggieObject[i].objectType == 3))	// tomato
+			{
+				collideX = 40;
+				collideY = 40;
+			}
+			else	// broccoli, cabbage, radish, onion
+			{
+				offsetX = 0;
+				collideX = 64;
+				collideY = 64;
+			}
+
+			// now let's check collision
+			if(((veggieX+offsetX)<xCursor)&&((veggieX+collideX)>xCursor)&&(veggieY<yCursor)&&((veggieY+collideY)>yCursor))
+			{
+				// this means we are in the 'hitbox'!! kill the fruit!
+				veggieObject[i].objectState = 2;
+			}
 		}
 	}
 }
-*/
+
+void disintegrateEngine()
+{
+	int i;
+	for(i=1; i<16; i++)	// let's go through our objects
+	{
+		if(veggieObject[i].objectState == 2) // just been cut
+		{
+			veggieObject[i].objectState = 3;
+		}
+		else if(veggieObject[i].objectState == 3) // midway through
+		{
+			veggieObject[i].objectState = 4;
+		}
+		else if(veggieObject[i].objectState == 4) // almost dedded
+		{
+			veggieObject[i].objectState = 0;	// gone!
+		}
+	}
+}
+
 // this function takes an array of 32-bit messages and sends them all out
 void FPGAcommunicator()
 {
 	// start putting in our xcoords
-	printf("start!\n");
 	*to_hw_sig = 1;	// 1 means we're starting communication of xCoord
-//	*to_hw_port0 = FPGAmessage[0];
-	*to_hw_port1 = 428;
-//	*to_hw_port1 = veggieObject[1].xPosition;
+	*to_hw_port0 = veggieObject[0].xPosition;
+	*to_hw_port1 = veggieObject[1].xPosition;
 	*to_hw_port2 = veggieObject[2].xPosition;
 	*to_hw_port3 = veggieObject[3].xPosition;
 	*to_hw_port4 = veggieObject[4].xPosition;
@@ -280,14 +335,12 @@ void FPGAcommunicator()
 	*to_hw_port13 = veggieObject[13].xPosition;
 	*to_hw_port14 = veggieObject[14].xPosition;
 	*to_hw_port15 = veggieObject[15].xPosition;
-
 	// wait for response
 	while(*to_sw_sig != 1);
 
 	*to_hw_sig = 2;	// 2 means we're starting communication of yCoord
-//	*to_hw_port0 = FPGAmessage[0];
-	*to_hw_port1 = 98;
-//	*to_hw_port1 = veggieObject[1].yPosition;
+	*to_hw_port0 = veggieObject[0].yPosition;
+	*to_hw_port1 = veggieObject[1].yPosition;
 	*to_hw_port2 = veggieObject[2].yPosition;
 	*to_hw_port3 = veggieObject[3].yPosition;
 	*to_hw_port4 = veggieObject[4].yPosition;
@@ -302,23 +355,18 @@ void FPGAcommunicator()
 	*to_hw_port13 = veggieObject[13].yPosition;
 	*to_hw_port14 = veggieObject[14].yPosition;
 	*to_hw_port15 = veggieObject[15].yPosition;
-
 	// wait for confirmation
 	while(*to_sw_sig != 2);
 
 	// initialization of message we need to send to FPGA (array of 32-bit messages)
 	unsigned int FPGAmessage[15];
-
-	// load all of our structs in
-	int i;
+	int i;		// load all of our structs in
 	for (i=0; i<16; i++)
 	{
 		unsigned int tempPackage = messagePackager(veggieObject[i]);
 	//	printf("Our %dth message is %llu\n", i, tempPackage);
-
 		FPGAmessage[i] = tempPackage;
 	}
-
 	*to_hw_sig = 3;		// our final sending
 	*to_hw_port0 = FPGAmessage[0];
 	*to_hw_port1 = FPGAmessage[1];
@@ -341,7 +389,6 @@ void FPGAcommunicator()
 	while(*to_sw_sig != 3);
 	*to_hw_sig = 0;
 
-//	printf("message stuff done\n");
 	return;
 }
 
@@ -430,27 +477,15 @@ void port2Unpackager()
 	key3 = unpackaged[4];
 	cursorStreak = unpackaged[0];
 	cursorClicked = unpackaged[1];
+	xCursor = *to_sw_port3;
+	yCursor = *to_sw_port4;
+	return;
 }
 
 // converts decimal to binary
 unsigned long convertDecimalToBinary(unsigned long n)
 {
-/*  // printf("decimal input: %lu   ", n);
-    unsigned long long binaryNumber = 0;
-    int remainder, i = 1;
-
-    while (n!=0)
-    {
-        remainder = n%2;
-        n /= 2;
-        binaryNumber += remainder*i;
-        i *= 10;
-    }
-  //  printf("binary ouput: %llu \n", binaryNumber);
-    return binaryNumber;
-    */
-
-    if (n == 0)
+	if (n == 0)
     {
         return 0;
     }
@@ -473,6 +508,5 @@ unsigned long convertBinaryToDecimal(unsigned long long n)
 
         n /= 10;
     }
-
     return decimal;
 }
