@@ -161,6 +161,11 @@ module VeggieVik(// Clock input
 					  logic [15:0] to_sw_port3;
 					  logic [15:0] to_sw_port4;
 					  
+					  // hardware-software communication logic
+					  logic [9:0] xCoord1, xCoord2, xCoord3, xCoord4, xCoord5, xCoord6, xCoord7, xCoord8, xCoord9, xCoord10, xCoord11, xCoord12, xCoord13, xCoord14, xCoord15, yCoord1, yCoord2, yCoord3, yCoord4, yCoord5, yCoord6, yCoord7, yCoord8, yCoord9, yCoord10, yCoord11, yCoord12, yCoord13, yCoord14, yCoord15;
+					  logic [2:0] state1, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15, type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12, type13, type14, type15;
+					  
+					  
 					  // assign our software ports
 					  assign to_sw_port0[17:0] = SW[17:0];			// assign switches for randomness
 					  assign to_sw_port1[19:0] = Clk_100[19:0];	// assign our clock
@@ -181,9 +186,84 @@ module VeggieVik(// Clock input
 					  hardware_software_comm hardware_software_comm_inst (
 										.clk(Clk),	
 										.reset(Reset_h),
+										.to_hw_port0,
+										.to_hw_port1,
+										.to_hw_port2,
+										.to_hw_port3,
+										.to_hw_port4,
+										.to_hw_port5,
+										.to_hw_port6,
+										.to_hw_port7,
+										.to_hw_port8,
+										.to_hw_port9,
+										.to_hw_port10,
+										.to_hw_port11,
+										.to_hw_port12,
+										.to_hw_port13,
+										.to_hw_port14,
+										.to_hw_port15,
 										.to_hw_sig,
 										.to_sw_sig,
-										);
+										.xCoord1,
+										.xCoord2,
+										.xCoord3,
+										.xCoord4,
+										.xCoord5,
+										.xCoord6,
+										.xCoord7,
+										.xCoord8,
+										.xCoord9,
+										.xCoord10,
+										.xCoord11,
+										.xCoord12,
+										.xCoord13,
+										.xCoord14,
+										.xCoord15,
+										.yCoord1,
+										.yCoord2,
+										.yCoord3,
+										.yCoord4,
+										.yCoord5,
+										.yCoord6,
+										.yCoord7,
+										.yCoord8,
+										.yCoord9,
+										.yCoord10,
+										.yCoord11,
+										.yCoord12,
+										.yCoord13,
+										.yCoord14,
+										.yCoord15,
+										.state1,
+										.state2,
+										.state3,
+										.state4,
+										.state5,
+										.state6,
+										.state7,
+										.state8,
+										.state9,
+										.state10,
+										.state11,
+										.state12,
+										.state13,
+										.state14,
+										.state15,
+										.type1,
+										.type2,
+										.type3,
+										.type4,
+										.type5,
+										.type6,
+										.type7,
+										.type8,
+										.type9,
+										.type10,
+										.type11,
+										.type12,
+										.type13,
+										.type14,
+										.type15);
 					  
 					  // VGA controller stuff
 					  vga_controller vgasync_instance(
@@ -253,13 +333,22 @@ module VeggieVik(// Clock input
 									.Blue(VGA_B));
 									
 						// HEX DISPLAYING
-						HexDriver hex0(.In0(Clk_100[3:0]), .Out0(HEX0));
-						HexDriver hex1(.In0(Clk_100[7:4]), .Out0(HEX1));		
-						HexDriver hex2(.In0(Clk_100[11:8]), .Out0(HEX2));		
-						HexDriver hex3(.In0(Clk_100[15:12]), .Out0(HEX3));		
-						HexDriver hex4(.In0(Clk_100[19:16]), .Out0(HEX4));	
-			//			HexDriver hex5(.In0(yCoordinate[23:20]), .Out0(HEX5));
-			//			HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
-			//			HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));	
-			
+						HexDriver hex0(.In0(xCoord1[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(xCoord1[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(xCoord1[9:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(yCoord1[3:0]), .Out0(HEX3));		
+						HexDriver hex4(.In0(yCoord1[7:4]), .Out0(HEX4));	
+						HexDriver hex5(.In0(yCoord1[9:8]), .Out0(HEX5));
+						HexDriver hex6(.In0(state1[2:0]), .Out0(HEX6));
+						HexDriver hex7(.In0(type1[2:0]), .Out0(HEX7));	
+						
+		/*				HexDriver hex0(.In0(xCoord1[3:0]), .Out0(HEX0));
+						HexDriver hex1(.In0(xCoord1[7:4]), .Out0(HEX1));		
+						HexDriver hex2(.In0(xCoord1[11:8]), .Out0(HEX2));		
+						HexDriver hex3(.In0(yCoord1[15:12]), .Out0(HEX3));		
+						HexDriver hex4(.In0(yCoord1[19:16]), .Out0(HEX4));	
+						HexDriver hex5(.In0(yCoord1[23:20]), .Out0(HEX5));
+						HexDriver hex6(.In0(to_hw_port0[27:24]), .Out0(HEX6));
+						HexDriver hex7(.In0(to_hw_port0[31:28]), .Out0(HEX7));	
+			*/
 endmodule
