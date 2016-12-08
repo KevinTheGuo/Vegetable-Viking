@@ -48,13 +48,12 @@
 // struct your stuff
 struct gameObject
 {
-	int xPosition;		// x position on the screen
-	int yPosition;		// y position on the screen
-	int objectType;		// type of the object (different fruits/bombs)
-	int objectState;		// state of the object
-//	long objectRot;		// rotation of the object (no longer included)
+	int xPosition;		// x position on the screen		(0-640)
+	int yPosition;		// y position on the screen		(0-480)
+	int objectType;		// type of the object (different fruits/bombs) (0-7)
+	int objectState;	// state of the object							(0-7)
+	// THE FOLLOWING ARE NOT FOR TRANSMISSION
 	int packageType;	// type of message: 0- fruit, 1- game status
-// THE FOLLOWING ARE NOT FOR TRANSMISSION
 	double xVelocity;
 	double yVelocity;
 };
@@ -63,8 +62,8 @@ struct gameObject veggieObject[16];
 /* FOR GAME STATUS PACKAGE
  *	xPosition -> game score
  *	yPosition -> game timer
- *	objectType -> game start state
- *	objectState -> game end state
+ *	objectState -> game state
+ *	objectType -> n/a
 */
 
 // random variables for cursor status
@@ -73,14 +72,15 @@ unsigned int yCursor;	// ycoordinate
 int cursorStreak;	// whether cursor has a streak or not
 int cursorClicked;	// whether our thingy was clicked!
 
-// random variables for key button status
-int key1;
-int key2;
-int key3;
+// random variables for key input (not anymore)
+int key1, key2, key3;
+
+// variable for spawning multiple of same type of fruit
+int sameFruit;
 
 // declarations of functions and stuff
 void physicsEngine();	// updates all the positions of our objects, with PHYSICS!
-void spawningEngine();	// spawn more objects!! with randomness!!
+void spawningEngine(int pattern);	// spawn more objects!! with randomness!!
 void sliceEngine();		// determines when objects are sliced, and how they behave
 void disintegrateEngine();	// handles the disintegration animation of fruits/bomb
 void FPGAcommunicator();	// sends our structs to FPGA
@@ -94,22 +94,9 @@ int main()
 {
 	// put in our seed
 	srand(*to_sw_port0);
-//	printf("Our current inputseed is %lu \n", *to_sw_port0);
 
-	// initialize timing stuff
-	unsigned long processorStart = *to_sw_port1;
-	unsigned long processorTime = processorStart;
-	unsigned long elapsedTime;
-	unsigned long lastPhysixed = processorTime;
-	unsigned long lastSpawned = processorTime;
-	unsigned long nextSpawnTime = processorTime;
-	unsigned long lastDisintegrated = processorTime;
-//	printf("our start time is %ld \n", processorStart);
-
-	// initialize our cursor and key stuff
-	xCursor = *to_sw_port3;
-	yCursor = *to_sw_port4;
-	port2Unpackager();
+	// assign this to 0 at start
+	sameFruit = 0;
 
 	// initialize all our structs
 	int i;
@@ -126,16 +113,52 @@ int main()
 	veggieObject[0].packageType = 1;	// game status
 
 	// TEST STUFF
-	veggieObject[0].xPosition = 94;
-	veggieObject[0].yPosition = 34;
-	veggieObject[0].objectType = 5;
-	veggieObject[0].objectState = 1;
+	veggieObject[0].xPosition = 0;
+	veggieObject[0].yPosition = 0;
+	veggieObject[0].objectType = 0;
+	veggieObject[0].objectState = 7;
 	veggieObject[0].packageType = 1;
-	veggieObject[0].xVelocity = 0;
-	veggieObject[0].yVelocity = 0;
 
-	while(1)
+	// start out in the initial black menu
+	while(cursorClicked == 0)
 	{
+		FPGAcommunicator();	// call this every time to update the FPGA
+		port2Unpackager();	// just run our unpackager
+	}
+
+	// initialize timing stuff
+	unsigned long processorStart = *to_sw_port1;
+	unsigned long processorTime = processorStart;
+	unsigned long elapsedTime;
+	unsigned long lastPhysixed = processorTime;
+	unsigned long lastSpawned = processorTime;
+	unsigned long nextSpawnTime = processorTime;
+	unsigned long lastDisintegrated = processorTime;
+//	printf("our start time is %ld \n", processorStart);
+
+	// initialize our cursor and key stuff
+	xCursor = *to_sw_port3;
+	yCursor = *to_sw_port4;
+	port2Unpackager();
+
+	while(1)	// game while loop
+	{
+		if(veggieObject[0].objectState == 0)	// DEBUG THinGY
+		{
+			if(key1)
+			{
+				veggieObject[0].objectState = 1;	// easy mode
+			}
+			else if(key2)
+			{
+				veggieObject[0].objectState = 2;	// medium mode
+			}
+			else if(key3)
+			{
+				veggieObject[0].objectState = 3;	// hard mode
+			}
+		}
+
 		// constantly updating our current time in seconds
 		processorTime = *to_sw_port1;
 //		printf("our time is %lu \n", processorTime);
@@ -152,10 +175,34 @@ int main()
 		// spawning objects
 		if ((elapsedTime - lastSpawned) > nextSpawnTime)	// greater than random time
 		{
-			spawningEngine();	// call our spawning engine!
-			lastSpawned = elapsedTime;
-			nextSpawnTime = (rand() % 50) + 50;
+			// determine next spawn time based on level
+			if(veggieObject[0].objectState == 0)	// menu spawn for funsies
+			{
+				spawningEngine(1);	// call our spawning engine!
+				nextSpawnTime = (rand() % 50) + 25;
+			}
+			else if(veggieObject[0].objectState == 1)	// easy mode spawn
+			{
+				spawningEngine(rand() % 5);
+				nextSpawnTime = (rand() % 50) + 100;
+			}
+			else if(veggieObject[0].objectState == 2)	// medium mode
+			{
+				spawningEngine(rand() % 7);
+				nextSpawnTime = (rand() % 75) + 50;
+			}
+			else if(veggieObject[0].objectState == 3)	// easy mode spawn
+			{
+				spawningEngine(rand() % 9);
+				nextSpawnTime = (rand() % 100);		// hard mode
+			}
+			else
+			{
+				nextSpawnTime = 200;	// we're in another state. check occasionally
+			}
 	//		printf("we generated a random number at %lu   ", nextSpawnTime);
+			sameFruit = 0;	// reset this
+			lastSpawned = elapsedTime;
 		}
 
 		if ((elapsedTime - lastDisintegrated) > 20)	// greater than .2 sec
@@ -193,7 +240,6 @@ void physicsEngine()
 				veggieObject[i].yPosition = 0;
 				veggieObject[i].objectType = 0;
 				veggieObject[i].objectState = 0;
-				veggieObject[i].packageType = 0;
 				veggieObject[i].xVelocity = 0;
 				veggieObject[i].yVelocity = 0;
 			//	printf("eliminating object %d! \n", i);
@@ -203,19 +249,52 @@ void physicsEngine()
 	return;
 }
 
-void spawningEngine()
+void spawningEngine(int pattern)
 {
+	if(pattern == 0)	// one pattern will have us skip a spawn
+	{
+		return;
+	}
 	int i;
 	for(i=1; i<16; i++)	// let's go through our objects and see which ones are free
 	{
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
-			// RANDOM GENERATION!!
-			unsigned int randomX = (rand() % 540) + 50;
-			int randomType = (rand() % 8) + 1;
-			double randomSpeedY = (rand() % 22) + 45;
-			double randomSpeedX = (rand() % 40) - 20;
+			unsigned int randomX;	// x coordinate on bottom of screen
+			int randomType;		// type of fruit that's spawned
+			double randomSpeedY, randomSpeedX;	// starting velocity
 
+			veggieObject[i].objectState = 1;	// reserve this slot
+
+			if(pattern >= 5)	// can spawn multiples and identical depending on pattern
+			{
+				if(((rand() % 2) == 1)&&(sameFruit == 0))
+				{
+					sameFruit = (rand() % 8);
+				}
+				int j;
+				for(j=4; j<pattern; j++)
+				{
+					spawningEngine(1);	// call ourselves to spawn another!
+				}
+			}
+
+			// RANDOM GENERATION!!
+			randomX = (rand() % 540) + 50;
+			randomSpeedY = (rand() % 22) + 45;
+			randomSpeedX = (rand() % 40) - 20;
+
+			// check if we are spawning samefruit
+			if(sameFruit == 0)
+			{
+				randomType = (rand() % 8);
+			}
+			else
+			{
+				randomType = sameFruit;
+			}
+
+			// make sure we aren't throwing them out the edges
 			if (randomX < 100)
 			{
 				randomSpeedX = (rand() % 40);
@@ -229,7 +308,6 @@ void spawningEngine()
 			veggieObject[i].xPosition = randomX;
 			veggieObject[i].yPosition = 0;
 			veggieObject[i].objectType = randomType;
-			veggieObject[i].objectState = 1;
 			veggieObject[i].xVelocity = randomSpeedX;
 			veggieObject[i].yVelocity = randomSpeedY;
 /*			printf("x is %lu  ", randomX);
@@ -241,57 +319,68 @@ void spawningEngine()
 			break;
 		}
 	}
+	return;
 }
 
 void sliceEngine()
 {
-	int i;
-	for(i=1; i<16; i++)	// let's go through our objects and see which ones collide
+	if((veggieObject[0].objectState == 0)&&(cursorStreak))	// this is menu state
 	{
-		if(veggieObject[i].objectState == 1)	// only if it is in perfect state
+		// let's check menu collision
+		// THIS IS TO DO
+	}
+	else if(cursorStreak)	// if cursor has streak, we can cut!
+	{
+		int i;
+		for(i=1; i<16; i++)	// let's go through our objects and see which ones collide
 		{
-			// let's grab the vegetable coordinates
-			int veggieX = veggieObject[i].xPosition;
-			int veggieY = veggieObject[i].xPosition;
+			// only if it is in perfect state
+			if(veggieObject[i].objectState == 1)
+			{
+				// let's grab the vegetable coordinates
+				int veggieX = veggieObject[i].xPosition;
+				int veggieY = veggieObject[i].xPosition;
 
-			// let's set our collision box
-			int collideX, collideY;
-			int offsetX = 10;
-			if((veggieObject[i].objectType == 1)) //eggplant
-			{
-				collideX = 45;
-				collideY = 85;
-			}
-			else if((veggieObject[i].objectType == 2))	// potato
-			{
-				collideX = 45;
-				collideY = 80;
-			}
-			else if((veggieObject[i].objectType == 3)) 	// carrot
-			{
-				collideX = 45;
-				collideY = 40;
-			}
-			else if((veggieObject[i].objectType == 3))	// tomato
-			{
-				collideX = 40;
-				collideY = 40;
-			}
-			else	// broccoli, cabbage, radish, onion
-			{
-				offsetX = 0;
-				collideX = 64;
-				collideY = 64;
-			}
+				// let's set our collision box
+				int collideX, collideY;
+				int offsetX = 10;
+				if((veggieObject[i].objectType == 1)) //eggplant
+				{
+					collideX = 45;
+					collideY = 85;
+				}
+				else if((veggieObject[i].objectType == 2))	// potato
+				{
+					collideX = 45;
+					collideY = 80;
+				}
+				else if((veggieObject[i].objectType == 3)) 	// carrot
+				{
+					collideX = 45;
+					collideY = 40;
+				}
+				else if((veggieObject[i].objectType == 3))	// tomato
+				{
+					collideX = 40;
+					collideY = 40;
+				}
+				else	// broccoli, cabbage, radish, onion
+				{
+					offsetX = 0;
+					collideX = 64;
+					collideY = 64;
+				}
 
-			// now let's check collision
-			if(((veggieX+offsetX)<xCursor)&&((veggieX+collideX)>xCursor)&&(veggieY<yCursor)&&((veggieY+collideY)>yCursor))
-			{
-				// this means we are in the 'hitbox'!! kill the fruit!
-				veggieObject[i].objectState = 2;
+				// now let's check collision
+				if(((veggieX+offsetX)<xCursor)&&((veggieX+collideX)>xCursor)&&(veggieY<yCursor)&&((veggieY+collideY)>yCursor))
+				{
+					// this means we are in the 'hitbox'!! kill the fruit!
+					veggieObject[i].objectState = 2;
+				}
 			}
 		}
 	}
+	return;
 }
 
 void disintegrateEngine()
@@ -309,7 +398,12 @@ void disintegrateEngine()
 		}
 		else if(veggieObject[i].objectState == 4) // almost dedded
 		{
-			veggieObject[i].objectState = 0;	// gone!
+			veggieObject[i].xPosition = 0;		// gone!
+			veggieObject[i].yPosition = 0;
+			veggieObject[i].objectType = 0;
+			veggieObject[i].objectState = 0;
+			veggieObject[i].xVelocity = 0;
+			veggieObject[i].yVelocity = 0;
 		}
 	}
 }
