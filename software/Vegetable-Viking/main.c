@@ -81,6 +81,9 @@ int comboFruit;
 int physixOn;
 int spawnOn;
 
+// variable for delayed state change
+int nextState;
+
 // timer variables we need to be global
 unsigned long elapsedTime;
 unsigned long lastPhysixed;
@@ -88,6 +91,7 @@ unsigned long lastSpawned;
 unsigned long nextSpawnTime;
 unsigned long lastDisintegrated;
 unsigned long roundStart;
+unsigned long changeTimer;
 
 // declarations of functions and stuff
 void statusEngine();	// keeps track of the game status
@@ -111,6 +115,9 @@ int main()
 	comboFruit = 0;
 	physixOn = 0;
 	spawnOn = 0;
+
+	// variable for delayed state change
+	nextState = 0;
 
 	// initialize all our structs
 	int i;
@@ -138,6 +145,7 @@ int main()
 	nextSpawnTime = processorTime;
 	lastDisintegrated = processorTime;
 	roundStart = 0;
+
 //	printf("our start time is %ld \n", processorStart);
 
 	// initialize our cursor and key stuff
@@ -172,13 +180,12 @@ int main()
 		elapsedTime = processorTime - processorStart;
 //		printf("elapsed time is %lu \n", elapsedTime);
 
-		statusEngine();	// keep track of our game state
-
-		if(key1)
+		if(nextState == -1)
 		{
-			(veggieObject[0].objectState = 3);
-			veggieObject[0].objectType = 3;
+			changeTimer = elapsedTime;
 		}
+
+		statusEngine();	// keep track of our game state
 
 		// constantly doing physics
 		if (((elapsedTime - lastPhysixed) > 5) && (physixOn))
@@ -221,7 +228,14 @@ int main()
 			lastDisintegrated = elapsedTime;
 		}
 
-		if ( )
+		if ((nextState != -1) && (elapsedTime - changeTimer > 2000))
+		{
+			printf("we're here");
+			veggieObject[0].objectState = nextState;	// move to GAME OVER state
+			physixOn = 0;
+			nextState = -1;
+			veggieObject[0].yPosition = 0;
+		}
 		slicingEngine();	// check if we need to slice anything
 		port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
 		FPGAcommunicator();	// call this every time to update the FPGA
@@ -238,32 +252,16 @@ void statusEngine()
 		veggieObject[0].yPosition = 60 - ((elapsedTime - roundStart)/100);	// timer
 		if(veggieObject[0].yPosition == 0)	// check if our timer ended
 		{
-			physixOn = 0;
-			veggieObject[0].objectState = 4;	// move to GAME WON state
+			spawnOn = 0;
+			nextState = 4;	// move to GAME WON state
 
-			int i;
-			for(i=1; i<10; i++)
-			{
-				veggieObject[i].objectState = 2;
-				veggieObject[i].xVelocity = 0;
-				veggieObject[i].yVelocity = 0;
-			}
-
-			printf("timed out\n");
+			printf("timer over!\n");
 		}
 		else if(((veggieObject[0].objectState == 2) || (veggieObject[0].objectState == 3)) && (veggieObject[0].objectType <= 0))
 		{
 			// this means we're game over :(
-			physixOn = 0;
-			veggieObject[0].objectState = 5;	// move to GAME OVER state
-
-			int i;
-			for(i=1; i<9; i++)
-			{
-				veggieObject[i].objectState = 2;
-				veggieObject[i].xVelocity = 0;
-				veggieObject[i].yVelocity = 0;
-			}
+			spawnOn = 0;
+			nextState = 5;
 
 			printf("game over\n");
 		}
@@ -451,6 +449,7 @@ void slicingEngine()
 			veggieObject[0].objectState = 1;	// easy mode start
 			veggieObject[0].objectType = 0;		// where we're goin, we don't need lives
 			physixOn = 1;
+			spawnOn = 1;
 			veggieObject[1].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
 		}
@@ -459,6 +458,7 @@ void slicingEngine()
 			veggieObject[0].objectState = 2;	// medium mode start
 			veggieObject[0].objectType = 5;		// lots of lives for u!
 			physixOn = 1;
+			spawnOn = 1;
 			veggieObject[2].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
 		}
@@ -467,6 +467,7 @@ void slicingEngine()
 			veggieObject[0].objectState = 3;	// hard mode start
 			veggieObject[0].objectType = 3;		// ..good luck...you'll need it
 			physixOn = 1;
+			spawnOn = 1;
 			veggieObject[3].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
 		}
@@ -476,10 +477,8 @@ void slicingEngine()
 		// DO MORE MENU COLLISION
 		if((xCursor>230)&&(xCursor<300)&&(yCursor>80)&&(yCursor<150))
 		{
-			veggieObject[0].objectState = 0;	// return to main menu
+			nextState = 0;
 			veggieObject[4].objectState = 2;	// cut the object!
-
-			physixOn = 0;
 		}
 	}
 	else	// we can cut!
