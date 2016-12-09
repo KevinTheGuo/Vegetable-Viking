@@ -77,8 +77,9 @@ int key1, key2, key3;
 // variable for adding additional score per fruit sliced
 int comboFruit;
 
-// variable for determining whether physics is on or not
+// variable for determining whether physics or spawning is on or not
 int physixOn;
+int spawnOn;
 
 // timer variables we need to be global
 unsigned long elapsedTime;
@@ -109,6 +110,7 @@ int main()
 	// assign these to 0 at start
 	comboFruit = 0;
 	physixOn = 0;
+	spawnOn = 0;
 
 	// initialize all our structs
 	int i;
@@ -187,7 +189,7 @@ int main()
 		}
 
 		// spawning objects
-		if ((elapsedTime - lastSpawned) > nextSpawnTime)	// greater than random time
+		if (((elapsedTime - lastSpawned) > nextSpawnTime) && (spawnOn))	// greater than random time
 		{
 			// determine next spawn time based on level
 			if(veggieObject[0].objectState == 1)	// easy mode spawn
@@ -218,6 +220,8 @@ int main()
 			disintegrateEngine();	// call our spawning engine!
 			lastDisintegrated = elapsedTime;
 		}
+
+		if ( )
 		slicingEngine();	// check if we need to slice anything
 		port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
 		FPGAcommunicator();	// call this every time to update the FPGA
@@ -390,7 +394,7 @@ void spawningEngine(int pattern)
 	int i, j;
 	for(j=1; j<9; j++)	// let's go through our veggies and see which ones are free
 	{
-		i = (rand() % 14 + 1);	// put it in a random port for random veggies
+		i = (rand() % 9 + 1);	// put it in a random port for random veggies
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
 			unsigned int randomX;	// x coordinate on bottom of screen
@@ -438,8 +442,6 @@ void spawningEngine(int pattern)
 
 void slicingEngine()
 {
-	xCursor = 320;
-	yCursor = 240;
 	if((veggieObject[0].objectState == 0)&&(cursorStreak))	// this is menu state
 	{
 		// let's check menu collision
@@ -455,7 +457,7 @@ void slicingEngine()
 		else if((xCursor>180)&&(xCursor<250)&&(yCursor>220)&&(yCursor<310))
 		{
 			veggieObject[0].objectState = 2;	// medium mode start
-			veggieObject[0].objectType = 3;		// lots of lives for u!
+			veggieObject[0].objectType = 5;		// lots of lives for u!
 			physixOn = 1;
 			veggieObject[2].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
@@ -463,7 +465,7 @@ void slicingEngine()
 		else if((xCursor>450)&&(xCursor<520)&&(yCursor>120)&&(yCursor<210))
 		{
 			veggieObject[0].objectState = 3;	// hard mode start
-			veggieObject[0].objectType = 1;		// ..good luck...you'll need it
+			veggieObject[0].objectType = 3;		// ..good luck...you'll need it
 			physixOn = 1;
 			veggieObject[3].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
