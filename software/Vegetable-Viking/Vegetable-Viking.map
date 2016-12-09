@@ -113,16 +113,23 @@ Allocating common symbols
 Common symbol       size              file
 
 alt_irq             0x100             ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+elapsedTime         0x4               obj/default/main.o
 sameFruit           0x4               obj/default/main.o
+lastPhysixed        0x4               obj/default/main.o
 errno               0x4               c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
 yCursor             0x4               obj/default/main.o
 xCursor             0x4               obj/default/main.o
 cursorClicked       0x4               obj/default/main.o
 veggieObject        0x240             obj/default/main.o
 cursorStreak        0x4               obj/default/main.o
+lastSpawned         0x4               obj/default/main.o
+lastDisintegrated   0x4               obj/default/main.o
 key1                0x4               obj/default/main.o
 key3                0x4               obj/default/main.o
+nextSpawnTime       0x4               obj/default/main.o
 key2                0x4               obj/default/main.o
+roundStart          0x4               obj/default/main.o
+comboFruit          0x4               obj/default/main.o
 
 Memory Configuration
 
@@ -212,7 +219,7 @@ LOAD c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4
                 0x000000001000022c                PROVIDE (__ram_exceptions_end, ABSOLUTE (.))
                 0x0000000010000020                PROVIDE (__flash_exceptions_start, LOADADDR (.exceptions))
 
-.text           0x000000001000022c     0x5cbc
+.text           0x000000001000022c     0x6200
                 0x000000001000022c                PROVIDE (stext, ABSOLUTE (.))
  *(.interp)
  *(.hash)
@@ -259,379 +266,387 @@ LOAD c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4
  *(.text .stub .text.* .gnu.linkonce.t.*)
  .text          0x000000001000022c       0x3c ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
                 0x000000001000022c                _start
- .text          0x0000000010000268     0x17bc obj/default/main.o
+ .text          0x0000000010000268     0x1d00 obj/default/main.o
                 0x0000000010000268                main
-                0x0000000010000660                physicsEngine
-                0x0000000010000a10                spawningEngine
-                0x0000000010000d64                sliceEngine
-                0x0000000010000fe8                disintegrateEngine
-                0x00000000100011f0                FPGAcommunicator
-                0x0000000010001688                messagePackager
-                0x00000000100017e4                port2Unpackager
-                0x00000000100018d4                convertDecimalToBinary
-                0x000000001000193c                convertBinaryToDecimal
- .text          0x0000000010001a24      0x640 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
-                0x0000000010001a24                __udivdi3
- .text          0x0000000010002064      0x61c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
-                0x0000000010002064                __umoddi3
- .text          0x0000000010002680      0x12c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
-                0x00000000100026ec                __divsi3
-                0x0000000010002740                __modsi3
-                0x000000001000279c                __udivsi3
-                0x00000000100027a4                __umodsi3
- .text          0x00000000100027ac       0x28 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
-                0x00000000100027ac                __mulsi3
- .text          0x00000000100027d4      0x89c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
-                0x00000000100027d4                __adddf3
- .text          0x0000000010003070      0x8d0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
-                0x0000000010003070                __subdf3
- .text          0x0000000010003940       0x88 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
-                0x0000000010003940                __fixdfsi
- .text          0x00000000100039c8       0xd0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
-                0x00000000100039c8                __floatsidf
- .text          0x0000000010003a98        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .text          0x0000000010003a98       0x64 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
-                0x0000000010003a98                __clzsi2
- .text          0x0000000010003afc       0x7c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
-                0x0000000010003afc                srand
-                0x0000000010003b14                rand
- .text          0x0000000010003b78        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .text          0x0000000010003b78      0x10c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
-                0x0000000010003b78                __muldi3
- .text          0x0000000010003c84       0xe4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
-                0x0000000010003ce8                alt_load
- .text          0x0000000010003d68       0x78 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
-                0x0000000010003d68                alt_main
- .text          0x0000000010003de0       0xb4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
-                0x0000000010003e18                alt_irq_init
-                0x0000000010003e4c                alt_sys_init
- .text          0x0000000010003e94      0x164 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
-                0x0000000010003e94                altera_avalon_jtag_uart_read_fd
-                0x0000000010003ef4                altera_avalon_jtag_uart_write_fd
-                0x0000000010003f54                altera_avalon_jtag_uart_close_fd
-                0x0000000010003fa4                altera_avalon_jtag_uart_ioctl_fd
- .text          0x0000000010003ff8      0x3d8 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
-                0x0000000010003ff8                altera_avalon_jtag_uart_init
-                0x0000000010004368                altera_avalon_jtag_uart_close
- .text          0x00000000100043d0       0xec ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
-                0x00000000100043d0                altera_avalon_jtag_uart_ioctl
- .text          0x00000000100044bc      0x20c ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
-                0x00000000100044bc                altera_avalon_jtag_uart_read
- .text          0x00000000100046c8      0x218 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
-                0x00000000100046c8                altera_avalon_jtag_uart_write
- .text          0x00000000100048e0      0x140 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
-                0x00000000100048e0                alt_alarm_start
- .text          0x0000000010004a20      0x128 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
-                0x0000000010004a70                close
- .text          0x0000000010004b48       0x1c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
-                0x0000000010004b48                alt_dcache_flush_all
- .text          0x0000000010004b64       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .text          0x0000000010004b90       0xf4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
-                0x0000000010004be0                alt_dev_llist_insert
- .text          0x0000000010004c84       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
-                0x0000000010004c84                _do_ctors
- .text          0x0000000010004ce0       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
-                0x0000000010004ce0                _do_dtors
- .text          0x0000000010004d3c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .text          0x0000000010004d3c       0x1c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
-                0x0000000010004d3c                alt_icache_flush_all
- .text          0x0000000010004d58      0x1e0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
-                0x0000000010004d58                alt_ic_isr_register
-                0x0000000010004da8                alt_ic_irq_enable
-                0x0000000010004e48                alt_ic_irq_disable
-                0x0000000010004eec                alt_ic_irq_enabled
- .text          0x0000000010004f38       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
-                0x0000000010004f38                alt_iic_isr_register
- .text          0x0000000010005028      0x158 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
-                0x0000000010005108                alt_io_redirect
- .text          0x0000000010005180        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .text          0x0000000010005180        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .text          0x0000000010005180        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .text          0x0000000010005180      0x2a4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
-                0x00000000100052c4                open
- .text          0x0000000010005424       0x80 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
-                0x0000000010005424                alt_release_fd
- .text          0x00000000100054a4      0x19c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
-                0x00000000100054a4                alt_alarm_stop
-                0x000000001000553c                alt_tick
- .text          0x0000000010005640       0x20 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
-                0x0000000010005640                altera_nios2_gen2_irq_init
- .text          0x0000000010005660        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .text          0x0000000010005660       0x90 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
-                0x0000000010005660                alt_find_dev
- .text          0x00000000100056f0      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
-                0x00000000100056f0                alt_find_file
- .text          0x0000000010005804       0xd4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
-                0x0000000010005804                alt_get_fd
- .text          0x00000000100058d8       0x9c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
-                0x00000000100058d8                alt_exception_cause_generated_bad_addr
- .text          0x0000000010005974       0x14 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
-                0x0000000010005974                atexit
- .text          0x0000000010005988       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
-                0x0000000010005988                exit
- .text          0x00000000100059c0        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .text          0x00000000100059c0       0x7c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
-                0x00000000100059c0                memcmp
- .text          0x0000000010005a3c      0x138 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
-                0x0000000010005a3c                memcpy
- .text          0x0000000010005b74       0x98 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
-                0x0000000010005b74                strlen
- .text          0x0000000010005c0c      0x114 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
-                0x0000000010005c0c                __register_exitproc
- .text          0x0000000010005d20      0x194 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
-                0x0000000010005d20                __call_exitprocs
- .text          0x0000000010005eb4       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
-                0x0000000010005eb4                _exit
+                0x0000000010000638                statusEngine
+                0x0000000010000748                physicsEngine
+                0x0000000010000b20                spawningEngine
+                0x00000000100010c0                slicingEngine
+                0x0000000010001520                disintegrateEngine
+                0x0000000010001728                FPGAcommunicator
+                0x0000000010001bc0                messagePackager
+                0x0000000010001d1c                port2Unpackager
+                0x0000000010001e18                convertDecimalToBinary
+                0x0000000010001e80                convertBinaryToDecimal
+ .text          0x0000000010001f68      0x640 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+                0x0000000010001f68                __udivdi3
+ .text          0x00000000100025a8      0x61c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+                0x00000000100025a8                __umoddi3
+ .text          0x0000000010002bc4      0x12c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+                0x0000000010002c30                __divsi3
+                0x0000000010002c84                __modsi3
+                0x0000000010002ce0                __udivsi3
+                0x0000000010002ce8                __umodsi3
+ .text          0x0000000010002cf0       0x28 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+                0x0000000010002cf0                __mulsi3
+ .text          0x0000000010002d18      0x89c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+                0x0000000010002d18                __adddf3
+ .text          0x00000000100035b4      0x8d0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+                0x00000000100035b4                __subdf3
+ .text          0x0000000010003e84       0x88 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+                0x0000000010003e84                __fixdfsi
+ .text          0x0000000010003f0c       0xd0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+                0x0000000010003f0c                __floatsidf
+ .text          0x0000000010003fdc        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .text          0x0000000010003fdc       0x64 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+                0x0000000010003fdc                __clzsi2
+ .text          0x0000000010004040       0x7c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+                0x0000000010004040                srand
+                0x0000000010004058                rand
+ .text          0x00000000100040bc        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .text          0x00000000100040bc      0x10c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+                0x00000000100040bc                __muldi3
+ .text          0x00000000100041c8       0xe4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+                0x000000001000422c                alt_load
+ .text          0x00000000100042ac       0x78 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+                0x00000000100042ac                alt_main
+ .text          0x0000000010004324       0xb4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+                0x000000001000435c                alt_irq_init
+                0x0000000010004390                alt_sys_init
+ .text          0x00000000100043d8      0x164 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+                0x00000000100043d8                altera_avalon_jtag_uart_read_fd
+                0x0000000010004438                altera_avalon_jtag_uart_write_fd
+                0x0000000010004498                altera_avalon_jtag_uart_close_fd
+                0x00000000100044e8                altera_avalon_jtag_uart_ioctl_fd
+ .text          0x000000001000453c      0x3d8 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+                0x000000001000453c                altera_avalon_jtag_uart_init
+                0x00000000100048ac                altera_avalon_jtag_uart_close
+ .text          0x0000000010004914       0xec ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+                0x0000000010004914                altera_avalon_jtag_uart_ioctl
+ .text          0x0000000010004a00      0x20c ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+                0x0000000010004a00                altera_avalon_jtag_uart_read
+ .text          0x0000000010004c0c      0x218 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+                0x0000000010004c0c                altera_avalon_jtag_uart_write
+ .text          0x0000000010004e24      0x140 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+                0x0000000010004e24                alt_alarm_start
+ .text          0x0000000010004f64      0x128 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+                0x0000000010004fb4                close
+ .text          0x000000001000508c       0x1c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+                0x000000001000508c                alt_dcache_flush_all
+ .text          0x00000000100050a8       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .text          0x00000000100050d4       0xf4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+                0x0000000010005124                alt_dev_llist_insert
+ .text          0x00000000100051c8       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+                0x00000000100051c8                _do_ctors
+ .text          0x0000000010005224       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+                0x0000000010005224                _do_dtors
+ .text          0x0000000010005280        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .text          0x0000000010005280       0x1c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+                0x0000000010005280                alt_icache_flush_all
+ .text          0x000000001000529c      0x1e0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+                0x000000001000529c                alt_ic_isr_register
+                0x00000000100052ec                alt_ic_irq_enable
+                0x000000001000538c                alt_ic_irq_disable
+                0x0000000010005430                alt_ic_irq_enabled
+ .text          0x000000001000547c       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+                0x000000001000547c                alt_iic_isr_register
+ .text          0x000000001000556c      0x158 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+                0x000000001000564c                alt_io_redirect
+ .text          0x00000000100056c4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .text          0x00000000100056c4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .text          0x00000000100056c4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .text          0x00000000100056c4      0x2a4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+                0x0000000010005808                open
+ .text          0x0000000010005968       0x80 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+                0x0000000010005968                alt_release_fd
+ .text          0x00000000100059e8      0x19c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+                0x00000000100059e8                alt_alarm_stop
+                0x0000000010005a80                alt_tick
+ .text          0x0000000010005b84       0x20 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+                0x0000000010005b84                altera_nios2_gen2_irq_init
+ .text          0x0000000010005ba4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .text          0x0000000010005ba4       0x90 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+                0x0000000010005ba4                alt_find_dev
+ .text          0x0000000010005c34      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+                0x0000000010005c34                alt_find_file
+ .text          0x0000000010005d48       0xd4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+                0x0000000010005d48                alt_get_fd
+ .text          0x0000000010005e1c       0x9c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                0x0000000010005e1c                alt_exception_cause_generated_bad_addr
+ .text          0x0000000010005eb8       0x14 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+                0x0000000010005eb8                atexit
+ .text          0x0000000010005ecc       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+                0x0000000010005ecc                exit
+ .text          0x0000000010005f04        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .text          0x0000000010005f04       0x7c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+                0x0000000010005f04                memcmp
+ .text          0x0000000010005f80      0x138 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+                0x0000000010005f80                memcpy
+ .text          0x00000000100060b8       0x98 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+                0x00000000100060b8                strlen
+ .text          0x0000000010006150      0x114 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+                0x0000000010006150                __register_exitproc
+ .text          0x0000000010006264      0x194 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+                0x0000000010006264                __call_exitprocs
+ .text          0x00000000100063f8       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+                0x00000000100063f8                _exit
  *(.gnu.warning.*)
  *(.fini)
-                0x0000000010005ee8                PROVIDE (__etext, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (_etext, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (etext, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__etext, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (_etext, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (etext, ABSOLUTE (.))
  *(.eh_frame_hdr)
-                0x0000000010005ee8                . = ALIGN (0x4)
-                0x0000000010005ee8                PROVIDE (__preinit_array_start, ABSOLUTE (.))
+                0x000000001000642c                . = ALIGN (0x4)
+                0x000000001000642c                PROVIDE (__preinit_array_start, ABSOLUTE (.))
  *(.preinit_array)
-                0x0000000010005ee8                PROVIDE (__preinit_array_end, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (__init_array_start, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__preinit_array_end, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__init_array_start, ABSOLUTE (.))
  *(.init_array)
-                0x0000000010005ee8                PROVIDE (__init_array_end, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (__fini_array_start, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__init_array_end, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__fini_array_start, ABSOLUTE (.))
  *(.fini_array)
-                0x0000000010005ee8                PROVIDE (__fini_array_end, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__fini_array_end, ABSOLUTE (.))
  *(.eh_frame)
  *(.gcc_except_table .gcc_except_table.*)
  *(.dynamic)
-                0x0000000010005ee8                PROVIDE (__CTOR_LIST__, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__CTOR_LIST__, ABSOLUTE (.))
  *(.ctors)
  *(SORT(.ctors.*))
-                0x0000000010005ee8                PROVIDE (__CTOR_END__, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (__DTOR_LIST__, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__CTOR_END__, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__DTOR_LIST__, ABSOLUTE (.))
  *(.dtors)
  *(SORT(.dtors.*))
-                0x0000000010005ee8                PROVIDE (__DTOR_END__, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__DTOR_END__, ABSOLUTE (.))
  *(.jcr)
-                0x0000000010005ee8                . = ALIGN (0x4)
+                0x000000001000642c                . = ALIGN (0x4)
 
-.rodata         0x0000000010005ee8      0x138
-                0x0000000010005ee8                PROVIDE (__ram_rodata_start, ABSOLUTE (.))
-                0x0000000010005ee8                . = ALIGN (0x4)
+.rodata         0x000000001000642c      0x138
+                0x000000001000642c                PROVIDE (__ram_rodata_start, ABSOLUTE (.))
+                0x000000001000642c                . = ALIGN (0x4)
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x0000000010005ee8      0x100 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
-                0x0000000010005ee8                __clz_tab
+ .rodata        0x000000001000642c      0x100 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+                0x000000001000642c                __clz_tab
  .rodata.str1.4
-                0x0000000010005fe8        0x4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .rodata        0x0000000010005fec       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .rodata        0x0000000010006000       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .rodata        0x0000000010006014        0xc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+                0x000000001000652c        0x4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .rodata        0x0000000010006530       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .rodata        0x0000000010006544       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .rodata        0x0000000010006558        0xc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
  *(.rodata1)
-                0x0000000010006020                . = ALIGN (0x4)
-                0x0000000010006020                PROVIDE (__ram_rodata_end, ABSOLUTE (.))
-                0x0000000010005ee8                PROVIDE (__flash_rodata_start, LOADADDR (.rodata))
+                0x0000000010006564                . = ALIGN (0x4)
+                0x0000000010006564                PROVIDE (__ram_rodata_end, ABSOLUTE (.))
+                0x000000001000642c                PROVIDE (__flash_rodata_start, LOADADDR (.rodata))
 
-.rwdata         0x0000000010006020     0x1658 load address 0x0000000010007678
-                0x0000000010006020                PROVIDE (__ram_rwdata_start, ABSOLUTE (.))
-                0x0000000010006020                . = ALIGN (0x4)
+.rwdata         0x0000000010006564     0x1658 load address 0x0000000010007bbc
+                0x0000000010006564                PROVIDE (__ram_rwdata_start, ABSOLUTE (.))
+                0x0000000010006564                . = ALIGN (0x4)
  *(.got.plt)
  *(.got)
  *(.data1)
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x0000000010006020        0x0 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
- .data          0x0000000010006020        0x0 obj/default/main.o
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .data          0x0000000010006020        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .data          0x0000000010006020      0x424 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .data          0x0000000010006444        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .data          0x0000000010006444        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .data          0x0000000010006444        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .data          0x0000000010006444     0x1060 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .data          0x00000000100074a4        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .data          0x00000000100074a4      0x1a8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
-                0x00000000100074a4                alt_dev_null
-                0x00000000100074cc                alt_fd_list
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .data          0x000000001000764c        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .data          0x000000001000764c        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
-                0x000000001000f64c                _gp = ABSOLUTE ((. + 0x8000))
-                0x000000001000f64c                PROVIDE (gp, _gp)
+ .data          0x0000000010006564        0x0 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
+ .data          0x0000000010006564        0x0 obj/default/main.o
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .data          0x0000000010006564        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .data          0x0000000010006564      0x424 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .data          0x0000000010006988        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .data          0x0000000010006988        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .data          0x0000000010006988        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .data          0x0000000010006988     0x1060 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .data          0x00000000100079e8        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .data          0x00000000100079e8      0x1a8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+                0x00000000100079e8                alt_dev_null
+                0x0000000010007a10                alt_fd_list
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .data          0x0000000010007b90        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .data          0x0000000010007b90        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+                0x000000001000fb90                _gp = ABSOLUTE ((. + 0x8000))
+                0x000000001000fb90                PROVIDE (gp, _gp)
  *(.rwdata .rwdata.*)
  *(.sdata .sdata.* .gnu.linkonce.s.*)
- .sdata         0x000000001000764c        0x8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
-                0x000000001000764c                _global_impure_ptr
-                0x0000000010007650                _impure_ptr
- .sdata         0x0000000010007654       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
-                0x0000000010007654                alt_fs_list
-                0x000000001000765c                alt_dev_list
-                0x0000000010007664                alt_max_fd
- .sdata         0x0000000010007668        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
-                0x0000000010007668                alt_errno
- .sdata         0x000000001000766c        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
-                0x000000001000766c                alt_priority_mask
- .sdata         0x0000000010007670        0x8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
-                0x0000000010007670                alt_alarm_list
+ .sdata         0x0000000010007b90        0x8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+                0x0000000010007b90                _global_impure_ptr
+                0x0000000010007b94                _impure_ptr
+ .sdata         0x0000000010007b98       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+                0x0000000010007b98                alt_fs_list
+                0x0000000010007ba0                alt_dev_list
+                0x0000000010007ba8                alt_max_fd
+ .sdata         0x0000000010007bac        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+                0x0000000010007bac                alt_errno
+ .sdata         0x0000000010007bb0        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                0x0000000010007bb0                alt_priority_mask
+ .sdata         0x0000000010007bb4        0x8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+                0x0000000010007bb4                alt_alarm_list
  *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
-                0x0000000010007678                . = ALIGN (0x4)
-                0x0000000010007678                _edata = ABSOLUTE (.)
-                0x0000000010007678                PROVIDE (edata, ABSOLUTE (.))
-                0x0000000010007678                PROVIDE (__ram_rwdata_end, ABSOLUTE (.))
-                0x0000000010007678                PROVIDE (__flash_rwdata_start, LOADADDR (.rwdata))
+                0x0000000010007bbc                . = ALIGN (0x4)
+                0x0000000010007bbc                _edata = ABSOLUTE (.)
+                0x0000000010007bbc                PROVIDE (edata, ABSOLUTE (.))
+                0x0000000010007bbc                PROVIDE (__ram_rwdata_end, ABSOLUTE (.))
+                0x0000000010007bbc                PROVIDE (__flash_rwdata_start, LOADADDR (.rwdata))
 
-.bss            0x0000000010008cd0      0x380
-                0x0000000010008cd0                __bss_start = ABSOLUTE (.)
-                0x0000000010008cd0                PROVIDE (__sbss_start, ABSOLUTE (.))
-                0x0000000010008cd0                PROVIDE (___sbss_start, ABSOLUTE (.))
+.bss            0x0000000010009214      0x39c
+                0x0000000010009214                __bss_start = ABSOLUTE (.)
+                0x0000000010009214                PROVIDE (__sbss_start, ABSOLUTE (.))
+                0x0000000010009214                PROVIDE (___sbss_start, ABSOLUTE (.))
  *(.dynsbss)
  *(.sbss .sbss.* .gnu.linkonce.sb.*)
- .sbss          0x0000000010008cd0       0x20 obj/default/main.o
-                0x0000000010008cd0                sameFruit
-                0x0000000010008cd4                yCursor
-                0x0000000010008cd8                xCursor
-                0x0000000010008cdc                cursorClicked
-                0x0000000010008ce0                cursorStreak
-                0x0000000010008ce4                key1
-                0x0000000010008ce8                key3
-                0x0000000010008cec                key2
- .sbss          0x0000000010008cf0        0xc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
-                0x0000000010008cf0                alt_argc
-                0x0000000010008cf4                alt_argv
-                0x0000000010008cf8                alt_envp
- .sbss          0x0000000010008cfc        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
-                0x0000000010008cfc                alt_irq_active
- .sbss          0x0000000010008d00        0x8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
-                0x0000000010008d00                _alt_tick_rate
-                0x0000000010008d04                _alt_nticks
- .sbss          0x0000000010008d08        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
-                0x0000000010008d08                alt_instruction_exception_handler
- .sbss          0x0000000010008d0c        0x4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
-                0x0000000010008d0c                errno
+ .sbss          0x0000000010009214       0x3c obj/default/main.o
+                0x0000000010009214                elapsedTime
+                0x0000000010009218                sameFruit
+                0x000000001000921c                lastPhysixed
+                0x0000000010009220                yCursor
+                0x0000000010009224                xCursor
+                0x0000000010009228                cursorClicked
+                0x000000001000922c                cursorStreak
+                0x0000000010009230                lastSpawned
+                0x0000000010009234                lastDisintegrated
+                0x0000000010009238                key1
+                0x000000001000923c                key3
+                0x0000000010009240                nextSpawnTime
+                0x0000000010009244                key2
+                0x0000000010009248                roundStart
+                0x000000001000924c                comboFruit
+ .sbss          0x0000000010009250        0xc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+                0x0000000010009250                alt_argc
+                0x0000000010009254                alt_argv
+                0x0000000010009258                alt_envp
+ .sbss          0x000000001000925c        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+                0x000000001000925c                alt_irq_active
+ .sbss          0x0000000010009260        0x8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+                0x0000000010009260                _alt_tick_rate
+                0x0000000010009264                _alt_nticks
+ .sbss          0x0000000010009268        0x4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+                0x0000000010009268                alt_instruction_exception_handler
+ .sbss          0x000000001000926c        0x4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+                0x000000001000926c                errno
  *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
  *(.scommon)
-                0x0000000010008d10                PROVIDE (__sbss_end, ABSOLUTE (.))
-                0x0000000010008d10                PROVIDE (___sbss_end, ABSOLUTE (.))
+                0x0000000010009270                PROVIDE (__sbss_end, ABSOLUTE (.))
+                0x0000000010009270                PROVIDE (___sbss_end, ABSOLUTE (.))
  *(.dynbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
- .bss           0x0000000010008d10        0x0 obj/default/main.o
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .bss           0x0000000010008d10        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .bss           0x0000000010008d10        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
+ .bss           0x0000000010009270        0x0 obj/default/main.o
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .bss           0x0000000010009270        0x0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .bss           0x0000000010009270        0x0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
  *(COMMON)
- COMMON         0x0000000010008d10      0x240 obj/default/main.o
-                0x0000000010008d10                veggieObject
- COMMON         0x0000000010008f50      0x100 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
-                0x0000000010008f50                alt_irq
-                0x0000000010009050                . = ALIGN (0x4)
-                0x0000000010009050                __bss_end = ABSOLUTE (.)
+ COMMON         0x0000000010009270      0x240 obj/default/main.o
+                0x0000000010009270                veggieObject
+ COMMON         0x00000000100094b0      0x100 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+                0x00000000100094b0                alt_irq
+                0x00000000100095b0                . = ALIGN (0x4)
+                0x00000000100095b0                __bss_end = ABSOLUTE (.)
 
 .onchip_memory2_0
-                0x0000000000000000        0x0 load address 0x0000000010009050
+                0x0000000000000000        0x0 load address 0x00000000100095b0
                 0x0000000000000000                PROVIDE (_alt_partition_onchip_memory2_0_start, ABSOLUTE (.))
  *(.onchip_memory2_0 .onchip_memory2_0. onchip_memory2_0.*)
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                PROVIDE (_alt_partition_onchip_memory2_0_end, ABSOLUTE (.))
-                0x0000000010009050                PROVIDE (_alt_partition_onchip_memory2_0_load_addr, LOADADDR (.onchip_memory2_0))
+                0x00000000100095b0                PROVIDE (_alt_partition_onchip_memory2_0_load_addr, LOADADDR (.onchip_memory2_0))
 
-.sdram          0x0000000010009050        0x0
-                0x0000000010009050                PROVIDE (_alt_partition_sdram_start, ABSOLUTE (.))
+.sdram          0x00000000100095b0        0x0
+                0x00000000100095b0                PROVIDE (_alt_partition_sdram_start, ABSOLUTE (.))
  *(.sdram .sdram. sdram.*)
-                0x0000000010009050                . = ALIGN (0x4)
-                0x0000000010009050                PROVIDE (_alt_partition_sdram_end, ABSOLUTE (.))
-                0x0000000010009050                _end = ABSOLUTE (.)
-                0x0000000010009050                end = ABSOLUTE (.)
-                0x0000000010009050                __alt_stack_base = ABSOLUTE (.)
-                0x0000000010009050                PROVIDE (_alt_partition_sdram_load_addr, LOADADDR (.sdram))
+                0x00000000100095b0                . = ALIGN (0x4)
+                0x00000000100095b0                PROVIDE (_alt_partition_sdram_end, ABSOLUTE (.))
+                0x00000000100095b0                _end = ABSOLUTE (.)
+                0x00000000100095b0                end = ABSOLUTE (.)
+                0x00000000100095b0                __alt_stack_base = ABSOLUTE (.)
+                0x00000000100095b0                PROVIDE (_alt_partition_sdram_load_addr, LOADADDR (.sdram))
 
 .stab
  *(.stab)
@@ -838,340 +853,340 @@ LOAD c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0xa21b
+.debug_info     0x0000000000000000     0xa2b3
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000       0x6d ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
- .debug_info    0x000000000000006d      0x560 obj/default/main.o
- .debug_info    0x00000000000005cd      0x710 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .debug_info    0x0000000000000cdd      0x767 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .debug_info    0x0000000000001444      0x234 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_info    0x0000000000001678       0xb4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_info    0x000000000000172c      0x485 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .debug_info    0x0000000000001bb1      0x4a2 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .debug_info    0x0000000000002053      0x1a6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .debug_info    0x00000000000021f9      0x1b6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .debug_info    0x00000000000023af       0xab c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .debug_info    0x000000000000245a      0x11d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .debug_info    0x0000000000002577      0x8a1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .debug_info    0x0000000000002e18      0x88f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_info    0x00000000000036a7      0x1e2 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .debug_info    0x0000000000003889      0x13e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .debug_info    0x00000000000039c7      0x12a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .debug_info    0x0000000000003af1      0x4bc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .debug_info    0x0000000000003fad      0x527 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_info    0x00000000000044d4      0x3a1 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_info    0x0000000000004875      0x279 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_info    0x0000000000004aee      0x342 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_info    0x0000000000004e30      0x339 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_info    0x0000000000005169      0x2c5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .debug_info    0x000000000000542e      0x31a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .debug_info    0x0000000000005748       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .debug_info    0x00000000000057d3      0x495 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .debug_info    0x0000000000005c68      0x1a2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .debug_info    0x0000000000005e0a       0x83 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .debug_info    0x0000000000005e8d       0x83 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .debug_info    0x0000000000005f10       0x9f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .debug_info    0x0000000000005faf       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .debug_info    0x000000000000603a      0x349 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .debug_info    0x0000000000006383      0x1e8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .debug_info    0x000000000000656b      0x49e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .debug_info    0x0000000000006a09       0x76 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .debug_info    0x0000000000006a7f      0x180 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .debug_info    0x0000000000006bff       0x88 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .debug_info    0x0000000000006c87      0x3b4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .debug_info    0x000000000000703b      0x2b0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .debug_info    0x00000000000072eb      0x292 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .debug_info    0x000000000000757d       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .debug_info    0x0000000000007608       0x7c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .debug_info    0x0000000000007684      0x2e2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .debug_info    0x0000000000007966      0x2df ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .debug_info    0x0000000000007c45      0x309 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .debug_info    0x0000000000007f4e      0x1d8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .debug_info    0x0000000000008126      0x10a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_info    0x0000000000008230      0x8df c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_info    0x0000000000008b0f       0x83 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_info    0x0000000000008b92      0x113 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_info    0x0000000000008ca5      0x133 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_info    0x0000000000008dd8       0xdb c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_info    0x0000000000008eb3      0x93b c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_info    0x00000000000097ee      0x948 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_info    0x000000000000a136       0xe5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .debug_info    0x000000000000006d      0x5f8 obj/default/main.o
+ .debug_info    0x0000000000000665      0x710 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .debug_info    0x0000000000000d75      0x767 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .debug_info    0x00000000000014dc      0x234 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_info    0x0000000000001710       0xb4 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_info    0x00000000000017c4      0x485 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .debug_info    0x0000000000001c49      0x4a2 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .debug_info    0x00000000000020eb      0x1a6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .debug_info    0x0000000000002291      0x1b6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .debug_info    0x0000000000002447       0xab c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .debug_info    0x00000000000024f2      0x11d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .debug_info    0x000000000000260f      0x8a1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .debug_info    0x0000000000002eb0      0x88f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_info    0x000000000000373f      0x1e2 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .debug_info    0x0000000000003921      0x13e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_info    0x0000000000003a5f      0x12a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_info    0x0000000000003b89      0x4bc ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_info    0x0000000000004045      0x527 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_info    0x000000000000456c      0x3a1 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_info    0x000000000000490d      0x279 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_info    0x0000000000004b86      0x342 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_info    0x0000000000004ec8      0x339 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_info    0x0000000000005201      0x2c5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .debug_info    0x00000000000054c6      0x31a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .debug_info    0x00000000000057e0       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_info    0x000000000000586b      0x495 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_info    0x0000000000005d00      0x1a2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_info    0x0000000000005ea2       0x83 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .debug_info    0x0000000000005f25       0x83 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .debug_info    0x0000000000005fa8       0x9f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_info    0x0000000000006047       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_info    0x00000000000060d2      0x349 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .debug_info    0x000000000000641b      0x1e8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .debug_info    0x0000000000006603      0x49e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .debug_info    0x0000000000006aa1       0x76 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_info    0x0000000000006b17      0x180 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_info    0x0000000000006c97       0x88 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_info    0x0000000000006d1f      0x3b4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .debug_info    0x00000000000070d3      0x2b0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .debug_info    0x0000000000007383      0x292 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_info    0x0000000000007615       0x8b ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_info    0x00000000000076a0       0x7c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_info    0x000000000000771c      0x2e2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .debug_info    0x00000000000079fe      0x2df ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .debug_info    0x0000000000007cdd      0x309 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .debug_info    0x0000000000007fe6      0x1d8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_info    0x00000000000081be      0x10a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_info    0x00000000000082c8      0x8df c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_info    0x0000000000008ba7       0x83 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_info    0x0000000000008c2a      0x113 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_info    0x0000000000008d3d      0x133 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_info    0x0000000000008e70       0xdb c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_info    0x0000000000008f4b      0x93b c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_info    0x0000000000009886      0x948 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_info    0x000000000000a1ce       0xe5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
 
-.debug_abbrev   0x0000000000000000     0x3620
+.debug_abbrev   0x0000000000000000     0x3627
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000       0x12 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
- .debug_abbrev  0x0000000000000012      0x168 obj/default/main.o
- .debug_abbrev  0x000000000000017a      0x170 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .debug_abbrev  0x00000000000002ea      0x19c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .debug_abbrev  0x0000000000000486       0xd9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_abbrev  0x000000000000055f       0x6f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_abbrev  0x00000000000005ce      0x13a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .debug_abbrev  0x0000000000000708      0x133 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .debug_abbrev  0x000000000000083b      0x119 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .debug_abbrev  0x0000000000000954      0x11e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .debug_abbrev  0x0000000000000a72       0x5d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .debug_abbrev  0x0000000000000acf       0xbe c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .debug_abbrev  0x0000000000000b8d      0x1b8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .debug_abbrev  0x0000000000000d45      0x180 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_abbrev  0x0000000000000ec5       0xe0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .debug_abbrev  0x0000000000000fa5       0x9f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .debug_abbrev  0x0000000000001044       0xba ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .debug_abbrev  0x00000000000010fe      0x187 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .debug_abbrev  0x0000000000001285      0x127 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_abbrev  0x00000000000013ac      0x197 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_abbrev  0x0000000000001543      0x111 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_abbrev  0x0000000000001654      0x1ac ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_abbrev  0x0000000000001800      0x1a8 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_abbrev  0x00000000000019a8      0x162 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .debug_abbrev  0x0000000000001b0a      0x11f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .debug_abbrev  0x0000000000001c29       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .debug_abbrev  0x0000000000001c6b       0xd9 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .debug_abbrev  0x0000000000001d44      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .debug_abbrev  0x0000000000001e58       0x79 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .debug_abbrev  0x0000000000001ed1       0x79 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .debug_abbrev  0x0000000000001f4a       0x5a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .debug_abbrev  0x0000000000001fa4       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .debug_abbrev  0x0000000000001fe6      0x163 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .debug_abbrev  0x0000000000002149      0x169 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .debug_abbrev  0x00000000000022b2      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .debug_abbrev  0x00000000000023c6       0x12 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .debug_abbrev  0x00000000000023d8      0x122 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .debug_abbrev  0x00000000000024fa       0x40 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .debug_abbrev  0x000000000000253a      0x148 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .debug_abbrev  0x0000000000002682       0xde ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .debug_abbrev  0x0000000000002760      0x15a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .debug_abbrev  0x00000000000028ba       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .debug_abbrev  0x00000000000028fc       0x12 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .debug_abbrev  0x000000000000290e       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .debug_abbrev  0x00000000000029fe       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .debug_abbrev  0x0000000000002aee      0x10d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .debug_abbrev  0x0000000000002bfb       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .debug_abbrev  0x0000000000002ccc       0xb8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_abbrev  0x0000000000002d84      0x1e6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_abbrev  0x0000000000002f6a       0x37 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_abbrev  0x0000000000002fa1       0x7f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_abbrev  0x0000000000003020       0x9c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_abbrev  0x00000000000030bc       0x90 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_abbrev  0x000000000000314c      0x21e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_abbrev  0x000000000000336a      0x210 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_abbrev  0x000000000000357a       0xa6 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .debug_abbrev  0x0000000000000012      0x16f obj/default/main.o
+ .debug_abbrev  0x0000000000000181      0x170 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x00000000000002f1      0x19c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .debug_abbrev  0x000000000000048d       0xd9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_abbrev  0x0000000000000566       0x6f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_abbrev  0x00000000000005d5      0x13a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .debug_abbrev  0x000000000000070f      0x133 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .debug_abbrev  0x0000000000000842      0x119 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .debug_abbrev  0x000000000000095b      0x11e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .debug_abbrev  0x0000000000000a79       0x5d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .debug_abbrev  0x0000000000000ad6       0xbe c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x0000000000000b94      0x1b8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .debug_abbrev  0x0000000000000d4c      0x180 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_abbrev  0x0000000000000ecc       0xe0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .debug_abbrev  0x0000000000000fac       0x9f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_abbrev  0x000000000000104b       0xba ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_abbrev  0x0000000000001105      0x187 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_abbrev  0x000000000000128c      0x127 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_abbrev  0x00000000000013b3      0x197 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_abbrev  0x000000000000154a      0x111 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_abbrev  0x000000000000165b      0x1ac ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_abbrev  0x0000000000001807      0x1a8 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_abbrev  0x00000000000019af      0x162 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .debug_abbrev  0x0000000000001b11      0x11f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .debug_abbrev  0x0000000000001c30       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_abbrev  0x0000000000001c72       0xd9 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_abbrev  0x0000000000001d4b      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_abbrev  0x0000000000001e5f       0x79 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .debug_abbrev  0x0000000000001ed8       0x79 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .debug_abbrev  0x0000000000001f51       0x5a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_abbrev  0x0000000000001fab       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_abbrev  0x0000000000001fed      0x163 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .debug_abbrev  0x0000000000002150      0x169 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .debug_abbrev  0x00000000000022b9      0x114 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .debug_abbrev  0x00000000000023cd       0x12 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_abbrev  0x00000000000023df      0x122 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_abbrev  0x0000000000002501       0x40 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_abbrev  0x0000000000002541      0x148 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .debug_abbrev  0x0000000000002689       0xde ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .debug_abbrev  0x0000000000002767      0x15a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_abbrev  0x00000000000028c1       0x42 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_abbrev  0x0000000000002903       0x12 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_abbrev  0x0000000000002915       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .debug_abbrev  0x0000000000002a05       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .debug_abbrev  0x0000000000002af5      0x10d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .debug_abbrev  0x0000000000002c02       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_abbrev  0x0000000000002cd3       0xb8 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_abbrev  0x0000000000002d8b      0x1e6 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_abbrev  0x0000000000002f71       0x37 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_abbrev  0x0000000000002fa8       0x7f c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_abbrev  0x0000000000003027       0x9c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_abbrev  0x00000000000030c3       0x90 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_abbrev  0x0000000000003153      0x21e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_abbrev  0x0000000000003371      0x210 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_abbrev  0x0000000000003581       0xa6 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
 
-.debug_line     0x0000000000000000     0x3b52
+.debug_line     0x0000000000000000     0x3c30
  *(.debug_line)
  .debug_line    0x0000000000000000       0x66 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
- .debug_line    0x0000000000000066      0x2ff obj/default/main.o
- .debug_line    0x0000000000000365      0x13a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .debug_line    0x000000000000049f      0x14b c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .debug_line    0x00000000000005ea       0xc7 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_line    0x00000000000006b1       0x80 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_line    0x0000000000000731      0x386 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .debug_line    0x0000000000000ab7      0x3a1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .debug_line    0x0000000000000e58       0x9c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .debug_line    0x0000000000000ef4       0xa0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .debug_line    0x0000000000000f94       0x56 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .debug_line    0x0000000000000fea       0xba c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .debug_line    0x00000000000010a4      0x1f3 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .debug_line    0x0000000000001297      0x162 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
- .debug_line    0x00000000000013f9       0xa1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .debug_line    0x000000000000149a       0x8d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .debug_line    0x0000000000001527       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .debug_line    0x00000000000015cb      0x137 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .debug_line    0x0000000000001702      0x12f ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_line    0x0000000000001831      0x180 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_line    0x00000000000019b1      0x12e ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_line    0x0000000000001adf      0x16a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_line    0x0000000000001c49      0x16a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_line    0x0000000000001db3       0xfa ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .debug_line    0x0000000000001ead      0x15e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .debug_line    0x000000000000200b       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .debug_line    0x000000000000205c       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .debug_line    0x000000000000214c       0xd0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .debug_line    0x000000000000221c       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .debug_line    0x0000000000002275       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .debug_line    0x00000000000022ce       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
- .debug_line    0x000000000000231f       0x4f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .debug_line    0x000000000000236e       0xef ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .debug_line    0x000000000000245d       0xdb ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .debug_line    0x0000000000002538      0x12d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .debug_line    0x0000000000002665       0x6b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
- .debug_line    0x00000000000026d0       0xaa ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .debug_line    0x000000000000277a       0x50 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
- .debug_line    0x00000000000027ca      0x12d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .debug_line    0x00000000000028f7       0xb0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .debug_line    0x00000000000029a7       0xfe ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .debug_line    0x0000000000002aa5       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .debug_line    0x0000000000002af6       0xb3 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
- .debug_line    0x0000000000002ba9       0xb5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .debug_line    0x0000000000002c5e       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .debug_line    0x0000000000002d2f       0xd8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .debug_line    0x0000000000002e07       0xb9 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .debug_line    0x0000000000002ec0       0xe9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_line    0x0000000000002fa9      0x1fd c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_line    0x00000000000031a6       0x60 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
- .debug_line    0x0000000000003206      0x178 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_line    0x000000000000337e      0x187 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_line    0x0000000000003505      0x171 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_line    0x0000000000003676      0x227 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_line    0x000000000000389d      0x244 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_line    0x0000000000003ae1       0x71 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .debug_line    0x0000000000000066      0x3dd obj/default/main.o
+ .debug_line    0x0000000000000443      0x13a c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .debug_line    0x000000000000057d      0x14b c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .debug_line    0x00000000000006c8       0xc7 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_line    0x000000000000078f       0x80 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_line    0x000000000000080f      0x386 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .debug_line    0x0000000000000b95      0x3a1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .debug_line    0x0000000000000f36       0x9c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .debug_line    0x0000000000000fd2       0xa0 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .debug_line    0x0000000000001072       0x56 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
+ .debug_line    0x00000000000010c8       0xba c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .debug_line    0x0000000000001182      0x1f3 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .debug_line    0x0000000000001375      0x162 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_line    0x00000000000014d7       0xa1 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .debug_line    0x0000000000001578       0x8d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_line    0x0000000000001605       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_line    0x00000000000016a9      0x137 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_line    0x00000000000017e0      0x12f ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_line    0x000000000000190f      0x180 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_line    0x0000000000001a8f      0x12e ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_line    0x0000000000001bbd      0x16a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_line    0x0000000000001d27      0x16a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_line    0x0000000000001e91       0xfa ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .debug_line    0x0000000000001f8b      0x15e ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .debug_line    0x00000000000020e9       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_line    0x000000000000213a       0xf0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_line    0x000000000000222a       0xd0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_line    0x00000000000022fa       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .debug_line    0x0000000000002353       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .debug_line    0x00000000000023ac       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_line    0x00000000000023fd       0x4f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_line    0x000000000000244c       0xef ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .debug_line    0x000000000000253b       0xdb ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .debug_line    0x0000000000002616      0x12d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .debug_line    0x0000000000002743       0x6b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_entry.o)
+ .debug_line    0x00000000000027ae       0xaa ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_line    0x0000000000002858       0x50 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_line    0x00000000000028a8      0x12d ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .debug_line    0x00000000000029d5       0xb0 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .debug_line    0x0000000000002a85       0xfe ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_line    0x0000000000002b83       0x51 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_line    0x0000000000002bd4       0xb3 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exception_entry.o)
+ .debug_line    0x0000000000002c87       0xb5 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .debug_line    0x0000000000002d3c       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .debug_line    0x0000000000002e0d       0xd8 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .debug_line    0x0000000000002ee5       0xb9 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_line    0x0000000000002f9e       0xe9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_line    0x0000000000003087      0x1fd c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_line    0x0000000000003284       0x60 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_line    0x00000000000032e4      0x178 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_line    0x000000000000345c      0x187 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_line    0x00000000000035e3      0x171 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_line    0x0000000000003754      0x227 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_line    0x000000000000397b      0x244 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_line    0x0000000000003bbf       0x71 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
 
-.debug_frame    0x0000000000000000      0xf18
+.debug_frame    0x0000000000000000      0xf40
  *(.debug_frame)
- .debug_frame   0x0000000000000000      0x1e0 obj/default/main.o
- .debug_frame   0x00000000000001e0       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
- .debug_frame   0x0000000000000234       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
- .debug_frame   0x0000000000000288       0x8c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
- .debug_frame   0x0000000000000314       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
- .debug_frame   0x0000000000000334       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
- .debug_frame   0x0000000000000374       0x44 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
- .debug_frame   0x00000000000003b8       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
- .debug_frame   0x00000000000003d8       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
- .debug_frame   0x0000000000000410       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
- .debug_frame   0x0000000000000430       0x44 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
- .debug_frame   0x0000000000000474       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
- .debug_frame   0x00000000000004c8       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
- .debug_frame   0x0000000000000524       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
- .debug_frame   0x0000000000000550       0x88 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
- .debug_frame   0x00000000000005d8       0xb0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
- .debug_frame   0x0000000000000688       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
- .debug_frame   0x000000000000072c       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
- .debug_frame   0x0000000000000760       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
- .debug_frame   0x0000000000000798       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
- .debug_frame   0x00000000000007d0       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
- .debug_frame   0x0000000000000804       0x60 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
- .debug_frame   0x0000000000000864       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
- .debug_frame   0x0000000000000898       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
- .debug_frame   0x00000000000008cc       0x60 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
- .debug_frame   0x000000000000092c       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
- .debug_frame   0x0000000000000964       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
- .debug_frame   0x000000000000099c       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
- .debug_frame   0x00000000000009d0       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
- .debug_frame   0x0000000000000a74       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
- .debug_frame   0x0000000000000aac       0x64 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
- .debug_frame   0x0000000000000b10       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
- .debug_frame   0x0000000000000b48       0x8c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
- .debug_frame   0x0000000000000bd4       0x3c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
- .debug_frame   0x0000000000000c10       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
- .debug_frame   0x0000000000000c6c       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
- .debug_frame   0x0000000000000ca0       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
- .debug_frame   0x0000000000000cd8       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
- .debug_frame   0x0000000000000d10       0x3c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
- .debug_frame   0x0000000000000d4c       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
- .debug_frame   0x0000000000000da8       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
- .debug_frame   0x0000000000000dc8       0x28 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
- .debug_frame   0x0000000000000df0       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
- .debug_frame   0x0000000000000e10       0x30 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
- .debug_frame   0x0000000000000e40       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
- .debug_frame   0x0000000000000e60       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
- .debug_frame   0x0000000000000e98       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
- .debug_frame   0x0000000000000eec       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .debug_frame   0x0000000000000000      0x208 obj/default/main.o
+ .debug_frame   0x0000000000000208       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .debug_frame   0x000000000000025c       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .debug_frame   0x00000000000002b0       0x8c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_frame   0x000000000000033c       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_frame   0x000000000000035c       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .debug_frame   0x000000000000039c       0x44 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .debug_frame   0x00000000000003e0       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .debug_frame   0x0000000000000400       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .debug_frame   0x0000000000000438       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .debug_frame   0x0000000000000458       0x44 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .debug_frame   0x000000000000049c       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .debug_frame   0x00000000000004f0       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_frame   0x000000000000054c       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_frame   0x0000000000000578       0x88 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_frame   0x0000000000000600       0xb0 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_frame   0x00000000000006b0       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_frame   0x0000000000000754       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_frame   0x0000000000000788       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_frame   0x00000000000007c0       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_frame   0x00000000000007f8       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .debug_frame   0x000000000000082c       0x60 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .debug_frame   0x000000000000088c       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_frame   0x00000000000008c0       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_frame   0x00000000000008f4       0x60 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_frame   0x0000000000000954       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .debug_frame   0x000000000000098c       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .debug_frame   0x00000000000009c4       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_frame   0x00000000000009f8       0xa4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .debug_frame   0x0000000000000a9c       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .debug_frame   0x0000000000000ad4       0x64 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .debug_frame   0x0000000000000b38       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_frame   0x0000000000000b70       0x8c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .debug_frame   0x0000000000000bfc       0x3c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .debug_frame   0x0000000000000c38       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_frame   0x0000000000000c94       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_frame   0x0000000000000cc8       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .debug_frame   0x0000000000000d00       0x38 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .debug_frame   0x0000000000000d38       0x3c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .debug_frame   0x0000000000000d74       0x5c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_frame   0x0000000000000dd0       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000000df0       0x28 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_frame   0x0000000000000e18       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_frame   0x0000000000000e38       0x30 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_frame   0x0000000000000e68       0x20 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_frame   0x0000000000000e88       0x38 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_frame   0x0000000000000ec0       0x54 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000000f14       0x2c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
 
-.debug_str      0x0000000000000000     0x2196
+.debug_str      0x0000000000000000     0x21bb
  *(.debug_str)
- .debug_str     0x0000000000000000      0x365 obj/default/main.o
-                                        0x3b7 (size before relaxing)
- .debug_str     0x0000000000000365      0x201 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
+ .debug_str     0x0000000000000000      0x38a obj/default/main.o
+                                        0x3dc (size before relaxing)
+ .debug_str     0x000000000000038a      0x201 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_udivdi3.o)
                                         0x28e (size before relaxing)
- .debug_str     0x0000000000000566        0xa c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
+ .debug_str     0x000000000000058b        0xa c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_umoddi3.o)
                                         0x28e (size before relaxing)
- .debug_str     0x0000000000000570       0xfd c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
+ .debug_str     0x0000000000000595       0xfd c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-divmod.o)
                                         0x1d0 (size before relaxing)
- .debug_str     0x000000000000066d       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
+ .debug_str     0x0000000000000692       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(lib2-mul.o)
                                         0x191 (size before relaxing)
- .debug_str     0x00000000000006ad       0xd9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
+ .debug_str     0x00000000000006d2       0xd9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(adddf3.o)
                                         0x262 (size before relaxing)
- .debug_str     0x0000000000000786       0x39 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
+ .debug_str     0x00000000000007ab       0x39 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(subdf3.o)
                                         0x262 (size before relaxing)
- .debug_str     0x00000000000007bf       0x43 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
+ .debug_str     0x00000000000007e4       0x43 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(fixdfsi.o)
                                         0x20e (size before relaxing)
- .debug_str     0x0000000000000802       0x4c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
+ .debug_str     0x0000000000000827       0x4c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(floatsidf.o)
                                         0x212 (size before relaxing)
  .debug_str     0x0000000000000000      0x1d5 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clz.o)
- .debug_str     0x000000000000084e        0x9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
+ .debug_str     0x0000000000000873        0x9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_clzsi2.o)
                                         0x1f2 (size before relaxing)
- .debug_str     0x0000000000000857      0x462 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
+ .debug_str     0x000000000000087c      0x462 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-rand.o)
                                         0x563 (size before relaxing)
- .debug_str     0x0000000000000cb9       0xea c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
+ .debug_str     0x0000000000000cde       0xea c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-impure.o)
                                         0x572 (size before relaxing)
- .debug_str     0x0000000000000da3        0x9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
+ .debug_str     0x0000000000000dc8        0x9 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/mno-hw-mul\libgcc.a(_muldi3.o)
                                         0x217 (size before relaxing)
- .debug_str     0x0000000000000dac      0x12a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
+ .debug_str     0x0000000000000dd1      0x12a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_load.o)
                                         0x1f4 (size before relaxing)
- .debug_str     0x0000000000000ed6       0x70 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
+ .debug_str     0x0000000000000efb       0x70 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_main.o)
                                         0x17f (size before relaxing)
- .debug_str     0x0000000000000f46      0x1a2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
+ .debug_str     0x0000000000000f6b      0x1a2 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_sys_init.o)
                                         0x33a (size before relaxing)
- .debug_str     0x00000000000010e8       0xb9 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
+ .debug_str     0x000000000000110d       0xb9 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_fd.o)
                                         0x386 (size before relaxing)
- .debug_str     0x00000000000011a1       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
+ .debug_str     0x00000000000011c6       0xd1 ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_init.o)
                                         0x31a (size before relaxing)
- .debug_str     0x0000000000001272       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
+ .debug_str     0x0000000000001297       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_ioctl.o)
                                         0x275 (size before relaxing)
- .debug_str     0x00000000000012bc       0x7f ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
+ .debug_str     0x00000000000012e1       0x7f ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_read.o)
                                         0x2ca (size before relaxing)
- .debug_str     0x000000000000133b       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
+ .debug_str     0x0000000000001360       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_avalon_jtag_uart_write.o)
                                         0x2cb (size before relaxing)
- .debug_str     0x0000000000001385       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
+ .debug_str     0x00000000000013aa       0x59 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_alarm_start.o)
                                         0x260 (size before relaxing)
- .debug_str     0x00000000000013de       0x44 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
+ .debug_str     0x0000000000001403       0x44 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_close.o)
                                         0x1ed (size before relaxing)
- .debug_str     0x0000000000001422       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
+ .debug_str     0x0000000000001447       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dcache_flush_all.o)
                                         0x137 (size before relaxing)
- .debug_str     0x0000000000001456      0x120 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
+ .debug_str     0x000000000000147b      0x120 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev.o)
                                         0x2e7 (size before relaxing)
- .debug_str     0x0000000000001576       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
+ .debug_str     0x000000000000159b       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_dev_llist_insert.o)
                                         0x1ae (size before relaxing)
- .debug_str     0x00000000000015aa       0x48 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
+ .debug_str     0x00000000000015cf       0x48 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_ctors.o)
                                          0xbe (size before relaxing)
- .debug_str     0x00000000000015f2       0x4c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
+ .debug_str     0x0000000000001617       0x4c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_do_dtors.o)
                                          0xbd (size before relaxing)
- .debug_str     0x000000000000163e       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
+ .debug_str     0x0000000000001663       0x14 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_errno.o)
                                         0x127 (size before relaxing)
- .debug_str     0x0000000000001652       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
+ .debug_str     0x0000000000001677       0x34 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_icache_flush_all.o)
                                         0x137 (size before relaxing)
- .debug_str     0x0000000000001686       0xc4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
+ .debug_str     0x00000000000016ab       0xc4 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic.o)
                                         0x220 (size before relaxing)
- .debug_str     0x000000000000174a       0x4c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
+ .debug_str     0x000000000000176f       0x4c ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_iic_isr_register.o)
                                         0x1ca (size before relaxing)
- .debug_str     0x0000000000001796       0x56 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
+ .debug_str     0x00000000000017bb       0x56 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_io_redirect.o)
                                         0x2f8 (size before relaxing)
- .debug_str     0x00000000000017ec       0x3a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
+ .debug_str     0x0000000000001811       0x3a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_handler.o)
                                         0x179 (size before relaxing)
- .debug_str     0x0000000000001826       0x17 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
+ .debug_str     0x000000000000184b       0x17 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_irq_vars.o)
                                         0x128 (size before relaxing)
- .debug_str     0x000000000000183d       0x2f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
+ .debug_str     0x0000000000001862       0x2f ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_open.o)
                                         0x22d (size before relaxing)
- .debug_str     0x000000000000186c       0x28 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
+ .debug_str     0x0000000000001891       0x28 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_release_fd.o)
                                         0x1c1 (size before relaxing)
- .debug_str     0x0000000000001894       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
+ .debug_str     0x00000000000018b9       0x4a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_tick.o)
                                         0x234 (size before relaxing)
- .debug_str     0x00000000000018de       0x3b ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
+ .debug_str     0x0000000000001903       0x3b ../Vegetable-Viking_bsp/\libhal_bsp.a(altera_nios2_gen2_irq.o)
                                         0x13e (size before relaxing)
- .debug_str     0x0000000000001919       0x24 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
+ .debug_str     0x000000000000193e       0x24 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_dev.o)
                                         0x1ce (size before relaxing)
- .debug_str     0x000000000000193d       0x26 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
+ .debug_str     0x0000000000001962       0x26 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_find_file.o)
                                         0x1dc (size before relaxing)
- .debug_str     0x0000000000001963       0x30 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
+ .debug_str     0x0000000000001988       0x30 ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_get_fd.o)
                                         0x1fe (size before relaxing)
- .debug_str     0x0000000000001993      0x48b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
+ .debug_str     0x00000000000019b8      0x48b ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_instruction_exception_entry.o)
                                         0x581 (size before relaxing)
- .debug_str     0x0000000000001e1e       0x82 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
+ .debug_str     0x0000000000001e43       0x82 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-atexit.o)
                                         0x1e5 (size before relaxing)
- .debug_str     0x0000000000001ea0       0x4d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
+ .debug_str     0x0000000000001ec5       0x4d c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-exit.o)
                                         0x57b (size before relaxing)
- .debug_str     0x0000000000001eed       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
+ .debug_str     0x0000000000001f12       0x40 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-int_errno.o)
                                         0x1a1 (size before relaxing)
- .debug_str     0x0000000000001f2d       0xdb c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
+ .debug_str     0x0000000000001f52       0xdb c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcmp.o)
                                         0x1a8 (size before relaxing)
- .debug_str     0x0000000000002008       0x6c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
+ .debug_str     0x000000000000202d       0x6c c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-memcpy.o)
                                         0x1cf (size before relaxing)
- .debug_str     0x0000000000002074       0x52 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
+ .debug_str     0x0000000000002099       0x52 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-strlen.o)
                                         0x1bb (size before relaxing)
- .debug_str     0x00000000000020c6       0x4e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
+ .debug_str     0x00000000000020eb       0x4e c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__atexit.o)
                                         0x5c8 (size before relaxing)
- .debug_str     0x0000000000002114       0x58 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
+ .debug_str     0x0000000000002139       0x58 c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4.9.1/../../../../../H-x86_64-mingw32/nios2-elf/lib/mno-hw-mul\libc.a(lib_a-__call_atexit.o)
                                         0x591 (size before relaxing)
- .debug_str     0x000000000000216c       0x2a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
+ .debug_str     0x0000000000002191       0x2a ../Vegetable-Viking_bsp/\libhal_bsp.a(alt_exit.o)
                                         0x133 (size before relaxing)
 
 .debug_loc      0x0000000000000000     0x5fe9
@@ -1216,8 +1231,8 @@ LOAD c:/altera/15.0/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-elf/4
                 0x0000000000000000       0x10 ../Vegetable-Viking_bsp//obj/HAL/src/crt0.o
                 0x0000000018000000                __alt_data_end = 0x18000000
                 0x0000000018000000                PROVIDE (__alt_stack_pointer, __alt_data_end)
-                0x0000000010009050                PROVIDE (__alt_stack_limit, __alt_stack_base)
-                0x0000000010009050                PROVIDE (__alt_heap_start, end)
+                0x00000000100095b0                PROVIDE (__alt_stack_limit, __alt_stack_base)
+                0x00000000100095b0                PROVIDE (__alt_heap_start, end)
                 0x0000000018000000                PROVIDE (__alt_heap_limit, 0x18000000)
 OUTPUT(Vegetable-Viking.elf elf32-littlenios2)
 
