@@ -58,6 +58,7 @@ module frame_displayer
 			parameter [9:0] ScreenY = 480;     // width of y axis
 			
 			parameter [18:0] spriteOffset	= 307200;
+			parameter [18:0] textOffset = 420032;
 			parameter spriteWidth = 64;
 			
 			// Broccoli
@@ -65,56 +66,56 @@ module frame_displayer
 			parameter [18:0] broc_0_Offset = 0;
 			parameter [18:0] broc_1_Offset = 32704; // 511 * 64
 			parameter [18:0] broc_2_Offset = 64320; // 1005 * 64
-			parameter [18:0] broc_3_Offset = 95936; // 1499 * 64
+			//parameter [18:0] broc_3_Offset = 95936; // 1499 * 64
 			
 			// Eggplant
 			parameter  sprite2Height = 81;
 			parameter [18:0] eggplant_0_Offset = 4160; // 65 * 64
 			parameter [18:0] eggplant_1_Offset = 36800; // 575 * 64
 			parameter [18:0] eggplant_2_Offset = 68352; // 1068 * 64
-			parameter [18:0] eggplant_3_Offset = 99968; // 1562 * 64
+			//parameter [18:0] eggplant_3_Offset = 99968; // 1562 * 64
 			
 			// Potatoes
 			parameter sprite3Height = 73;
 			parameter [18:0] potato_0_Offset = 9344; // 146 * 64
 			parameter [18:0] potato_1_Offset = 41984; // 656 * 64
 			parameter [18:0] potato_2_Offset = 73600; // 1150 * 64
-			parameter [18:0] potato_3_Offset = 105152; // 1643 * 64
+			//parameter [18:0] potato_3_Offset = 105152; // 1643 * 64
 			
 			// Carrot
 			parameter sprite4Height = 39;
 			parameter [18:0] carrot_0_Offset = 14784; // 231 * 64
 			parameter [18:0] carrot_1_Offset = 44992; // 730 * 64
 			parameter [18:0] carrot_2_Offset = 78336; // 1224 * 64
-			parameter [18:0] carrot_3_Offset = 109888; // 1717 * 64
+			//parameter [18:0] carrot_3_Offset = 109888; // 1717 * 64
 			
 			// Cabbage
 			parameter sprite5Height = 66;
 			parameter [18:0] cabbage_0_Offset = 17280; // 270 * 64
 			parameter [18:0] cabbage_1_Offset = 49280; // 770 * 64
 			parameter [18:0] cabbage_2_Offset = 80832; // 1263 * 64
-			parameter [18:0] cabbage_3_Offset = 112384; // 1756 * 64
+			//parameter [18:0] cabbage_3_Offset = 112384; // 1756 * 64
 			
 			// Radish
 			parameter sprite6Height = 64;
 			parameter [18:0] radish_0_Offset = 21504; // 336 * 64
 			parameter [18:0] radish_1_Offset = 53312; // 833 * 64
 			parameter [18:0] radish_2_Offset = 84864; // 1326 * 64
-			parameter [18:0] radish_3_Offset = 116416; // 1819 * 64
+			//parameter [18:0] radish_3_Offset = 116416; // 1819 * 64
 			
 			// Tomato
 			parameter sprite7Height = 42;
 			parameter [18:0] tomato_0_Offset = 25600; // 400 * 64
 			parameter [18:0] tomato_1_Offset = 57472; // 898 * 64
 			parameter [18:0] tomato_2_Offset = 89024; // 1391 * 64
-			parameter [18:0] tomato_3_Offset = 119936; // 1874 * 64
+			//parameter [18:0] tomato_3_Offset = 119936; // 1874 * 64
 			
 			// Onion
 			parameter sprite8Height = 69;
 			parameter [18:0] onion_0_Offset = 28288; // 442 * 64
 			parameter [18:0] onion_1_Offset = 59968; // 937 * 64
 			parameter [18:0] onion_2_Offset = 91520; // 1430 * 64
-			parameter [18:0] onion_3_Offset = 122432; // 1913 * 64
+			//parameter [18:0] onion_3_Offset = 122432; // 1913 * 64
 			
 			logic [18:0] sprite1Offset, sprite2Offset, sprite3Offset, sprite4Offset, sprite5Offset, sprite6Offset, sprite7Offset, sprite8Offset;
 							 //sprite9Offset, sprite10Offset, sprite11Offset, sprite12Offset, sprite13Offset, sprite14Offset, sprite15Offset, sprite16Offset;
@@ -127,8 +128,8 @@ module frame_displayer
 						sprite1Offset = broc_1_Offset;
 					else if(state1 == 3'b011)
 						sprite1Offset = broc_2_Offset;
-					else if(state1 == 3'b100)
-						sprite1Offset = broc_3_Offset;
+//					else if(state1 == 3'b100)
+//						sprite1Offset = broc_3_Offset;
 					else 
 						sprite1Offset = broc_0_Offset;
 					
@@ -137,8 +138,8 @@ module frame_displayer
 						sprite2Offset = eggplant_1_Offset;
 					else if(state2 == 3'b011)
 						sprite2Offset = eggplant_2_Offset;
-					else if(state2 == 3'b100)
-						sprite2Offset = eggplant_3_Offset;
+//					else if(state2 == 3'b100)
+//						sprite2Offset = eggplant_3_Offset;
 					else 
 						sprite2Offset = eggplant_0_Offset;
 					
@@ -147,8 +148,8 @@ module frame_displayer
 						sprite3Offset = potato_1_Offset;
 					else if(state3 == 3'b011)
 						sprite3Offset = potato_2_Offset;
-					else if(state3 == 3'b100)
-						sprite3Offset = potato_3_Offset;
+//					else if(state3 == 3'b100)
+//						sprite3Offset = potato_3_Offset;
 					else 
 						sprite3Offset = potato_0_Offset;
 					
@@ -157,8 +158,8 @@ module frame_displayer
 						sprite4Offset = carrot_1_Offset;
 					else if(state4 == 3'b011)
 						sprite4Offset = carrot_2_Offset;
-					else if(state4 == 3'b100)
-						sprite4Offset = carrot_3_Offset;
+//					else if(state4 == 3'b100)
+//						sprite4Offset = carrot_3_Offset;
 					else 
 						sprite4Offset = carrot_0_Offset;;
 					
@@ -167,8 +168,8 @@ module frame_displayer
 						sprite5Offset = cabbage_1_Offset;
 					else if(state5 == 3'b011)
 						sprite5Offset = cabbage_2_Offset;
-					else if(state5 == 3'b100)
-						sprite5Offset = cabbage_3_Offset;
+//					else if(state5 == 3'b100)
+//						sprite5Offset = cabbage_3_Offset;
 					else 
 						sprite5Offset = cabbage_0_Offset;
 						
@@ -177,8 +178,8 @@ module frame_displayer
 						sprite6Offset = radish_1_Offset;
 					else if(state6 == 3'b011)
 						sprite6Offset = radish_2_Offset;
-					else if(state6 == 3'b100)
-						sprite6Offset = radish_3_Offset;
+//					else if(state6 == 3'b100)
+//						sprite6Offset = radish_3_Offset;
 					else 
 						sprite6Offset = radish_0_Offset;
 					
@@ -187,8 +188,8 @@ module frame_displayer
 						sprite7Offset = tomato_1_Offset;
 					else if(state7 == 3'b011)
 						sprite7Offset = tomato_2_Offset;
-					else if(state7 == 3'b100)
-						sprite7Offset = tomato_3_Offset;
+//					else if(state7 == 3'b100)
+//						sprite7Offset = tomato_3_Offset;
 					else 
 						sprite7Offset = tomato_0_Offset;
 					
@@ -197,8 +198,8 @@ module frame_displayer
 						sprite8Offset = onion_1_Offset;
 					else if(state8 == 3'b011)
 						sprite8Offset = onion_2_Offset;
-					else if(state8 == 3'b100)
-						sprite8Offset = onion_3_Offset;
+//					else if(state8 == 3'b100)
+//						sprite8Offset = onion_3_Offset;
 					else 
 						sprite8Offset = onion_0_Offset;
 					
@@ -282,26 +283,26 @@ module frame_displayer
 									+ (DrawX - xCoord6) + ((DrawY - yCoord6) * spriteWidth);
 									palette = 2'b01;
 								end
-//							else if((state7 != 3'b0) // Sprite 7
-//								&& (DrawX >= xCoord7) 
-//								&& (DrawX < (xCoord7 + spriteWidth)) 
-//								&& (DrawY >= yCoord7)
-//								&& (DrawY < (yCoord7 + sprite7Height)))
-//								begin
-//									frame_rdAddress = spriteOffset + sprite7Offset 
-//									+ (DrawX - xCoord7) + ((DrawY - yCoord7) * spriteWidth);
-//									palette = 2'b01;
-//								end
-//							else if((state8 != 3'b0) // Sprite 8
-//								&& (DrawX >= xCoord8) 
-//								&& (DrawX < (xCoord8 + spriteWidth)) 
-//								&& (DrawY >= yCoord8)
-//								&& (DrawY < (yCoord8 + sprite8Height)))
-//								begin
-//									frame_rdAddress = spriteOffset + sprite8Offset 
-//									+ (DrawX - xCoord8) + ((DrawY - yCoord8) * spriteWidth);
-//									palette = 2'b01;
-//								end
+							else if((state7 != 3'b0) // Sprite 7
+								&& (DrawX >= xCoord7) 
+								&& (DrawX < (xCoord7 + spriteWidth)) 
+								&& (DrawY >= yCoord7)
+								&& (DrawY < (yCoord7 + sprite7Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite7Offset 
+									+ (DrawX - xCoord7) + ((DrawY - yCoord7) * spriteWidth);
+									palette = 2'b01;
+								end
+							else if((state8 != 3'b0) // Sprite 8
+								&& (DrawX >= xCoord8) 
+								&& (DrawX < (xCoord8 + spriteWidth)) 
+								&& (DrawY >= yCoord8)
+								&& (DrawY < (yCoord8 + sprite8Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite8Offset 
+									+ (DrawX - xCoord8) + ((DrawY - yCoord8) * spriteWidth);
+									palette = 2'b01;
+								end
 							else
 								begin
 									frame_rdAddress = (DrawX + (DrawY*ScreenX));
