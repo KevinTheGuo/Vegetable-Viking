@@ -348,30 +348,32 @@ module frame_displayer
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 114) // 'Farmer'
-										&& (DrawX < (114 + 114))
-										&& (DrawY >= 380)
-										&& (DrawY < (380 + 13)))
+									else if((DrawX >= 300) // 'Yay'
+										&& (DrawX < (300 + 114))
+										&& (DrawY >= 240)
+										&& (DrawY < (240 + 27)))
 										begin
-											frame_rdAddress = textOffset + 9918 + (DrawX - 114) + ((DrawY - 380) * 114);
+											frame_rdAddress = textOffset + 3456 + (DrawX - 300) + ((DrawY - 240) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 304) // 'Viking'
-										&& (DrawX < (304 + 114))
-										&& (DrawY >= 160)
-										&& (DrawY < (160 + 15)))
-										begin
-											frame_rdAddress = textOffset + 11400 + (DrawX - 304) + ((DrawY - 160) * 114);
-											palette = 2'b01;
-										end
-									else if((DrawX >= 450) // 'Thor'
-										&& (DrawX < (450 + 114))
-										&& (DrawY >= 260)
-										&& (DrawY < (260 + 15)))
-										begin
-											frame_rdAddress = textOffset + 13110 + (DrawX - 450) + ((DrawY - 260) * 114);
-											palette = 2'b01;
-										end
+									else if((DrawX >= 300) // 'Continue'
+											&& (DrawX < (300 + 114))
+											&& (DrawY >= 340)
+											&& (DrawY < (340 + 27)))
+											begin
+												frame_rdAddress = textOffset + 3456 + (DrawX - 300) + ((DrawY - 340) * 114);
+												palette = 2'b01;
+											end
+									else if((state9 != 3'b0) // Sprite 9
+											&& (DrawX >= xCoord9) 
+											&& (DrawX < (xCoord9 + spriteWidth)) 
+											&& (DrawY >= yCoord9)
+											&& (DrawY < (yCoord9 + sprite9Height)))
+									begin
+										frame_rdAddress = spriteOffset + sprite9Offset 
+										+ (DrawX - xCoord9) + ((DrawY - yCoord9) * spriteWidth);
+										palette = 2'b01;
+									end
 									else if((state4 != 3'b0) // Sprite 4
 										&& (DrawX >= xCoord4) 
 										&& (DrawX < (xCoord4 + spriteWidth)) 
@@ -407,30 +409,7 @@ module frame_displayer
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 114) // 'Farmer'
-										&& (DrawX < (114 + 114))
-										&& (DrawY >= 380)
-										&& (DrawY < (380 + 13)))
-										begin
-											frame_rdAddress = textOffset + 9918 + (DrawX - 114) + ((DrawY - 380) * 114);
-											palette = 2'b01;
-										end
-									else if((DrawX >= 304) // 'Viking'
-										&& (DrawX < (304 + 114))
-										&& (DrawY >= 160)
-										&& (DrawY < (160 + 15)))
-										begin
-											frame_rdAddress = textOffset + 11400 + (DrawX - 304) + ((DrawY - 160) * 114);
-											palette = 2'b01;
-										end
-									else if((DrawX >= 450) // 'Thor'
-										&& (DrawX < (450 + 114))
-										&& (DrawY >= 260)
-										&& (DrawY < (260 + 15)))
-										begin
-											frame_rdAddress = textOffset + 13110 + (DrawX - 450) + ((DrawY - 260) * 114);
-											palette = 2'b01;
-										end
+									
 									else if((state4 != 3'b0) // Sprite 4
 										&& (DrawX >= xCoord4) 
 										&& (DrawX < (xCoord4 + spriteWidth)) 
@@ -439,6 +418,24 @@ module frame_displayer
 										begin
 											frame_rdAddress = spriteOffset + sprite4Offset 
 											+ (DrawX - xCoord4) + ((DrawY - yCoord4) * spriteWidth);
+											palette = 2'b01;
+										end
+									else if((state9 != 3'b0) // Sprite 9
+										&& (DrawX >= xCoord9) 
+										&& (DrawX < (xCoord9 + spriteWidth)) 
+										&& (DrawY >= yCoord9)
+										&& (DrawY < (yCoord9 + sprite9Height)))
+										begin
+											frame_rdAddress = spriteOffset + sprite9Offset 
+											+ (DrawX - xCoord9) + ((DrawY - yCoord9) * spriteWidth);
+											palette = 2'b01;
+										end
+									else if((DrawX >= 300) // 'Aww'
+										&& (DrawX < (300 + 114))
+										&& (DrawY >= 240)
+										&& (DrawY < (240 + 114)))
+										begin
+											frame_rdAddress = textOffset + 4672 + (DrawX - 300) + ((DrawY - 240) * 114);
 											palette = 2'b01;
 										end
 									else
