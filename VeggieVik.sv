@@ -252,6 +252,7 @@ module VeggieVik(// Clock input
 										.state13,
 										.state14,
 										.state15,
+										.type0,
 /*										.type1,
 										.type2,
 										.type3,

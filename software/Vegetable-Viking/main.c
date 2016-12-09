@@ -564,7 +564,7 @@ void disintegrateEngine()
 		{
 			veggieObject[i].objectState = 3;
 		}
-		else if(veggieObject[i].objectState == 3) // almost dedded
+		else if(((veggieObject[i].objectState == 3) && (i<9)) || (veggieObject[i].objectState == 5))// almost dedded
 		{
 			veggieObject[i].xPosition = 0;		// gone!
 			veggieObject[i].yPosition = 0;
@@ -573,6 +573,14 @@ void disintegrateEngine()
 			veggieObject[i].xVelocity = 0;
 			veggieObject[i].yVelocity = 0;
 		}
+		else if((veggieObject[i].objectState == 3) && (i == 9))
+		{
+			veggieObject[i].objectState = 4;
+		}
+		else if((veggieObject[i].objectState == 4) && (i == 9))
+		{
+			veggieObject[i].objectState = 5;
+		}
 	}
 }
 
@@ -580,17 +588,24 @@ void disintegrateEngine()
 void FPGAcommunicator()
 {
 	// start putting in our xcoords
+	unsigned int FPGAmessage[10];
+	int i;
+	for(i=0; i<10; i++)
+	{
+		FPGAmessage[i] = veggieObject[i].xPosition;
+	}
+
 	*to_hw_sig = 1;	// 1 means we're starting communication of xCoord
-	*to_hw_port0 = veggieObject[0].xPosition;
-	*to_hw_port1 = veggieObject[1].xPosition;
-	*to_hw_port2 = veggieObject[2].xPosition;
-	*to_hw_port3 = veggieObject[3].xPosition;
-	*to_hw_port4 = veggieObject[4].xPosition;
-	*to_hw_port5 = veggieObject[5].xPosition;
-	*to_hw_port6 = veggieObject[6].xPosition;
-	*to_hw_port7 = veggieObject[7].xPosition;
-	*to_hw_port8 = veggieObject[8].xPosition;
-	*to_hw_port9 = veggieObject[9].xPosition;
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
 /*	*to_hw_port10 = veggieObject[10].xPosition;
 	*to_hw_port11 = veggieObject[11].xPosition;
 	*to_hw_port12 = veggieObject[12].xPosition;
@@ -598,43 +613,52 @@ void FPGAcommunicator()
 	*to_hw_port14 = veggieObject[14].xPosition;
 	*to_hw_port15 = veggieObject[15].xPosition;
 */	// wait for response
+
+	for(i=0; i<10; i++)
+	{
+		FPGAmessage[i] = veggieObject[i].yPosition;
+	}
 	while(*to_sw_sig != 1);
 
 	*to_hw_sig = 2;	// 2 means we're starting communication of yCoord
-	*to_hw_port0 = veggieObject[0].yPosition;
-	*to_hw_port1 = veggieObject[1].yPosition;
-	*to_hw_port2 = veggieObject[2].yPosition;
-	*to_hw_port3 = veggieObject[3].yPosition;
-	*to_hw_port4 = veggieObject[4].yPosition;
-	*to_hw_port5 = veggieObject[5].yPosition;
-	*to_hw_port6 = veggieObject[6].yPosition;
-	*to_hw_port7 = veggieObject[7].yPosition;
-	*to_hw_port8 = veggieObject[8].yPosition;
-	*to_hw_port9 = veggieObject[9].yPosition;
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
 /*	*to_hw_port10 = veggieObject[10].yPosition;
 	*to_hw_port11 = veggieObject[11].yPosition;
 	*to_hw_port12 = veggieObject[12].yPosition;
 	*to_hw_port13 = veggieObject[13].yPosition;
 	*to_hw_port14 = veggieObject[14].yPosition;
 	*to_hw_port15 = veggieObject[15].yPosition;
-*/	// wait for confirmation
-	while(*to_sw_sig != 2);
-
+*/
 	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned int FPGAmessage = messagePackager(veggieObject[0]);
+	FPGAmessage[0] = messagePackager(veggieObject[0]);
+	for(i=1; i<10; i++)
+	{
+		FPGAmessage[i] = veggieObject[i].objectState;
+	}
+	// wait for confirmation
+	while(*to_sw_sig != 2);
 	// printf("fpgamessage is %lu   \n", FPGAmessage);
 
 	*to_hw_sig = 3;		// our final sending
-	*to_hw_port0 = FPGAmessage;
-	*to_hw_port1 = veggieObject[1].objectState;
-	*to_hw_port2 = veggieObject[2].objectState;
-	*to_hw_port3 = veggieObject[3].objectState;
-	*to_hw_port4 = veggieObject[4].objectState;
-	*to_hw_port5 = veggieObject[5].objectState;
-	*to_hw_port6 = veggieObject[6].objectState;
-	*to_hw_port7 = veggieObject[7].objectState;
-	*to_hw_port8 = veggieObject[8].objectState;
-	*to_hw_port9 = veggieObject[9].objectState;
+	*to_hw_port0 = FPGAmessage[0];
+	*to_hw_port1 = FPGAmessage[1];
+	*to_hw_port2 = FPGAmessage[2];
+	*to_hw_port3 = FPGAmessage[3];
+	*to_hw_port4 = FPGAmessage[4];
+	*to_hw_port5 = FPGAmessage[5];
+	*to_hw_port6 = FPGAmessage[6];
+	*to_hw_port7 = FPGAmessage[7];
+	*to_hw_port8 = FPGAmessage[8];
+	*to_hw_port9 = FPGAmessage[9];
 /*	*to_hw_port10 = veggieObject[10].objectState;
 	*to_hw_port11 = veggieObject[11].objectState;
 	*to_hw_port12 = veggieObject[12].objectState;
