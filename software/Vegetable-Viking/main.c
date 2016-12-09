@@ -135,6 +135,9 @@ int main()
 	// start out in the initial black menu
 	// FIX THIS LATER
 	cursorClicked = 1;
+	veggieObject[0].objectState = 3;
+
+
 	while(cursorClicked == 0)
 	{
 		FPGAcommunicator();	// call this every time to update the FPGA
@@ -243,7 +246,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 5;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
 			printf("yPosition is  %li ", veggieObject[i].yPosition);
@@ -293,16 +296,16 @@ void spawningEngine(int pattern)
 					// RANDOM GENERATION!!
 					randomX = (rand() % 540) + 50;
 					randomSpeedY = (rand() % 22) + 45;
-					randomSpeedX = (rand() % 40) - 20;
+					randomSpeedX = (rand() % 20) - 10;
 
 					// make sure we aren't throwing them out the edges
 					if (randomX < 100)
 					{
-						randomSpeedX = (rand() % 40);
+						randomSpeedX = (rand() % 20);
 					}
 					else if (randomX > 540)
 					{
-						randomSpeedX = (rand() % 40) - 40;
+						randomSpeedX = (rand() % 20) - 20;
 					}
 
 					// now let's store these
@@ -346,7 +349,7 @@ void spawningEngine(int pattern)
 			// RANDOM GENERATION!!
 			randomX = (rand() % 540) + 50;
 			randomSpeedY = (rand() % 22) + 45;
-			randomSpeedX = (rand() % 40) - 20;
+			randomSpeedX = (rand() % 20) - 10;
 
 			// check if we are spawning samefruit
 			if(sameFruit == 0)
@@ -361,11 +364,11 @@ void spawningEngine(int pattern)
 			// make sure we aren't throwing them out the edges
 			if (randomX < 100)
 			{
-				randomSpeedX = (rand() % 40);
+				randomSpeedX = (rand() % 20);
 			}
 			else if (randomX > 540)
 			{
-				randomSpeedX = (rand() % 40) - 40;
+				randomSpeedX = (rand() % 20) - 20;
 			}
 
 			// now let's store these

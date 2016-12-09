@@ -237,12 +237,12 @@ void loop()
     radioPackage.xCoordinate = prevX;
     radioPackage.yCoordinate = 4*currPitch + 240; //disregard x coordinate
   }
-  else if(currGrav > 1000)    // check if orientation is upright
+  else if(currGrav > 0)    // check if orientation is upright
   {
     radioPackage.xCoordinate = 4*currYaw + 320; 
     radioPackage.yCoordinate = 4*currPitch + 240;      
   }
-  else if(currGrav < -1000)              // else it's not upright
+  else if(currGrav <= 0)              // else it's not upright
   {
     radioPackage.xCoordinate = -(4*currYaw) + 320;    // flip x 
     radioPackage.yCoordinate = 4*currPitch + 240;       
