@@ -264,7 +264,7 @@ module frame_displayer
 									else if((DrawX >= 85) // 'Viking'
 										&& (DrawX < (85 + 114))
 										&& (DrawY >= 39)
-										&& (DrawY < (39 + 24)))
+										&& (DrawY < (39 + 30)))
 										begin
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
@@ -277,7 +277,7 @@ module frame_displayer
 											frame_rdAddress = textOffset + 9918 + (DrawX - 114) + ((DrawY - 380) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 304) // 'Viking'
+									else if((DrawX >= 304) // 'Viking level'
 										&& (DrawX < (304 + 114))
 										&& (DrawY >= 160)
 										&& (DrawY < (160 + 15)))
@@ -286,11 +286,11 @@ module frame_displayer
 											palette = 2'b01;
 										end
 									else if((DrawX >= 450) // 'Thor'
-										&& (DrawX < (450 + 114))
+										&& (DrawX < (450 + 40))
 										&& (DrawY >= 260)
 										&& (DrawY < (260 + 15)))
 										begin
-											frame_rdAddress = textOffset + 13110 + (DrawX - 450) + ((DrawY - 260) * 114);
+											frame_rdAddress = textOffset + 13110 + (DrawX - 450) + ((DrawY - 260) * 40);
 											palette = 2'b01;
 										end
 									else if((state1 != 3'b0) // Sprite 1
@@ -343,7 +343,7 @@ module frame_displayer
 									else if((DrawX >= 85) // 'Viking'
 										&& (DrawX < (85 + 114))
 										&& (DrawY >= 39)
-										&& (DrawY < (39 + 24)))
+										&& (DrawY < (39 + 30)))
 										begin
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
@@ -404,7 +404,7 @@ module frame_displayer
 									else if((DrawX >= 85) // 'Viking'
 										&& (DrawX < (85 + 114))
 										&& (DrawY >= 39)
-										&& (DrawY < (39 + 24)))
+										&& (DrawY < (39 + 30)))
 										begin
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
