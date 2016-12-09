@@ -31,7 +31,7 @@ module frame_displayer
 			input [9:0] yCoord6,
 			input [9:0] yCoord7,
 			input [9:0] yCoord8, yCoord9, /*yCoord10, yCoord11, yCoord12, yCoord13, yCoord14, yCoord15,*/
-			input [2:0] state1,
+			input [2:0] state1, state0,
 			input [2:0] state2,
 			input [2:0] state3,
 			input [2:0] state4,
@@ -250,7 +250,60 @@ module frame_displayer
 						if(Display)
 							begin
 							bgFrame_rdAddress = (DrawX + (DrawY*ScreenX));
-							
+							if(state0 == 3'b00)
+								begin
+									// draw the menu
+									if((DrawX >= 10) // 'Veggie'
+										&& (DrawX < (10 + 114))
+										&& (DrawY >= 10)
+										&& (DrawY < (10 + 27)))
+										begin
+											frame_rdAddress = textOffset + (DrawX - 10) + ((DrawY - 10) * 114);
+											palette = 2'b01;
+										end
+									else if((DrawX >= 85) // 'Viking'
+										&& (DrawX < (85 + 114))
+										&& (DrawY >= 29)
+										&& (DrawY < (29 + 24)))
+										begin
+											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 29) * 114);
+											palette = 2'b01;
+										end
+									else if((DrawX >= 114) // 'Farmer'
+										&& (DrawX < (114 + 114))
+										&& (DrawY >= 380)
+										&& (DrawY < (380 + 13)))
+										begin
+											frame_rdAddress = textOffset + 9918 + (DrawX - 114) + ((DrawY - 380) * 114);
+											palette = 2'b01;
+										end
+									else if((DrawX >= 304) // 'Viking'
+										&& (DrawX < (304 + 114))
+										&& (DrawY >= 160)
+										&& (DrawY < (160 + 15)))
+										begin
+											frame_rdAddress = textOffset + 11400 + (DrawX - 304) + ((DrawY - 160) * 114);
+											palette = 2'b01;
+										end
+									else if((DrawX >= 450) // 'Thor'
+										&& (DrawX < (450 + 114))
+										&& (DrawY >= 260)
+										&& (DrawY < (260 + 15)))
+										begin
+											frame_rdAddress = textOffset + 13110 + (DrawX - 450) + ((DrawY - 260) * 114);
+											palette = 2'b01;
+										end
+								end
+							else if(state0 == 3'd4)
+								begin
+								// idk yet
+								end
+							else if(state0 == 3'd5)
+								begin
+								// idk either
+								end
+							else
+								begin
 							if((state1 != 3'b0) // Sprite 1
 								&& (DrawX >= xCoord1) 
 								&& (DrawX < (xCoord1 + spriteWidth)) 
@@ -346,6 +399,7 @@ module frame_displayer
 									frame_rdAddress = (DrawX + (DrawY*ScreenX));
 									palette = 2'b00;
 								end
+							end
 							end
 						else
 							begin

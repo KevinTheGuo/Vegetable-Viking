@@ -377,6 +377,7 @@ module VeggieVik(// Clock input
 //									.yCoord13,
 //									.yCoord14,
 //									.yCoord15,
+									.state0,
 									.state1,
 									.state2,
 									.state3,
