@@ -58,59 +58,59 @@ module frame_displayer
 			parameter [9:0] ScreenY = 480;     // width of y axis
 			
 			parameter [18:0] spriteOffset	= 307200;
-			parameter [9:0] spriteWidth = 64;
+			parameter spriteWidth = 64;
 			
 			// Broccoli
-			parameter [7:0]  sprite1Height = 65;
+			parameter  sprite1Height = 65;
 			parameter [18:0] broc_0_Offset = 0;
 			parameter [18:0] broc_1_Offset = 32704; // 511 * 64
 			parameter [18:0] broc_2_Offset = 64320; // 1005 * 64
 			parameter [18:0] broc_3_Offset = 95936; // 1499 * 64
 			
 			// Eggplant
-			parameter [7:0]  sprite2Height = 81;
+			parameter  sprite2Height = 81;
 			parameter [18:0] eggplant_0_Offset = 4160; // 65 * 64
 			parameter [18:0] eggplant_1_Offset = 36800; // 575 * 64
 			parameter [18:0] eggplant_2_Offset = 68352; // 1068 * 64
 			parameter [18:0] eggplant_3_Offset = 99968; // 1562 * 64
 			
 			// Potatoes
-			parameter [7:0] sprite3Height = 85;
+			parameter sprite3Height = 73;
 			parameter [18:0] potato_0_Offset = 9344; // 146 * 64
 			parameter [18:0] potato_1_Offset = 41984; // 656 * 64
 			parameter [18:0] potato_2_Offset = 73600; // 1150 * 64
 			parameter [18:0] potato_3_Offset = 105152; // 1643 * 64
 			
 			// Carrot
-			parameter [7:0] sprite4Height = 39;
+			parameter sprite4Height = 39;
 			parameter [18:0] carrot_0_Offset = 14784; // 231 * 64
 			parameter [18:0] carrot_1_Offset = 44992; // 730 * 64
 			parameter [18:0] carrot_2_Offset = 78336; // 1224 * 64
 			parameter [18:0] carrot_3_Offset = 109888; // 1717 * 64
 			
 			// Cabbage
-			parameter [7:0] sprite5Height = 66;
+			parameter sprite5Height = 66;
 			parameter [18:0] cabbage_0_Offset = 17280; // 270 * 64
 			parameter [18:0] cabbage_1_Offset = 49280; // 770 * 64
 			parameter [18:0] cabbage_2_Offset = 80832; // 1263 * 64
 			parameter [18:0] cabbage_3_Offset = 112384; // 1756 * 64
 			
 			// Radish
-			parameter [7:0] sprite6Height = 64;
+			parameter sprite6Height = 64;
 			parameter [18:0] radish_0_Offset = 21504; // 336 * 64
 			parameter [18:0] radish_1_Offset = 53312; // 833 * 64
 			parameter [18:0] radish_2_Offset = 84864; // 1326 * 64
 			parameter [18:0] radish_3_Offset = 116416; // 1819 * 64
 			
 			// Tomato
-			parameter [7:0] sprite7Height = 42;
+			parameter sprite7Height = 42;
 			parameter [18:0] tomato_0_Offset = 25600; // 400 * 64
 			parameter [18:0] tomato_1_Offset = 57472; // 898 * 64
 			parameter [18:0] tomato_2_Offset = 89024; // 1391 * 64
 			parameter [18:0] tomato_3_Offset = 119936; // 1874 * 64
 			
 			// Onion
-			parameter [7:0] sprite8Height = 69;
+			parameter sprite8Height = 69;
 			parameter [18:0] onion_0_Offset = 28288; // 442 * 64
 			parameter [18:0] onion_1_Offset = 59968; // 937 * 64
 			parameter [18:0] onion_2_Offset = 91520; // 1430 * 64
@@ -282,26 +282,26 @@ module frame_displayer
 									+ (DrawX - xCoord6) + ((DrawY - yCoord6) * spriteWidth);
 									palette = 2'b01;
 								end
-							else if((state7 != 3'b0) // Sprite 7
-								&& (DrawX >= xCoord7) 
-								&& (DrawX < (xCoord7 + spriteWidth)) 
-								&& (DrawY >= yCoord7)
-								&& (DrawY < (yCoord7 + sprite7Height)))
-								begin
-									frame_rdAddress = spriteOffset + sprite7Offset 
-									+ (DrawX - xCoord7) + ((DrawY - yCoord7) * spriteWidth);
-									palette = 2'b01;
-								end
-							else if((state8 != 3'b0) // Sprite 8
-								&& (DrawX >= xCoord8) 
-								&& (DrawX < (xCoord8 + spriteWidth)) 
-								&& (DrawY >= yCoord8)
-								&& (DrawY < (yCoord8 + sprite8Height)))
-								begin
-									frame_rdAddress = spriteOffset + sprite8Offset 
-									+ (DrawX - xCoord8) + ((DrawY - yCoord8) * spriteWidth);
-									palette = 2'b01;
-								end
+//							else if((state7 != 3'b0) // Sprite 7
+//								&& (DrawX >= xCoord7) 
+//								&& (DrawX < (xCoord7 + spriteWidth)) 
+//								&& (DrawY >= yCoord7)
+//								&& (DrawY < (yCoord7 + sprite7Height)))
+//								begin
+//									frame_rdAddress = spriteOffset + sprite7Offset 
+//									+ (DrawX - xCoord7) + ((DrawY - yCoord7) * spriteWidth);
+//									palette = 2'b01;
+//								end
+//							else if((state8 != 3'b0) // Sprite 8
+//								&& (DrawX >= xCoord8) 
+//								&& (DrawX < (xCoord8 + spriteWidth)) 
+//								&& (DrawY >= yCoord8)
+//								&& (DrawY < (yCoord8 + sprite8Height)))
+//								begin
+//									frame_rdAddress = spriteOffset + sprite8Offset 
+//									+ (DrawX - xCoord8) + ((DrawY - yCoord8) * spriteWidth);
+//									palette = 2'b01;
+//								end
 							else
 								begin
 									frame_rdAddress = (DrawX + (DrawY*ScreenX));
