@@ -106,8 +106,8 @@ module Frame_Buffer (
 		altsyncram_component.init_file = "OnChipMemInitialization.mif",
 		altsyncram_component.intended_device_family = "Cyclone IV E",
 		altsyncram_component.lpm_type = "altsyncram",
-		altsyncram_component.numwords_a = 459155,
-		altsyncram_component.numwords_b = 459155,
+		altsyncram_component.numwords_a = 434044,
+		altsyncram_component.numwords_b = 434044,
 		altsyncram_component.operation_mode = "BIDIR_DUAL_PORT",
 		altsyncram_component.outdata_aclr_a = "NONE",
 		altsyncram_component.outdata_aclr_b = "NONE",
@@ -116,8 +116,8 @@ module Frame_Buffer (
 		altsyncram_component.power_up_uninitialized = "FALSE",
 		altsyncram_component.ram_block_type = "M9K",
 		altsyncram_component.read_during_write_mode_mixed_ports = "DONT_CARE",
-		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_WITH_NBE_READ",
-		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_WITH_NBE_READ",
+		altsyncram_component.read_during_write_mode_port_a = "NEW_DATA_NO_NBE_READ",
+		altsyncram_component.read_during_write_mode_port_b = "NEW_DATA_NO_NBE_READ",
 		altsyncram_component.widthad_a = 19,
 		altsyncram_component.widthad_b = 19,
 		altsyncram_component.width_a = 8,
@@ -162,7 +162,7 @@ endmodule
 // Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 // Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 // Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
-// Retrieval info: PRIVATE: MEMSIZE NUMERIC "3673240"
+// Retrieval info: PRIVATE: MEMSIZE NUMERIC "3472352"
 // Retrieval info: PRIVATE: MEM_IN_BITS NUMERIC "0"
 // Retrieval info: PRIVATE: MIFfilename STRING "OnChipMemInitialization.mif"
 // Retrieval info: PRIVATE: OPERATION_MODE NUMERIC "3"
@@ -170,8 +170,8 @@ endmodule
 // Retrieval info: PRIVATE: OUTDATA_REG_B NUMERIC "1"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 // Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_MIXED_PORTS NUMERIC "2"
-// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "4"
-// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_B NUMERIC "4"
+// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "3"
+// Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_B NUMERIC "3"
 // Retrieval info: PRIVATE: REGdata NUMERIC "1"
 // Retrieval info: PRIVATE: REGq NUMERIC "1"
 // Retrieval info: PRIVATE: REGrdaddress NUMERIC "0"
@@ -201,8 +201,8 @@ endmodule
 // Retrieval info: CONSTANT: INIT_FILE STRING "OnChipMemInitialization.mif"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
-// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "459155"
-// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "459155"
+// Retrieval info: CONSTANT: NUMWORDS_A NUMERIC "434044"
+// Retrieval info: CONSTANT: NUMWORDS_B NUMERIC "434044"
 // Retrieval info: CONSTANT: OPERATION_MODE STRING "BIDIR_DUAL_PORT"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 // Retrieval info: CONSTANT: OUTDATA_ACLR_B STRING "NONE"
@@ -211,8 +211,8 @@ endmodule
 // Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
 // Retrieval info: CONSTANT: RAM_BLOCK_TYPE STRING "M9K"
 // Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_MIXED_PORTS STRING "DONT_CARE"
-// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_WITH_NBE_READ"
-// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_WITH_NBE_READ"
+// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_A STRING "NEW_DATA_NO_NBE_READ"
+// Retrieval info: CONSTANT: READ_DURING_WRITE_MODE_PORT_B STRING "NEW_DATA_NO_NBE_READ"
 // Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "19"
 // Retrieval info: CONSTANT: WIDTHAD_B NUMERIC "19"
 // Retrieval info: CONSTANT: WIDTH_A NUMERIC "8"

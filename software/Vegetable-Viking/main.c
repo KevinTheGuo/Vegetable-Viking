@@ -128,16 +128,6 @@ int main()
 	veggieObject[0].objectType = 0;
 	veggieObject[0].objectState = 0;
 
-	// start out in the initial black menu
-	// FIX THIS LATER
-	cursorClicked = 1;
-
-	while(cursorClicked == 0)
-	{
-		FPGAcommunicator();	// call this every time to update the FPGA
-		port2Unpackager();	// just run our unpackager
-	}
-
 	// initialize timing stuff
 	unsigned long processorStart = *to_sw_port1;
 	unsigned long processorTime = processorStart;
@@ -182,6 +172,12 @@ int main()
 
 		statusEngine();	// keep track of our game state
 
+		if(key1)
+		{
+			(veggieObject[0].objectState = 3);
+			veggieObject[0].objectType = 3;
+		}
+
 		// constantly doing physics
 		if (((elapsedTime - lastPhysixed) > 5) && (physixOn))
 		{
@@ -197,17 +193,17 @@ int main()
 			if(veggieObject[0].objectState == 1)	// easy mode spawn
 			{
 				spawningEngine(rand() % 5);
-				nextSpawnTime = (rand() % 50) + 75;
+				nextSpawnTime = (rand() % 25) + 50;
 			}
 			else if(veggieObject[0].objectState == 2)	// medium mode
 			{
 				spawningEngine(rand() % 7);
-				nextSpawnTime = (rand() % 75) + 50;
+				nextSpawnTime = (rand() % 75) + 25;
 			}
 			else if(veggieObject[0].objectState == 3)	// easy mode spawn
 			{
 				spawningEngine(rand() % 9);
-				nextSpawnTime = (rand() % 100 + 25);		// hard mode
+				nextSpawnTime = (rand() % 100);		// hard mode
 			}
 			else
 			{
@@ -293,7 +289,7 @@ void statusEngine()
 		veggieObject[2].xVelocity = 0;
 		veggieObject[2].yVelocity = 0;
 
-		veggieObject[3].xPosition = 540;
+		veggieObject[3].xPosition = 450;
 		veggieObject[3].yPosition = 220;
 		veggieObject[3].objectState = 1;
 		veggieObject[3].xVelocity = 0;
@@ -342,8 +338,12 @@ void physicsEngine()
 				// reduce score!
 				if(i<9)
 				{
-					veggieObject[0].xPosition = veggieObject[0].xPosition - 5;
+					veggieObject[0].xPosition = veggieObject[0].xPosition - 3;
 					printf("veggie escaped! score decreased to %d! \n", veggieObject[0].xPosition);
+				}
+				else
+				{
+					printf("bomb gone! whew!");
 				}
 			//	printf("eliminating object %d! \n", i);
 			}
@@ -360,38 +360,37 @@ void spawningEngine(int pattern)
 	}
 	else if((pattern == 7) || (pattern == 9))	// they want us.. to build a bomb!
 	{
-		if((rand() % 3) == 1)	// one last chance to not bomb this!
+		if(veggieObject[9].objectState == 0)	// if one doesn't exist, go!
 		{
-			if(veggieObject[9].objectState == 0)	// if one doesn't exist, go!
+			unsigned int randomX;	// x coordinate on bottom of screen
+			double randomSpeedY, randomSpeedX;	// starting velocity
+
+			// RANDOM GENERATION!!
+			randomX = (rand() % 540) + 50;
+			randomSpeedY = (rand() % 7) + 24;
+			randomSpeedX = (rand() % 12) - 6;
+
+			// make sure we aren't throwing them out the edges
+			if (randomX < 300)
 			{
-				unsigned int randomX;	// x coordinate on bottom of screen
-				double randomSpeedY, randomSpeedX;	// starting velocity
-
-				// RANDOM GENERATION!!
-				randomX = (rand() % 540) + 50;
-				randomSpeedY = (rand() % 7) + 24;
-				randomSpeedX = (rand() % 12) - 6;
-
-				// make sure we aren't throwing them out the edges
-				if (randomX < 300)
-				{
-					randomSpeedX = (rand() % 12);
-				}
-				else if (randomX > 350)
-				{
-					randomSpeedX = (rand() % 12) - 12;
-				}
-
-				// now let's store these
-				veggieObject[9].xPosition = randomX;
-				veggieObject[9].yPosition = 0;
-				veggieObject[9].objectType = 0;
-				veggieObject[9].xVelocity = randomSpeedX;
-				veggieObject[9].yVelocity = randomSpeedY;
-				veggieObject[9].objectState = 1;	// reserve this slot
-
-				return; // our evillness is done!!!
+				randomSpeedX = (rand() % 12);
 			}
+			else if (randomX > 350)
+			{
+				randomSpeedX = (rand() % 12) - 12;
+			}
+
+			// now let's store these
+			veggieObject[9].xPosition = randomX;
+			veggieObject[9].yPosition = 0;
+			veggieObject[9].objectType = 0;
+			veggieObject[9].xVelocity = randomSpeedX;
+			veggieObject[9].yVelocity = randomSpeedY;
+			veggieObject[9].objectState = 1;	// reserve this slot
+
+			printf("omg! a bomb has appeared! zomg!!! \n");
+
+			return; // our evillness is done!!!
 		}
 	}
 	int i, j;
@@ -445,6 +444,8 @@ void spawningEngine(int pattern)
 
 void slicingEngine()
 {
+	xCursor = 320;
+	yCursor = 240;
 	if((veggieObject[0].objectState == 0)&&(cursorStreak))	// this is menu state
 	{
 		// let's check menu collision
@@ -460,7 +461,7 @@ void slicingEngine()
 		else if((xCursor>180)&&(xCursor<250)&&(yCursor>220)&&(yCursor<310))
 		{
 			veggieObject[0].objectState = 2;	// medium mode start
-			veggieObject[0].objectType = 7;		// lots of lives for u!
+			veggieObject[0].objectType = 3;		// lots of lives for u!
 			physixOn = 1;
 			veggieObject[2].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
@@ -468,7 +469,7 @@ void slicingEngine()
 		else if((xCursor>450)&&(xCursor<520)&&(yCursor>120)&&(yCursor<210))
 		{
 			veggieObject[0].objectState = 3;	// hard mode start
-			veggieObject[0].objectType = 3;		// ..good luck...you'll need it
+			veggieObject[0].objectType = 1;		// ..good luck...you'll need it
 			physixOn = 1;
 			veggieObject[3].objectState = 2;	// cut the object!
 			roundStart = elapsedTime;
@@ -533,7 +534,7 @@ void slicingEngine()
 					// this means we are in the 'hitbox'!! kill the fruit!
 					veggieObject[i].objectState = 2;
 
-					if(i<14)
+					if(i<9)
 					{
 						comboFruit = comboFruit + 1;
 						veggieObject[0].xPosition = veggieObject[0].xPosition + 2*comboFruit;
@@ -544,7 +545,7 @@ void slicingEngine()
 					{
 						veggieObject[0].objectType = veggieObject[0].objectType-1;
 						comboFruit = 0;
-						veggieObject[0].xPosition = veggieObject[0].xPosition - 25;
+						veggieObject[0].xPosition = veggieObject[0].xPosition - 15;
 						printf("hit a bomb! scored decreased to %d! \n", veggieObject[0].xPosition);
 						printf("also, lives decreased to %d! \n", veggieObject[0].objectType);
 					}
@@ -564,7 +565,7 @@ void disintegrateEngine()
 		{
 			veggieObject[i].objectState = 3;
 		}
-		else if(((veggieObject[i].objectState == 3) && (i<9)) || (veggieObject[i].objectState == 5))// almost dedded
+		else if(((veggieObject[i].objectState == 3) && (i<9)) || (veggieObject[i].objectState == 4))// almost dedded
 		{
 			veggieObject[i].xPosition = 0;		// gone!
 			veggieObject[i].yPosition = 0;
@@ -576,10 +577,6 @@ void disintegrateEngine()
 		else if((veggieObject[i].objectState == 3) && (i == 9))
 		{
 			veggieObject[i].objectState = 4;
-		}
-		else if((veggieObject[i].objectState == 4) && (i == 9))
-		{
-			veggieObject[i].objectState = 5;
 		}
 	}
 }

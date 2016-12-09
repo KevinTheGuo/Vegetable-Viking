@@ -22,7 +22,7 @@ module frame_displayer
 			input [9:0] xCoord5,
 			input [9:0] xCoord6,
 			input [9:0] xCoord7,
-			input [9:0] xCoord8, /*xCoord9, xCoord10, xCoord11, xCoord12, xCoord13, xCoord14, xCoord15,*/
+			input [9:0] xCoord8, xCoord9, /*xCoord10, xCoord11, xCoord12, xCoord13, xCoord14, xCoord15,*/
 			input [9:0] yCoord1,
 			input [9:0] yCoord2,
 			input [9:0] yCoord3,
@@ -30,7 +30,7 @@ module frame_displayer
 			input [9:0] yCoord5,
 			input [9:0] yCoord6,
 			input [9:0] yCoord7,
-			input [9:0] yCoord8, /*yCoord9, yCoord10, yCoord11, yCoord12, yCoord13, yCoord14, yCoord15,*/
+			input [9:0] yCoord8, yCoord9, /*yCoord10, yCoord11, yCoord12, yCoord13, yCoord14, yCoord15,*/
 			input [2:0] state1,
 			input [2:0] state2,
 			input [2:0] state3,
@@ -38,7 +38,7 @@ module frame_displayer
 			input [2:0] state5,
 			input [2:0] state6,
 			input [2:0] state7,
-			input [2:0] state8, /*state9, state10, state11, state12, state13, state14, state15,*/
+			input [2:0] state8, state9, /*state10, state11, state12, state13, state14, state15,*/
 			/*input [2:0] type1,
 			input [2:0] type2,
 			input [2:0] type3,
@@ -58,7 +58,7 @@ module frame_displayer
 			parameter [9:0] ScreenY = 480;     // width of y axis
 			
 			parameter [18:0] spriteOffset	= 307200;
-			parameter [18:0] textOffset = 420032;
+			parameter [18:0] textOffset = 417856;
 			parameter spriteWidth = 64;
 			
 			// Broccoli
@@ -117,12 +117,40 @@ module frame_displayer
 			parameter [18:0] onion_2_Offset = 91520; // 1430 * 64
 			//parameter [18:0] onion_3_Offset = 122432; // 1913 * 64
 			
-			logic [18:0] sprite1Offset, sprite2Offset, sprite3Offset, sprite4Offset, sprite5Offset, sprite6Offset, sprite7Offset, sprite8Offset;
-							 //sprite9Offset, sprite10Offset, sprite11Offset, sprite12Offset, sprite13Offset, sprite14Offset, sprite15Offset, sprite16Offset;
+			// Bomb
+			parameter bombHeight = 63;
+			parameter [18:0] elf_offset = 95872; // 1498 * 64
+			parameter [18:0] exp_0_Offset = 98880; // 1545 * 64
+			parameter [18:0] exp_1_Offset = 102656; // 1604 * 64
+			parameter [18:0] exp_2_Offset = 106816; // 1669 * 64
+			
+			logic [18:0] sprite1Offset, sprite2Offset, sprite3Offset, sprite4Offset, sprite5Offset, sprite6Offset, sprite7Offset, sprite8Offset,
+							 sprite9Offset, sprite9Height; //sprite10Offset, sprite11Offset, sprite12Offset, sprite13Offset, sprite14Offset, sprite15Offset, sprite16Offset;
 			
 			// Determine what sprites 1 - 16 are
 			always_comb
 				begin
+				
+					if(state9 == 3'b010)
+						begin
+						sprite9Offset = exp_0_Offset;
+						sprite9Height = 64;
+						end
+					else if(state9 == 3'b011)
+						begin
+							sprite9Offset = exp_1_Offset;
+							sprite9Height = 64;
+						end
+					else if(state9 == 3'b100)
+						begin
+							sprite9Offset = exp_2_Offset;
+							sprite9Height = 64;
+						end
+					else
+						begin
+							sprite9Offset = elf_offset;
+							sprite9Height = 47;
+						end
 					// state 1
 					if(state1 == 3'b010)
 						sprite1Offset = broc_1_Offset;
@@ -303,6 +331,16 @@ module frame_displayer
 									+ (DrawX - xCoord8) + ((DrawY - yCoord8) * spriteWidth);
 									palette = 2'b01;
 								end
+							else if((state9 != 3'b0) // Sprite 9
+								&& (DrawX >= xCoord9) 
+								&& (DrawX < (xCoord9 + spriteWidth)) 
+								&& (DrawY >= yCoord9)
+								&& (DrawY < (yCoord9 + sprite9Height)))
+								begin
+									frame_rdAddress = spriteOffset + sprite9Offset 
+									+ (DrawX - xCoord9) + ((DrawY - yCoord9) * spriteWidth);
+									palette = 2'b01;
+								end
 							else
 								begin
 									frame_rdAddress = (DrawX + (DrawY*ScreenX));
@@ -322,7 +360,7 @@ module frame_displayer
 				begin 
 					if(Display)
 						begin	
-							if(frame_output == 8'h54)
+							if(frame_output == 8'hff)
 								actualPalette = 2'b00;
 							else
 								actualPalette = palette;
