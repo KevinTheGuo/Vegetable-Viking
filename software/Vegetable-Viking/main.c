@@ -238,12 +238,9 @@ void statusEngine()
 			veggieObject[0].objectState = 4;	// move to GAME WON state
 
 			int i;
-			for(i=1; i<16; i++)
+			for(i=1; i<10; i++)
 			{
-				veggieObject[i].xPosition = 0;
-				veggieObject[i].yPosition = 0;
-				veggieObject[i].objectType = 0;
-				veggieObject[i].objectState = 0;
+				veggieObject[i].objectState = 2;
 				veggieObject[i].xVelocity = 0;
 				veggieObject[i].yVelocity = 0;
 			}
@@ -257,12 +254,9 @@ void statusEngine()
 			veggieObject[0].objectState = 5;	// move to GAME OVER state
 
 			int i;
-			for(i=1; i<16; i++)
+			for(i=1; i<9; i++)
 			{
-				veggieObject[i].xPosition = 0;
-				veggieObject[i].yPosition = 0;
-				veggieObject[i].objectType = 0;
-				veggieObject[i].objectState = 0;
+				veggieObject[i].objectState = 2;
 				veggieObject[i].xVelocity = 0;
 				veggieObject[i].yVelocity = 0;
 			}
@@ -538,8 +532,9 @@ void slicingEngine()
 					{
 						comboFruit = comboFruit + 1;
 						veggieObject[0].xPosition = veggieObject[0].xPosition + 2*comboFruit;
-						printf(" increased score to %d! \n", veggieObject[0].xPosition);
-						printf("lives still at %d! \n", veggieObject[0].objectType);
+						printf("veggie sliced! increased score to %d! \n", veggieObject[0].xPosition);
+						printf("combo is %d! \n", comboFruit);
+						printf("lives at %d! \n", veggieObject[0].objectType);
 					}
 					else	// ITS A BOMB!!! OMGOGMGOMGG!!
 					{
