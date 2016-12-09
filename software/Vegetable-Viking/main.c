@@ -165,7 +165,7 @@ int main()
 		processorTime = *to_sw_port1;
 //		printf("our time is %lu \n", processorTime);
 		elapsedTime = processorTime - processorStart;
-		printf("elapsed time is %lu \n", elapsedTime);
+//		printf("elapsed time is %lu \n", elapsedTime);
 
 		// constantly doing physics
 		if ((elapsedTime - lastPhysixed) > 5)	// greater than .05 seconds pass
@@ -202,13 +202,15 @@ int main()
 			lastSpawned = elapsedTime;
 		}
 
-		if ((elapsedTime - lastDisintegrated) > 20)	// greater than .2 sec
+		if ((elapsedTime - lastDisintegrated) > 1000)	// greater than 1 sec
 		{
+			printf("disintegrating");
 			disintegrateEngine();	// call our spawning engine!
 			lastDisintegrated = elapsedTime;
 		}
-	port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
-	FPGAcommunicator();	// call this every time to update the FPGA
+	//	slicingEngine();	// check if we need to slice anything
+		port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
+		FPGAcommunicator();	// call this every time to update the FPGA
 	}
 	return 0;
 }
@@ -246,7 +248,7 @@ void physicsEngine()
 			// PHYSICS MAGIC!
 			veggieObject[i].xPosition = veggieObject[i].xPosition + veggieObject[i].xVelocity;
 			veggieObject[i].yPosition = veggieObject[i].yPosition + veggieObject[i].yVelocity;
-			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 1;
+			veggieObject[i].yVelocity = veggieObject[i].yVelocity - 2;
 	/*		printf("object %d!   ", i);
 			printf("xPosition is  %li ", veggieObject[i].xPosition);
 			printf("yPosition is  %li ", veggieObject[i].yPosition);
@@ -295,7 +297,7 @@ void spawningEngine(int pattern)
 
 					// RANDOM GENERATION!!
 					randomX = (rand() % 540) + 50;
-					randomSpeedY = (rand() % 22) + 45;
+					randomSpeedY = (rand() % 15) + 30;
 					randomSpeedX = (rand() % 20) - 10;
 
 					// make sure we aren't throwing them out the edges
@@ -348,7 +350,7 @@ void spawningEngine(int pattern)
 
 			// RANDOM GENERATION!!
 			randomX = (rand() % 540) + 50;
-			randomSpeedY = (rand() % 22) + 45;
+			randomSpeedY = (rand() % 15) + 30;
 			randomSpeedX = (rand() % 20) - 10;
 
 			// check if we are spawning samefruit
@@ -450,7 +452,7 @@ void slicingEngine()
 					collideX = 45;
 					collideY = 40;
 				}
-				else if((veggieObject[i].objectType == 3))	// tomato
+				else if((veggieObject[i].objectType == 6))	// tomato
 				{
 					collideX = 40;
 					collideY = 40;
@@ -463,10 +465,11 @@ void slicingEngine()
 				}
 
 				// now let's check collision
-				if(((veggieX+offsetX)<xCursor)&&((veggieX+collideX)>xCursor)&&(veggieY<yCursor)&&((veggieY+collideY)>yCursor))
+				if(((veggieX+offsetX)<xCursor)&&((veggieX+collideX+offsetX)>xCursor)&&(veggieY<yCursor)&&((veggieY+collideY)>yCursor))
 				{
 					// this means we are in the 'hitbox'!! kill the fruit!
 					veggieObject[i].objectState = 2;
+					printf("just cut %d \n", veggieObject[i].objectType);
 
 					if(i<14)
 					{
@@ -557,31 +560,27 @@ void FPGAcommunicator()
 	while(*to_sw_sig != 2);
 
 	// initialization of message we need to send to FPGA (array of 32-bit messages)
-	unsigned int FPGAmessage[15];
-	int i;		// load all of our structs in
-	for (i=0; i<16; i++)
-	{
-		unsigned int tempPackage = messagePackager(veggieObject[i]);
-	//	printf("Our %dth message is %llu\n", i, tempPackage);
-		FPGAmessage[i] = tempPackage;
-	}
+	unsigned int FPGAmessage = messagePackager(veggieObject[0]);
+
 	*to_hw_sig = 3;		// our final sending
-	*to_hw_port0 = FPGAmessage[0];
-	*to_hw_port1 = FPGAmessage[1];
-	*to_hw_port2 = FPGAmessage[2];
-	*to_hw_port3 = FPGAmessage[3];
-	*to_hw_port4 = FPGAmessage[4];
-	*to_hw_port5 = FPGAmessage[5];
-	*to_hw_port6 = FPGAmessage[6];
-	*to_hw_port7 = FPGAmessage[7];
-	*to_hw_port8 = FPGAmessage[8];
-	*to_hw_port9 = FPGAmessage[9];
-	*to_hw_port10 = FPGAmessage[10];
-	*to_hw_port11 = FPGAmessage[11];
-	*to_hw_port12 = FPGAmessage[12];
-	*to_hw_port13 = FPGAmessage[13];
-	*to_hw_port14 = FPGAmessage[14];
-	*to_hw_port15 = FPGAmessage[15];
+
+	printf("%d is 1 state \n", veggieObject[1].objectState);
+	*to_hw_port0 = veggieObject[0].objectState;
+	*to_hw_port1 = veggieObject[1].objectState;
+	*to_hw_port2 = veggieObject[2].objectState;
+	*to_hw_port3 = veggieObject[3].objectState;
+	*to_hw_port4 = veggieObject[4].objectState;
+	*to_hw_port5 = veggieObject[5].objectState;
+	*to_hw_port6 = veggieObject[6].objectState;
+	*to_hw_port7 = veggieObject[7].objectState;
+	*to_hw_port8 = veggieObject[8].objectState;
+	*to_hw_port9 = veggieObject[9].objectState;
+	*to_hw_port10 = veggieObject[10].objectState;
+	*to_hw_port11 = veggieObject[11].objectState;
+	*to_hw_port12 = veggieObject[12].objectState;
+	*to_hw_port13 = veggieObject[13].objectState;
+	*to_hw_port14 = veggieObject[14].objectState;
+	*to_hw_port15 = veggieObject[15].objectState;
 
 	// last confirmation
 	while(*to_sw_sig != 3);
@@ -684,6 +683,7 @@ void port2Unpackager()
 	}
 	return;
 }
+
 
 // converts decimal to binary
 unsigned long convertDecimalToBinary(unsigned long n)

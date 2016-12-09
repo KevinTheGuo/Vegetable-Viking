@@ -123,100 +123,84 @@ module frame_displayer
 			always_comb
 				begin
 					// state 1
-					if(state1 == 3'b001)
-						sprite1Offset = broc_0_Offset;
-					else if(state1 == 3'b010)
+					if(state1 == 3'b010)
 						sprite1Offset = broc_1_Offset;
 					else if(state1 == 3'b011)
 						sprite1Offset = broc_2_Offset;
 					else if(state1 == 3'b100)
 						sprite1Offset = broc_3_Offset;
 					else 
-						sprite1Offset = 19'd0;
+						sprite1Offset = broc_0_Offset;
 					
 					// state 2
-					if(state2 == 3'b001)
-						sprite2Offset = eggplant_0_Offset;
-					else if(state2 == 3'b010)
+					if(state2 == 3'b010)
 						sprite2Offset = eggplant_1_Offset;
 					else if(state2 == 3'b011)
 						sprite2Offset = eggplant_2_Offset;
 					else if(state2 == 3'b100)
 						sprite2Offset = eggplant_3_Offset;
 					else 
-						sprite2Offset = 19'd0;
+						sprite2Offset = eggplant_0_Offset;
 					
 					// state3
-					if(state3 == 3'b001)
-						sprite3Offset = potato_0_Offset;
-					else if(state3 == 3'b010)
+					if(state3 == 3'b010)
 						sprite3Offset = potato_1_Offset;
 					else if(state3 == 3'b011)
 						sprite3Offset = potato_2_Offset;
 					else if(state3 == 3'b100)
 						sprite3Offset = potato_3_Offset;
 					else 
-						sprite3Offset = 19'd0;
+						sprite3Offset = potato_0_Offset;
 					
 					// state4
-					if(state4 == 3'b001)
-						sprite4Offset = carrot_0_Offset;
-					else if(state4 == 3'b010)
+					if(state4 == 3'b010)
 						sprite4Offset = carrot_1_Offset;
 					else if(state4 == 3'b011)
 						sprite4Offset = carrot_2_Offset;
 					else if(state4 == 3'b100)
 						sprite4Offset = carrot_3_Offset;
 					else 
-						sprite4Offset = 19'd0;
+						sprite4Offset = carrot_0_Offset;;
 					
 					// state5
-					if(state5 == 3'b001)
-						sprite5Offset = cabbage_0_Offset;
-					else if(state5 == 3'b010)
+					if(state5 == 3'b010)
 						sprite5Offset = cabbage_1_Offset;
 					else if(state5 == 3'b011)
 						sprite5Offset = cabbage_2_Offset;
 					else if(state5 == 3'b100)
 						sprite5Offset = cabbage_3_Offset;
 					else 
-						sprite5Offset = 19'd0;
+						sprite5Offset = cabbage_0_Offset;
 						
 					// state6
-					if(state6 == 3'b001)
-						sprite6Offset = radish_0_Offset;
-					else if(state6 == 3'b010)
+					if(state6 == 3'b010)
 						sprite6Offset = radish_1_Offset;
 					else if(state6 == 3'b011)
 						sprite6Offset = radish_2_Offset;
 					else if(state6 == 3'b100)
 						sprite6Offset = radish_3_Offset;
 					else 
-						sprite6Offset = 19'd0;
+						sprite6Offset = radish_0_Offset;
 					
 					// state7
-					if(state7 == 3'b001)
-						sprite7Offset = tomato_0_Offset;
-					else if(state7 == 3'b010)
+					if(state7 == 3'b010)
 						sprite7Offset = tomato_1_Offset;
 					else if(state7 == 3'b011)
 						sprite7Offset = tomato_2_Offset;
 					else if(state7 == 3'b100)
 						sprite7Offset = tomato_3_Offset;
 					else 
-						sprite7Offset = 19'd0;
+						sprite7Offset = tomato_0_Offset;
 					
 					// state8
-					if(state8 == 3'b001)
-						sprite8Offset = onion_0_Offset;
-					else if(state8 == 3'b010)
+					if(state8 == 3'b010)
 						sprite8Offset = onion_1_Offset;
 					else if(state8 == 3'b011)
 						sprite8Offset = onion_2_Offset;
 					else if(state8 == 3'b100)
 						sprite8Offset = onion_3_Offset;
 					else 
-						sprite8Offset = 19'd0;
+						sprite8Offset = onion_0_Offset;
 					
 				end
 			// Declare and initialize the heights and offsets that will be used in the drawing process
@@ -278,7 +262,7 @@ module frame_displayer
 									+ (DrawX - xCoord4) + ((DrawY - yCoord4) * spriteWidth);
 									palette = 2'b01;
 								end
-							else if((state5 != 3'b0) // Sprite 5
+						  else if((state5 != 3'b0) // Sprite 5
 								&& (DrawX >= xCoord5) 
 								&& (DrawX < (xCoord5 + spriteWidth)) 
 								&& (DrawY >= yCoord5)
@@ -288,7 +272,7 @@ module frame_displayer
 									+ (DrawX - xCoord5) + ((DrawY - yCoord5) * spriteWidth);
 									palette = 2'b01;
 								end
-							else if((state6 != 3'b0) // Sprite 6
+						  else if((state6 != 3'b0) // Sprite 6
 								&& (DrawX >= xCoord6) 
 								&& (DrawX < (xCoord6 + spriteWidth)) 
 								&& (DrawY >= yCoord6)
@@ -337,7 +321,7 @@ module frame_displayer
 				begin 
 					if(Display)
 						begin	
-							if(frame_output == 8'h0a)
+							if(frame_output == 8'h54)
 								actualPalette = 2'b00;
 							else
 								actualPalette = palette;

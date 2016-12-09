@@ -10,7 +10,7 @@ module hardware_software_comm (	input	clk,
 											input [1:0]  to_hw_sig,
 											output [1:0] to_sw_sig,
 											output [9:0] xCoord1, xCoord2, xCoord3, xCoord4, xCoord5, xCoord6, xCoord7, xCoord8, xCoord9, xCoord10, xCoord11, xCoord12, xCoord13, xCoord14, xCoord15, yCoord1, yCoord2, yCoord3, yCoord4, yCoord5, yCoord6, yCoord7, yCoord8, yCoord9, yCoord10, yCoord11, yCoord12, yCoord13, yCoord14, yCoord15,
-											output [2:0] state1, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15, type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12, type13, type14, type15
+											output [2:0] state1, state2, state3, state4, state5, state6, state7, state8, state9, state10, state11, state12, state13, state14, state15 //, type1, type2, type3, type4, type5, type6, type7, type8, type9, type10, type11, type12, type13, type14, type15
 										);
 		
 		// THIS HANDLES READING/WRITING OF DATA TO HW/SOFTWARE		
@@ -72,7 +72,7 @@ module hardware_software_comm (	input	clk,
 					state13[2:0] = to_hw_port13[2:0];
 					state14[2:0] = to_hw_port14[2:0];
 					state15[2:0] = to_hw_port15[2:0];
-					type1[2:0] = to_hw_port1[5:3];
+/*					type1[2:0] = to_hw_port1[5:3];
 					type2[2:0] = to_hw_port2[5:3];
 					type3[2:0] = to_hw_port3[5:3];
 					type4[2:0] = to_hw_port4[5:3];
@@ -87,7 +87,7 @@ module hardware_software_comm (	input	clk,
 					type13[2:0] = to_hw_port13[5:3];
 					type14[2:0] = to_hw_port14[5:3];
 					type15[2:0] = to_hw_port15[5:3];
-					// and send done signal!
+*/					// and send done signal!
 					to_sw_sig = 2'd3;
 				end
 			else if (to_hw_sig == 2'd0) 
