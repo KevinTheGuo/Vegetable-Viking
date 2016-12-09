@@ -351,7 +351,7 @@ module frame_displayer
 									else if((DrawX >= 400) // 'Yay'
 										&& (DrawX < (400 + 114))
 										&& (DrawY >= 240)
-										&& (DrawY < (240 + 27)))
+										&& (DrawY < (240 + 20)))
 										begin
 											frame_rdAddress = textOffset + 6270 + (DrawX - 400) + ((DrawY - 240) * 114);
 											palette = 2'b01;
