@@ -228,13 +228,35 @@ int main()
 			lastDisintegrated = elapsedTime;
 		}
 
-		if ((nextState != -1) && (elapsedTime - changeTimer > 2000))
+		if ((nextState != -1) && (elapsedTime - changeTimer > 100))
 		{
-			printf("we're here");
-			veggieObject[0].objectState = nextState;	// move to GAME OVER state
+//			printf("we're here");
+			for(i=4; i<10; i++)
+			{
+				veggieObject[i].xPosition = 0;
+				veggieObject[i].yPosition = 0;
+				veggieObject[i].objectType = 0;
+				veggieObject[i].objectState = 0;
+				veggieObject[i].xVelocity = 0;
+				veggieObject[i].yVelocity = 0;
+			}
+			veggieObject[0].objectState = nextState;	// move to next state
 			physixOn = 0;
+			spawnOn = 0;
+			if((nextState == 4) || (nextState == 5))
+			{
+				veggieObject[4].xPosition = 230;
+				veggieObject[4].yPosition = 150;
+				veggieObject[4].objectState = 1;
+				veggieObject[4].xVelocity = 0;
+				veggieObject[4].yVelocity = 0;
+				physixOn = 0;
+				if(nextState == 4)
+				{
+					veggieObject[0].yPosition = 0;
+				}
+			}
 			nextState = -1;
-			veggieObject[0].yPosition = 0;
 		}
 		slicingEngine();	// check if we need to slice anything
 		port2Unpackager();	// keep unpacking our stuff! (also updates cursor)
@@ -254,8 +276,9 @@ void statusEngine()
 		{
 			spawnOn = 0;
 			nextState = 4;	// move to GAME WON state
+			veggieObject[0].yPosition = 0;
 
-			printf("timer over!\n");
+//			printf("timer over!\n");
 		}
 		else if(((veggieObject[0].objectState == 2) || (veggieObject[0].objectState == 3)) && (veggieObject[0].objectType <= 0))
 		{
@@ -263,7 +286,7 @@ void statusEngine()
 			spawnOn = 0;
 			nextState = 5;
 
-			printf("game over\n");
+//			printf("game over\n");
 		}
 	}
 	else if(veggieObject[0].objectState == 0)	// check if we're in menu
@@ -271,6 +294,7 @@ void statusEngine()
 		physixOn = 0;
 		veggieObject[0].xPosition = 0;
 		veggieObject[0].yPosition = 0;
+		veggieObject[0].objectType = 0;
 
 		// initialize our 3 fruits on screen for menu
 		veggieObject[1].xPosition = 30;
@@ -290,17 +314,6 @@ void statusEngine()
 		veggieObject[3].objectState = 1;
 		veggieObject[3].xVelocity = 0;
 		veggieObject[3].yVelocity = 0;
-	}
-	else if((veggieObject[0].objectState == 4) || (veggieObject[0].objectState == 5))
-	{
-		// put in our veggie
-		veggieObject[4].xPosition = 230;
-		veggieObject[4].yPosition = 150;
-		veggieObject[4].objectState = 1;
-		veggieObject[4].xVelocity = 0;
-		veggieObject[4].yVelocity = 0;
-
-		physixOn = 0;
 	}
 }
 
@@ -335,11 +348,11 @@ void physicsEngine()
 				if(i<9)
 				{
 					veggieObject[0].xPosition = veggieObject[0].xPosition - 3;
-					printf("veggie escaped! score decreased to %d! \n", veggieObject[0].xPosition);
+//					printf("veggie escaped! score decreased to %d! \n", veggieObject[0].xPosition);
 				}
 				else
 				{
-					printf("bomb gone! whew!");
+//					printf("bomb gone! whew!");
 				}
 			//	printf("eliminating object %d! \n", i);
 			}
@@ -354,7 +367,7 @@ void spawningEngine(int pattern)
 	{
 		return;
 	}
-	else if((pattern == 7) || (pattern == 9))	// they want us.. to build a bomb!
+	else if(pattern > 6)	// they want us.. to build a bomb!
 	{
 		if(veggieObject[9].objectState == 0)	// if one doesn't exist, go!
 		{
@@ -384,7 +397,7 @@ void spawningEngine(int pattern)
 			veggieObject[9].yVelocity = randomSpeedY;
 			veggieObject[9].objectState = 1;	// reserve this slot
 
-			printf("omg! a bomb has appeared! zomg!!! \n");
+//			printf("omg! a bomb has appeared! zomg!!! \n");
 
 			return; // our evillness is done!!!
 		}
@@ -392,7 +405,7 @@ void spawningEngine(int pattern)
 	int i, j;
 	for(j=1; j<9; j++)	// let's go through our veggies and see which ones are free
 	{
-		i = (rand() % 9 + 1);	// put it in a random port for random veggies
+		i = (rand() % 8 + 1);	// put it in a random port for random veggies
 		if(veggieObject[i].objectState == 0)	// if one doesn't exist, go for it
 		{
 			unsigned int randomX;	// x coordinate on bottom of screen
@@ -477,7 +490,8 @@ void slicingEngine()
 		// DO MORE MENU COLLISION
 		if((xCursor>230)&&(xCursor<300)&&(yCursor>80)&&(yCursor<150))
 		{
-			nextState = 0;
+			veggieObject[4].objectState = 0;	// just go there
+			physixOn = 1;
 			veggieObject[4].objectState = 2;	// cut the object!
 		}
 	}
@@ -533,17 +547,17 @@ void slicingEngine()
 					{
 						comboFruit = comboFruit + 1;
 						veggieObject[0].xPosition = veggieObject[0].xPosition + 2*comboFruit;
-						printf("veggie sliced! increased score to %d! \n", veggieObject[0].xPosition);
+/*						printf("veggie sliced! increased score to %d! \n", veggieObject[0].xPosition);
 						printf("combo is %d! \n", comboFruit);
 						printf("lives at %d! \n", veggieObject[0].objectType);
-					}
+*/					}
 					else	// ITS A BOMB!!! OMGOGMGOMGG!!
 					{
 						veggieObject[0].objectType = veggieObject[0].objectType-1;
 						comboFruit = 0;
 						veggieObject[0].xPosition = veggieObject[0].xPosition - 15;
-						printf("hit a bomb! scored decreased to %d! \n", veggieObject[0].xPosition);
-						printf("also, lives decreased to %d! \n", veggieObject[0].objectType);
+//						printf("hit a bomb! scored decreased to %d! \n", veggieObject[0].xPosition);
+//						printf("also, lives decreased to %d! \n", veggieObject[0].objectType);
 					}
 				}
 			}

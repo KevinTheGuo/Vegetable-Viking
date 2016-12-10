@@ -277,12 +277,12 @@ module frame_displayer
 											frame_rdAddress = textOffset + 9918 + (DrawX - 114) + ((DrawY - 400) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 230) // 'Viking level'
-										&& (DrawX < (230 + 114))
-										&& (DrawY >= 190)
-										&& (DrawY < (190 + 15)))
+									else if((DrawX >= 200) // 'Viking level'
+										&& (DrawX < (200 + 114))
+										&& (DrawY >= 230)
+										&& (DrawY < (230 + 15)))
 										begin
-											frame_rdAddress = textOffset + 11400 + (DrawX - 230) + ((DrawY - 190) * 114);
+											frame_rdAddress = textOffset + 11400 + (DrawX - 200) + ((DrawY - 230) * 114);
 											palette = 2'b01;
 										end
 									else if((DrawX >= 460) // 'Thor'
@@ -348,12 +348,12 @@ module frame_displayer
 											frame_rdAddress = textOffset + 3192 + (DrawX - 85) + ((DrawY - 39) * 114);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 400) // 'Yay'
-										&& (DrawX < (400 + 114))
+									else if((DrawX >= 350) // 'Yay'
+										&& (DrawX < (350 + 114))
 										&& (DrawY >= 240)
-										&& (DrawY < (240 + 20)))
+										&& (DrawY < (240 + 18)))
 										begin
-											frame_rdAddress = textOffset + 6270 + (DrawX - 400) + ((DrawY - 240) * 114);
+											frame_rdAddress = textOffset + 6270 + (DrawX - 350) + ((DrawY - 240) * 114);
 											palette = 2'b01;
 										end
 									else if((DrawX >= 300) // 'Continue'
@@ -430,12 +430,12 @@ module frame_displayer
 											+ (DrawX - xCoord9) + ((DrawY - yCoord9) * spriteWidth);
 											palette = 2'b01;
 										end
-									else if((DrawX >= 400) // 'Aww'
-										&& (DrawX < (400 + 114))
+									else if((DrawX >= 350) // 'Aww'
+										&& (DrawX < (350 + 114))
 										&& (DrawY >= 240)
 										&& (DrawY < (240 + 17)))
 										begin
-											frame_rdAddress = textOffset + 8322 + (DrawX - 400) + ((DrawY - 240) * 114);
+											frame_rdAddress = textOffset + 8322 + (DrawX - 350) + ((DrawY - 240) * 114);
 											palette = 2'b01;
 										end
 									else if((DrawX >= 300) // 'Continue'

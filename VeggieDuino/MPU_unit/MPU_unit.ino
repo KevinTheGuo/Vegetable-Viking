@@ -137,7 +137,7 @@ void setup()
   radio.begin();
   radio.setDataRate(RF24_250KBPS);
   radio.setChannel(108);
-  radio.setPALevel(RF24_PA_LOW); // we might need to do this or not
+//  radio.setPALevel(RF24_PA_LOW); // we might need to do this or not
 
   // open radio pipes
   radio.openWritingPipe(addresses[1]);
