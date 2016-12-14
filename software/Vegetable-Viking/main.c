@@ -485,12 +485,12 @@ void slicingEngine()
 			roundStart = elapsedTime;
 		}
 	}
-	else if(((veggieObject[0].objectState == 4) || (veggieObject[0].objectState == 5))&&(cursorStreak))
+	else if(((veggieObject[0].objectState == 4) || (veggieObject[0].objectState == 5)))
 	{
 		// DO MORE MENU COLLISION
 		if((xCursor>230)&&(xCursor<300)&&(yCursor>80)&&(yCursor<150))
 		{
-			veggieObject[4].objectState = 0;	// just go there
+			veggieObject[0].objectState = 0;	// just go there
 			physixOn = 1;
 			veggieObject[4].objectState = 2;	// cut the object!
 		}
@@ -594,6 +594,16 @@ void disintegrateEngine()
 // this function takes an array of 32-bit messages and sends them all out
 void FPGAcommunicator()
 {
+	*to_hw_port0 = 0;
+	*to_hw_port1 = 0;
+	*to_hw_port2 = 0;
+	*to_hw_port3 = 0;
+	*to_hw_port4 = 0;
+	*to_hw_port5 = 0;
+	*to_hw_port6 = 0;
+	*to_hw_port7 = 0;
+	*to_hw_port8 = 0;
+	*to_hw_port9 = 0;
 	// start putting in our xcoords
 	unsigned int FPGAmessage[10];
 	int i;
@@ -601,7 +611,6 @@ void FPGAcommunicator()
 	{
 		FPGAmessage[i] = veggieObject[i].xPosition;
 	}
-
 	*to_hw_sig = 1;	// 1 means we're starting communication of xCoord
 	*to_hw_port0 = FPGAmessage[0];
 	*to_hw_port1 = FPGAmessage[1];
@@ -654,7 +663,6 @@ void FPGAcommunicator()
 	// wait for confirmation
 	while(*to_sw_sig != 2);
 	// printf("fpgamessage is %lu   \n", FPGAmessage);
-
 	*to_hw_sig = 3;		// our final sending
 	*to_hw_port0 = FPGAmessage[0];
 	*to_hw_port1 = FPGAmessage[1];

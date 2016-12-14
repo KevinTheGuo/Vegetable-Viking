@@ -94,10 +94,6 @@ module hardware_software_comm (	input	clk,
 */					// and send done signal!
 					to_sw_sig = 2'd3;
 				end
-			else if (to_hw_sig == 2'd0) 
-				begin
-					to_sw_sig = 2'd0;		// respond
-				end
 			end		
 		end
 		
